@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BEC EduPlus – Timetable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Main</div>
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <div class="nav-label">Operations</div>
+            <a href="timetable.html" class="active"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+            <div class="nav-label">Accreditation</div>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+            <div class="nav-label">Resources</div>
+            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+            <div class="nav-label">Administration</div>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h2>Timetable <small>Weekly class schedule</small></h2>
+            </div>
+            <div class="topbar-right">
+                <div class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></div>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+        <div class="page-content">
+            <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:24px; background:#fff; padding:16px 20px; border-radius:16px; border:1px solid #edf2f7;">
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <select style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:40px; font-size:14px; background:white;">
+                        <option>B.Tech CSE · 3rd Year</option>
+                        <option>B.Tech ECE · 2nd Year</option>
+                        <option>MBA · 1st Year</option>
+                    </select>
+                    <button style="background:#3b82f6; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>09:00 – 10:00</strong></td><td>DSA</td><td>Algorithms</td><td>DSA</td><td>Algorithms</td><td>DSA</td></tr>
+                        <tr><td><strong>10:00 – 11:00</strong></td><td>Maths</td><td>DSA</td><td>Maths</td><td>DSA</td><td>Maths</td></tr>
+                        <tr><td><strong>11:00 – 12:00</strong></td><td>Physics</td><td>Maths</td><td>Physics</td><td>Maths</td><td>Physics</td></tr>
+                        <tr><td><strong>12:00 – 01:00</strong></td><td colspan="5" style="text-align:center; font-weight:600; color:#64748b;">Lunch Break</td></tr>
+                        <tr><td><strong>01:00 – 02:00</strong></td><td>Algorithms</td><td>Physics</td><td>Algorithms</td><td>Physics</td><td>Algorithms</td></tr>
+                        <tr><td><strong>02:00 – 03:00</strong></td><td>Lab</td><td>Lab</td><td>Lab</td><td>Lab</td><td>Lab</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
