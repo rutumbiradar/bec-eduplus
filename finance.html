@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BEC EduPlus – Finance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Main</div>
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <div class="nav-label">Operations</div>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+            <div class="nav-label">Accreditation</div>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+            <div class="nav-label">Resources</div>
+            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+            <div class="nav-label">Administration</div>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html" class="active"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h2>Finance <small>Fees, expenses &amp; revenue</small></h2>
+            </div>
+            <div class="topbar-right">
+                <div class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></div>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="cards-grid" style="margin-bottom:28px;">
+                <div class="stat-card"><div class="icon green"><i class="fas fa-rupee-sign"></i></div><div class="info"><h4>Revenue</h4><div class="number">₹42.6 Cr</div></div></div>
+                <div class="stat-card"><div class="icon red"><i class="fas fa-rupee-sign"></i></div><div class="info"><h4>Expenses</h4><div class="number">₹28.3 Cr</div></div></div>
+                <div class="stat-card"><div class="icon blue"><i class="fas fa-chart-line"></i></div><div class="info"><h4>Net Surplus</h4><div class="number">₹14.3 Cr</div></div></div>
+                <div class="stat-card"><div class="icon purple"><i class="fas fa-users"></i></div><div class="info"><h4>Fee Collected</h4><div class="number">₹32.1 Cr</div></div></div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Transaction ID</th><th>Student</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>TXN001</strong></td><td>Priya Sharma</td><td>Fee Payment</td><td>₹1,25,000</td><td>2026-08-15</td><td><span class="badge green">Completed</span></td></tr>
+                        <tr><td><strong>TXN002</strong></td><td>Arjun Reddy</td><td>Fee Payment</td><td>₹1,00,000</td><td>2026-08-14</td><td><span class="badge green">Completed</span></td></tr>
+                        <tr><td><strong>TXN003</strong></td><td>College Store</td><td>Expense</td><td>₹2,50,000</td><td>2026-08-12</td><td><span class="badge orange">Pending</span></td></tr>
+                        <tr><td><strong>TXN004</strong></td><td>Vikram Singh</td><td>Fee Payment</td><td>₹1,00,000</td><td>2026-08-10</td><td><span class="badge red">Failed</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
