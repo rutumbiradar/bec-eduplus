@@ -1,0 +1,124 @@
+/* ─── Students Page Specific Styles ─── */
+
+/* Custom filter / search bar enhancements */
+.students-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.students-filter .search-box {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.students-filter .search-box input {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    font-size: 14px;
+    min-width: 220px;
+}
+
+.students-filter .search-box button {
+    background: #f1f5f9;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.students-filter .action-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.students-filter .action-buttons .btn-primary {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.students-filter .action-buttons .btn-outline {
+    background: white;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* Student row status colors (already in dashboard.css, but you can override) */
+.student-status.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.student-status.inactive {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.student-status.probation {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+/* Student profile card (if you add a card view later) */
+.student-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.student-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.student-card .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #dbeafe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 22px;
+    color: #2563eb;
+}
+
+.student-card .info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.student-card .info p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
