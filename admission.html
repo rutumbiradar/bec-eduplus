@@ -3,39 +3,352 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BEC ERP – Admission</title>
+    <title>BEC ERP – Admission & Fee Management</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
     <!-- Dashboard CSS -->
     <link rel="stylesheet" href="dashboard.css" />
+
+    <style>
+        /* ─── Admission Styles ──────────────────────────────────── */
+
+        .tab-bar {
+            display: flex;
+            gap: 4px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tab-bar .tab-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-bar .tab-btn:hover {
+            background: rgba(255,255,255,0.5);
+            color: #0b2a4a;
+        }
+
+        .tab-bar .tab-btn.active {
+            background: white;
+            color: #0b2a4a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .tab-bar .tab-btn i {
+            font-size: 16px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        .form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .form-group label .required {
+            color: #dc2626;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.2s;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0b2a4a;
+            padding: 12px 0 8px;
+            border-bottom: 2px solid #edf2f7;
+            margin-bottom: 16px;
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title i {
+            color: #3b82f6;
+        }
+
+        /* Status badge */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.applied { background: #dbeafe; color: #1d4ed8; }
+        .status-badge.verified { background: #dcfce7; color: #15803d; }
+        .status-badge.admitted { background: #ede9fe; color: #7c3aed; }
+        .status-badge.paid { background: #fef3c7; color: #b45309; }
+        .status-badge.generated { background: #ccfbf1; color: #0d9488; }
+        .status-badge.rejected { background: #fee2e2; color: #b91c1c; }
+
+        .status-badge.eligible { background: #dcfce7; color: #15803d; }
+        .status-badge.not-eligible { background: #fee2e2; color: #b91c1c; }
+        .status-badge.under-verification { background: #fef3c7; color: #b45309; }
+
+        /* Fee cards */
+        .fee-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 16px;
+        }
+
+        .fee-card .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fee-card .header .sem {
+            font-weight: 700;
+            font-size: 18px;
+            color: #0b2a4a;
+        }
+
+        .fee-card .header .amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0b2a4a;
+        }
+
+        .fee-card .details {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .fee-card .actions {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Eligibility toggle */
+        .eligibility-toggle {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .eligibility-toggle .toggle-group {
+            display: flex;
+            gap: 4px;
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 4px;
+        }
+
+        .eligibility-toggle .toggle-group button {
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            background: transparent;
+            color: #64748b;
+        }
+
+        .eligibility-toggle .toggle-group button.active {
+            background: white;
+            color: #0b2a4a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .eligibility-toggle .toggle-group button.active.eligible { color: #15803d; }
+        .eligibility-toggle .toggle-group button.active.not-eligible { color: #b91c1c; }
+        .eligibility-toggle .toggle-group button.active.under-verification { color: #b45309; }
+
+        .eligibility-toggle .toggle-group button:hover:not(.active) {
+            color: #0b2a4a;
+        }
+
+        /* Application list */
+        .app-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .app-item:last-child {
+            border-bottom: 0;
+        }
+
+        .app-item .info .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .app-item .info .meta {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .app-item .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-xs {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-xs.primary { background: #dbeafe; color: #1d4ed8; }
+        .btn-xs.primary:hover { background: #2563eb; color: white; }
+        .btn-xs.success { background: #dcfce7; color: #15803d; }
+        .btn-xs.success:hover { background: #16a34a; color: white; }
+        .btn-xs.warning { background: #fef3c7; color: #b45309; }
+        .btn-xs.warning:hover { background: #f59e0b; color: white; }
+        .btn-xs.danger { background: #fee2e2; color: #b91c1c; }
+        .btn-xs.danger:hover { background: #dc2626; color: white; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-grid .full-width {
+                grid-column: 1;
+            }
+            .tab-bar .tab-btn {
+                font-size: 12px;
+                padding: 8px 14px;
+                min-width: 80px;
+            }
+            .tab-bar .tab-btn span {
+                display: none;
+            }
+            .fee-card .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
+
 <body class="dashboard-body">
 
-    <!-- SIDEBAR -->
+    <!-- =========================
+         SIDEBAR – Admin View
+    ========================= -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <h1><i class="fas fa-graduation-cap"></i> BEC ERP</h1>
-            <span>Basaveshwar Engineering College</span>
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Main</div>
             <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="students.html"><i class="fas fa-users"></i> Students</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
             <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
             <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html" class="active"><i class="fas fa-user-plus"></i> Admission</a>
 
             <div class="nav-label">Operations</div>
-            <a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a>
-            <a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
             <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="obe.html"><i class="fas fa-tasks"></i> OBE</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
 
             <div class="nav-label">Accreditation</div>
-            <a href="nba.html"><i class="fas fa-certificate"></i> NBA</a>
-            <a href="naac.html"><i class="fas fa-star"></i> NAAC / IQAC</a>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
 
             <div class="nav-label">Resources</div>
             <a href="research.html"><i class="fas fa-flask"></i> Research</a>
@@ -43,182 +356,742 @@
             <a href="library.html"><i class="fas fa-book"></i> Library</a>
 
             <div class="nav-label">Administration</div>
-            <a href="admin.html"><i class="fas fa-building-columns"></i> Administration</a>
-            <a href="hr.html"><i class="fas fa-user-tie"></i> HR</a>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
             <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
 
+    <!-- SIDEBAR OVERLAY (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <main class="main">
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+    <div class="main">
+
+        <!-- TOPBAR -->
         <header class="topbar">
             <div class="topbar-left">
-                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <h2>Admission Management <small>Manage applications & enrollments</small></h2>
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>
+                    Admission & Fee Management
+                    <small>BEC EduPlus</small>
+                </h2>
             </div>
             <div class="topbar-right">
-                <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="todayDate"></span></span>
+                <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></span>
                 <div class="avatar">A</div>
             </div>
         </header>
 
+        <!-- PAGE CONTENT -->
         <div class="page-content">
 
-            <!-- Statistics -->
-            <div class="cards-grid">
-                <div class="stat-card">
-                    <div class="icon blue"><i class="fas fa-file-signature"></i></div>
-                    <div class="info">
-                        <h4>Total Applications</h4>
-                        <div class="number">1,248</div>
-                    </div>
+            <!-- TABS -->
+            <div class="tab-bar">
+                <button class="tab-btn active" onclick="switchTab('new-admission')">
+                    <i class="fas fa-user-plus"></i> <span>New Admission</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('lateral-entry')">
+                    <i class="fas fa-arrow-right"></i> <span>Lateral Entry</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('fee-payment')">
+                    <i class="fas fa-coins"></i> <span>Semester Fees</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('eligibility')">
+                    <i class="fas fa-check-double"></i> <span>Eligibility Control</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('applications')">
+                    <i class="fas fa-list"></i> <span>Applications</span>
+                </button>
+            </div>
+
+            <!-- =========================
+                 TAB 1: NEW ADMISSION – 1st Semester
+            ========================= -->
+            <div class="tab-content active" id="tab-new-admission">
+                <div class="panel">
+                    <h3><i class="fas fa-user-graduate" style="color:#3b82f6;"></i> New Admission — 1st Semester</h3>
+                    <p style="color:#64748b; margin-bottom:20px;">Register a new student for 1st semester admission.</p>
+
+                    <form id="newAdmissionForm" onsubmit="submitNewAdmission(event)">
+                        <div class="form-grid">
+
+                            <!-- Personal Details -->
+                            <div class="form-section-title"><i class="fas fa-user"></i> Personal Details</div>
+
+                            <div class="form-group">
+                                <label>Application Number <span class="required">*</span></label>
+                                <input type="text" id="appNumber" value="ADM2026" placeholder="ADM2026001" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Student Name <span class="required">*</span></label>
+                                <input type="text" id="studentName" placeholder="Full name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date of Birth <span class="required">*</span></label>
+                                <input type="date" id="dob" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gender <span class="required">*</span></label>
+                                <select id="gender" required>
+                                    <option value="">Select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mobile <span class="required">*</span></label>
+                                <input type="tel" id="mobile" placeholder="9876543210" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" id="email" placeholder="student@email.com" required />
+                            </div>
+
+                            <!-- Parent Details -->
+                            <div class="form-section-title"><i class="fas fa-users"></i> Parent / Guardian</div>
+
+                            <div class="form-group">
+                                <label>Parent Name <span class="required">*</span></label>
+                                <input type="text" id="parentName" placeholder="Parent/Guardian name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Parent Contact <span class="required">*</span></label>
+                                <input type="tel" id="parentContact" placeholder="Parent mobile" required />
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Address <span class="required">*</span></label>
+                                <textarea id="address" placeholder="Complete address" required></textarea>
+                            </div>
+
+                            <!-- Admission Details -->
+                            <div class="form-section-title"><i class="fas fa-graduation-cap"></i> Admission Details</div>
+
+                            <div class="form-group">
+                                <label>Category <span class="required">*</span></label>
+                                <select id="category" required>
+                                    <option value="">Select</option>
+                                    <option>General</option>
+                                    <option>OBC</option>
+                                    <option>SC</option>
+                                    <option>ST</option>
+                                    <option>EWS</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Admission Type <span class="required">*</span></label>
+                                <select id="admissionType" required>
+                                    <option value="">Select</option>
+                                    <option>KCET</option>
+                                    <option>JEE</option>
+                                    <option>COMEDK</option>
+                                    <option>Management</option>
+                                    <option>NRI</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Rank / Application No. <span class="required">*</span></label>
+                                <input type="text" id="rank" placeholder="KCET Rank or JEE Score" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Branch Allotted <span class="required">*</span></label>
+                                <select id="branch" required>
+                                    <option value="">Select Branch</option>
+                                    <option>CSE</option>
+                                    <option>ISE</option>
+                                    <option>ECE</option>
+                                    <option>EEE</option>
+                                    <option>Mechanical</option>
+                                    <option>Civil</option>
+                                    <option>AI & ML</option>
+                                    <option>Biotechnology</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Admission Quota <span class="required">*</span></label>
+                                <select id="quota" required>
+                                    <option value="">Select</option>
+                                    <option>Government</option>
+                                    <option>Management</option>
+                                    <option>NRI</option>
+                                    <option>Sports</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Documents Uploaded</label>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                    <label style="font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" /> SSLC
+                                    </label>
+                                    <label style="font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" /> PUC
+                                    </label>
+                                    <label style="font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" /> CET Rank Card
+                                    </label>
+                                    <label style="font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" /> Income Certificate
+                                    </label>
+                                    <label style="font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" /> Caste Certificate
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Status</label>
+                                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:4px;">
+                                    <span class="status-badge applied">Applied</span>
+                                    <span class="status-badge verified">Verified</span>
+                                    <span class="status-badge admitted">Admitted</span>
+                                    <span class="status-badge paid">Fee Paid</span>
+                                    <span class="status-badge generated">USN Generated</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width" style="display:flex; gap:12px; margin-top:8px;">
+                                <button type="submit" class="btn-save"><i class="fas fa-save"></i> Register Student</button>
+                                <button type="button" class="btn-reset" onclick="document.getElementById('newAdmissionForm').reset(); showToast('Form cleared.')"><i class="fas fa-undo"></i> Reset</button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-                <div class="stat-card">
-                    <div class="icon green"><i class="fas fa-user-check"></i></div>
-                    <div class="info">
-                        <h4>Verified Applications</h4>
-                        <div class="number">1,086</div>
-                    </div>
+            </div>
+
+            <!-- =========================
+                 TAB 2: LATERAL ENTRY – 3rd Semester
+            ========================= -->
+            <div class="tab-content" id="tab-lateral-entry">
+                <div class="panel">
+                    <h3><i class="fas fa-arrow-right" style="color:#7c3aed;"></i> Lateral Entry — 3rd Semester</h3>
+                    <p style="color:#64748b; margin-bottom:20px;">Register diploma students for direct admission to 3rd semester.</p>
+
+                    <form id="lateralEntryForm" onsubmit="submitLateralEntry(event)">
+                        <div class="form-grid">
+
+                            <div class="form-section-title"><i class="fas fa-user-graduate"></i> Student Details</div>
+
+                            <div class="form-group">
+                                <label>Application Number <span class="required">*</span></label>
+                                <input type="text" id="leAppNumber" value="LAT2026" placeholder="LAT2026001" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Student Name <span class="required">*</span></label>
+                                <input type="text" id="leStudentName" placeholder="Full name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date of Birth <span class="required">*</span></label>
+                                <input type="date" id="leDob" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gender <span class="required">*</span></label>
+                                <select id="leGender" required>
+                                    <option value="">Select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mobile <span class="required">*</span></label>
+                                <input type="tel" id="leMobile" placeholder="9876543210" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" id="leEmail" placeholder="student@email.com" required />
+                            </div>
+
+                            <!-- Diploma Details -->
+                            <div class="form-section-title"><i class="fas fa-certificate"></i> Diploma Details</div>
+
+                            <div class="form-group">
+                                <label>Diploma College <span class="required">*</span></label>
+                                <input type="text" id="diplomaCollege" placeholder="College name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Diploma Branch <span class="required">*</span></label>
+                                <input type="text" id="diplomaBranch" placeholder="Branch" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Diploma Percentage <span class="required">*</span></label>
+                                <input type="number" id="diplomaPercent" placeholder="75" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>DCET Rank <span class="required">*</span></label>
+                                <input type="text" id="dcetRank" placeholder="DCET Rank" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Admission Quota <span class="required">*</span></label>
+                                <select id="leQuota" required>
+                                    <option value="">Select</option>
+                                    <option>Government</option>
+                                    <option>Management</option>
+                                    <option>NRI</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Branch Allotted <span class="required">*</span></label>
+                                <select id="leBranch" required>
+                                    <option value="">Select Branch</option>
+                                    <option>CSE</option>
+                                    <option>ISE</option>
+                                    <option>ECE</option>
+                                    <option>EEE</option>
+                                    <option>Mechanical</option>
+                                    <option>Civil</option>
+                                    <option>AI & ML</option>
+                                    <option>Biotechnology</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Previous Institution</label>
+                                <input type="text" id="prevInstitution" placeholder="Previous institution if any" />
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Documents Uploaded</label>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                    <label style="font-weight:400; font-size:13px;"><input type="checkbox" /> Diploma Marksheet</label>
+                                    <label style="font-weight:400; font-size:13px;"><input type="checkbox" /> DCET Rank Card</label>
+                                    <label style="font-weight:400; font-size:13px;"><input type="checkbox" /> Transfer Certificate</label>
+                                    <label style="font-weight:400; font-size:13px;"><input type="checkbox" /> Caste Certificate</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width" style="display:flex; gap:12px; margin-top:8px;">
+                                <button type="submit" class="btn-save"><i class="fas fa-save"></i> Register Lateral Entry</button>
+                                <button type="button" class="btn-reset" onclick="document.getElementById('lateralEntryForm').reset(); showToast('Form cleared.')"><i class="fas fa-undo"></i> Reset</button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-                <div class="stat-card">
-                    <div class="icon purple"><i class="fas fa-user-graduate"></i></div>
-                    <div class="info">
-                        <h4>Admitted Students</h4>
-                        <div class="number">842</div>
+            </div>
+
+            <!-- =========================
+                 TAB 3: SEMESTER FEE PAYMENT
+            ========================= -->
+            <div class="tab-content" id="tab-fee-payment">
+                <div class="panel">
+                    <h3><i class="fas fa-coins" style="color:#f59e0b;"></i> Semester Fee Payment</h3>
+                    <p style="color:#64748b; margin-bottom:16px;">3rd, 5th and 7th semester students — eligibility is checked automatically.</p>
+
+                    <!-- Student A — Eligible -->
+                    <div class="fee-card">
+                        <div class="header">
+                            <div>
+                                <div class="sem"><i class="fas fa-graduation-cap"></i> Student A — 5th Semester</div>
+                                <div style="font-size:13px; color:#64748b;">USN: 1BC21CS001 | CSE</div>
+                            </div>
+                            <div class="amount">₹42,500</div>
+                        </div>
+                        <div class="details">
+                            <span class="status-badge eligible">✅ Eligible</span>
+                            <span style="margin-left:12px; color:#16a34a;">Eligibility verified for 5th Semester registration</span>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-save" onclick="showToast('💳 Processing fee payment for Student A...')"><i class="fas fa-credit-card"></i> Pay Semester Fees</button>
+                            <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📄 Generating receipt...')"><i class="fas fa-receipt"></i> Receipt</button>
+                        </div>
                     </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon orange"><i class="fas fa-hourglass-half"></i></div>
-                    <div class="info">
-                        <h4>Pending Applications</h4>
-                        <div class="number">162</div>
+
+                    <!-- Student B — Not Eligible -->
+                    <div class="fee-card" style="border-color:#fee2e2; background:#fef2f2;">
+                        <div class="header">
+                            <div>
+                                <div class="sem"><i class="fas fa-graduation-cap"></i> Student B — 5th Semester</div>
+                                <div style="font-size:13px; color:#64748b;">USN: 1BC21CS045 | CSE</div>
+                            </div>
+                            <div class="amount" style="color:#94a3b8;">₹42,500</div>
+                        </div>
+                        <div class="details">
+                            <span class="status-badge not-eligible">❌ Not Eligible</span>
+                            <span style="margin-left:12px; color:#dc2626;">Eligibility requirement not satisfied</span>
+                            <div style="margin-top:6px; font-size:13px; background:#fee2e2; padding:6px 12px; border-radius:8px; color:#b91c1c;">
+                                ⚠️ Reason: Attendance below 75% (72%)
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-sm" style="background:#e2e8f0; color:#94a3b8; cursor:not-allowed;" disabled><i class="fas fa-credit-card"></i> Payment Disabled</button>
+                            <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📄 Viewing eligibility details...')"><i class="fas fa-info-circle"></i> View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Student C — Under Verification -->
+                    <div class="fee-card" style="border-color:#fef3c7; background:#fffbeb;">
+                        <div class="header">
+                            <div>
+                                <div class="sem"><i class="fas fa-graduation-cap"></i> Student C — 3rd Semester</div>
+                                <div style="font-size:13px; color:#64748b;">USN: 1BC22CS078 | ISE</div>
+                            </div>
+                            <div class="amount" style="color:#94a3b8;">₹38,000</div>
+                        </div>
+                        <div class="details">
+                            <span class="status-badge under-verification">⏳ Under Verification</span>
+                            <span style="margin-left:12px; color:#b45309;">Eligibility being verified by HOD</span>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-sm" style="background:#e2e8f0; color:#94a3b8; cursor:not-allowed;" disabled><i class="fas fa-credit-card"></i> Payment Disabled</button>
+                            <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('⏳ Under verification, please wait...')"><i class="fas fa-clock"></i> Check Status</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px; padding:14px; background:#f8fafc; border-radius:10px; border:1px solid #edf2f7;">
+                        <p style="font-size:14px; color:#475569;">
+                            <strong><i class="fas fa-info-circle" style="color:#3b82f6;"></i> Rule:</strong> 
+                            3rd, 5th and 7th semester students can pay fees only after eligibility verification.
+                            <br>1st semester students pay as part of admission process.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Actions -->
-            <h3 style="margin: 24px 0 12px; font-size: 18px; font-weight: 600;"><i class="fas fa-bolt" style="color:#3b82f6;"></i> Quick Actions</h3>
-            <div class="action-grid">
-                <div class="action-card" onclick="showToast('New Application module coming soon.')">
-                    <i class="fas fa-user-plus"></i>
-                    <h4>New Application</h4>
-                    <p>Register applicant</p>
-                </div>
-                <div class="action-card" onclick="showToast('Applications list coming soon.')">
-                    <i class="fas fa-list"></i>
-                    <h4>View Applications</h4>
-                    <p>Browse all</p>
-                </div>
-                <div class="action-card" onclick="showToast('Document Verification coming soon.')">
-                    <i class="fas fa-user-check"></i>
-                    <h4>Document Verification</h4>
-                    <p>Verify certificates</p>
-                </div>
-                <div class="action-card" onclick="showToast('Admitted Students list coming soon.')">
-                    <i class="fas fa-users"></i>
-                    <h4>Admitted Students</h4>
-                    <p>View enrolled</p>
-                </div>
-                <div class="action-card" onclick="showToast('Admission Reports coming soon.')">
-                    <i class="fas fa-chart-bar"></i>
-                    <h4>Admission Reports</h4>
-                    <p>Statistics</p>
+            <!-- =========================
+                 TAB 4: ELIGIBILITY CONTROL
+            ========================= -->
+            <div class="tab-content" id="tab-eligibility">
+                <div class="panel">
+                    <h3><i class="fas fa-check-double" style="color:#4f46e5;"></i> Eligibility Control</h3>
+                    <p style="color:#64748b; margin-bottom:16px;">Admin/HOD can mark eligibility for 3rd, 5th and 7th semester students.</p>
+
+                    <div style="overflow-x:auto;">
+                        <table style="min-width:600px;">
+                            <thead>
+                                <tr>
+                                    <th>USN</th>
+                                    <th>Student Name</th>
+                                    <th>Semester</th>
+                                    <th>Current Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1BC21CS001</td>
+                                    <td>Student A</td>
+                                    <td>5th</td>
+                                    <td><span class="status-badge eligible">Eligible</span></td>
+                                    <td>
+                                        <div class="eligibility-toggle">
+                                            <div class="toggle-group">
+                                                <button class="active eligible" onclick="setEligibility(this, 'eligible')">✅ Eligible</button>
+                                                <button onclick="setEligibility(this, 'not-eligible')">❌ Not</button>
+                                                <button onclick="setEligibility(this, 'under-verification')">⏳ Verify</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1BC21CS045</td>
+                                    <td>Student B</td>
+                                    <td>5th</td>
+                                    <td><span class="status-badge not-eligible">Not Eligible</span></td>
+                                    <td>
+                                        <div class="eligibility-toggle">
+                                            <div class="toggle-group">
+                                                <button onclick="setEligibility(this, 'eligible')">✅ Eligible</button>
+                                                <button class="active not-eligible" onclick="setEligibility(this, 'not-eligible')">❌ Not</button>
+                                                <button onclick="setEligibility(this, 'under-verification')">⏳ Verify</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1BC22CS078</td>
+                                    <td>Student C</td>
+                                    <td>3rd</td>
+                                    <td><span class="status-badge under-verification">Under Verification</span></td>
+                                    <td>
+                                        <div class="eligibility-toggle">
+                                            <div class="toggle-group">
+                                                <button onclick="setEligibility(this, 'eligible')">✅ Eligible</button>
+                                                <button onclick="setEligibility(this, 'not-eligible')">❌ Not</button>
+                                                <button class="active under-verification" onclick="setEligibility(this, 'under-verification')">⏳ Verify</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1BC22IS032</td>
+                                    <td>Student D</td>
+                                    <td>7th</td>
+                                    <td><span class="status-badge eligible">Eligible</span></td>
+                                    <td>
+                                        <div class="eligibility-toggle">
+                                            <div class="toggle-group">
+                                                <button class="active eligible" onclick="setEligibility(this, 'eligible')">✅ Eligible</button>
+                                                <button onclick="setEligibility(this, 'not-eligible')">❌ Not</button>
+                                                <button onclick="setEligibility(this, 'under-verification')">⏳ Verify</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top:16px; padding:14px; background:#f8fafc; border-radius:10px; border:1px solid #edf2f7;">
+                        <p style="font-size:13px; color:#475569;">
+                            <strong><i class="fas fa-info-circle" style="color:#3b82f6;"></i> Eligibility Rules:</strong><br>
+                            • <strong>3rd Semester:</strong> Lateral entry students must have verified diploma documents.<br>
+                            • <strong>5th Semester:</strong> Minimum 75% attendance in 3rd and 4th semesters.<br>
+                            • <strong>7th Semester:</strong> No backlogs from previous semesters.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Recent Applications Table -->
-            <div class="panel" style="margin-top: 24px;">
-                <h3><i class="fas fa-clock"></i> Recent Applications</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>App No.</th>
-                                <th>Student</th>
-                                <th>Course</th>
-                                <th>Category</th>
-                                <th>Mode</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>ADM2026001</strong></td>
-                                <td>Student 001</td>
-                                <td>CSE</td>
-                                <td>General</td>
-                                <td>KCET</td>
-                                <td><span class="badge-status verified">Verified</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>ADM2026002</strong></td>
-                                <td>Student 002</td>
-                                <td>ECE</td>
-                                <td>OBC</td>
-                                <td>KCET</td>
-                                <td><span class="badge-status submitted">Submitted</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>ADM2026003</strong></td>
-                                <td>Student 003</td>
-                                <td>Mechanical</td>
-                                <td>General</td>
-                                <td>Management</td>
-                                <td><span class="badge-status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>ADM2026004</strong></td>
-                                <td>Student 004</td>
-                                <td>Civil</td>
-                                <td>OBC</td>
-                                <td>KCET</td>
-                                <td><span class="badge-status verified">Verified</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- =========================
+                 TAB 5: APPLICATIONS
+            ========================= -->
+            <div class="tab-content" id="tab-applications">
+                <div class="panel">
+                    <h3><i class="fas fa-list" style="color:#3b82f6;"></i> Applications</h3>
+                    <p style="color:#64748b; margin-bottom:16px;">View and manage all admission applications.</p>
+
+                    <!-- Filters -->
+                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+                        <select style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:10px; background:white; font-family:inherit;">
+                            <option>All Applications</option>
+                            <option>1st Semester</option>
+                            <option>Lateral Entry</option>
+                        </select>
+                        <select style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:10px; background:white; font-family:inherit;">
+                            <option>All Status</option>
+                            <option>Applied</option>
+                            <option>Verified</option>
+                            <option>Admitted</option>
+                            <option>Fee Paid</option>
+                            <option>USN Generated</option>
+                            <option>Rejected</option>
+                        </select>
+                        <input type="text" placeholder="Search by name or USN..." style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:10px; font-family:inherit; flex:1; min-width:160px;" />
+                        <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;"><i class="fas fa-search"></i> Search</button>
+                        <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;"><i class="fas fa-file-export"></i> Export</button>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table style="min-width:800px;">
+                            <thead>
+                                <tr>
+                                    <th>App. No.</th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>Type</th>
+                                    <th>Admission Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ADM2026001</td>
+                                    <td>Student 001</td>
+                                    <td>CSE</td>
+                                    <td>1st Sem</td>
+                                    <td>KCET</td>
+                                    <td><span class="status-badge generated">USN Generated</span></td>
+                                    <td>
+                                        <button class="btn-xs primary" onclick="showToast('👤 Viewing Student 001 profile...')"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn-xs warning" onclick="showToast('✏️ Editing application...')"><i class="fas fa-edit"></i> Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ADM2026002</td>
+                                    <td>Student 002</td>
+                                    <td>ECE</td>
+                                    <td>1st Sem</td>
+                                    <td>COMEDK</td>
+                                    <td><span class="status-badge admitted">Admitted</span></td>
+                                    <td>
+                                        <button class="btn-xs primary" onclick="showToast('👤 Viewing Student 002 profile...')"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn-xs success" onclick="showToast('💳 Processing fee payment...')"><i class="fas fa-credit-card"></i> Fee</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>LAT2026001</td>
+                                    <td>Student 003</td>
+                                    <td>ME</td>
+                                    <td>Lateral</td>
+                                    <td>DCET</td>
+                                    <td><span class="status-badge verified">Verified</span></td>
+                                    <td>
+                                        <button class="btn-xs primary" onclick="showToast('👤 Viewing Student 003 profile...')"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn-xs success" onclick="showToast('✅ Verifying documents...')"><i class="fas fa-check"></i> Verify</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ADM2026004</td>
+                                    <td>Student 004</td>
+                                    <td>CIVIL</td>
+                                    <td>1st Sem</td>
+                                    <td>Management</td>
+                                    <td><span class="status-badge applied">Applied</span></td>
+                                    <td>
+                                        <button class="btn-xs primary" onclick="showToast('👤 Viewing Student 004 profile...')"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn-xs success" onclick="showToast('✅ Verifying application...')"><i class="fas fa-check"></i> Verify</button>
+                                        <button class="btn-xs danger" onclick="showToast('❌ Rejecting application...')"><i class="fas fa-times"></i> Reject</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>LAT2026002</td>
+                                    <td>Student 005</td>
+                                    <td>ISE</td>
+                                    <td>Lateral</td>
+                                    <td>DCET</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn-xs primary" onclick="showToast('👤 Viewing Student 005 profile...')"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn-xs warning" onclick="showToast('📝 Editing application...')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn-xs danger" onclick="showToast('❌ Rejecting application...')"><i class="fas fa-times"></i> Reject</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                        <span style="font-size:13px; color:#64748b;">Showing 1–5 of 45 applications</span>
+                        <div style="display:flex; gap:4px;">
+                            <button class="btn-xs" style="background:#e2e8f0; color:#1e293b;">Previous</button>
+                            <button class="btn-xs" style="background:#3b82f6; color:white;">1</button>
+                            <button class="btn-xs" style="background:#e2e8f0; color:#1e293b;">2</button>
+                            <button class="btn-xs" style="background:#e2e8f0; color:#1e293b;">3</button>
+                            <button class="btn-xs" style="background:#e2e8f0; color:#1e293b;">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Admission Modules -->
-            <div class="panel" style="margin-top: 24px;">
-                <h3><i class="fas fa-graduation-cap"></i> Admission Modules</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 8px 20px;">
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-file-alt" style="color:#3b82f6; width:20px;"></i> Application Management</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-certificate" style="color:#3b82f6; width:20px;"></i> Document Verification</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-university" style="color:#3b82f6; width:20px;"></i> KEA / CET Admissions</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-building" style="color:#3b82f6; width:20px;"></i> COMEDK Admissions</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-handshake" style="color:#3b82f6; width:20px;"></i> Management Quota</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-times-circle" style="color:#3b82f6; width:20px;"></i> Admission Cancellation</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-user-plus" style="color:#3b82f6; width:20px;"></i> Student Enrollment</div>
-                    <div style="padding:6px 0; color:#475569;"><i class="fas fa-chart-pie" style="color:#3b82f6; width:20px;"></i> Admission Reports</div>
-                </div>
+            <!-- =========================
+                 FOOTER
+            ========================= -->
+            <div class="footer">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
             </div>
 
         </div>
-    </main>
 
+    </div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
+
+        // ─── Date & Time ──────────────────────────────────────────
+        const now = new Date();
+        document.getElementById('currentDate').textContent =
+            now.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+        document.getElementById('lastUpdated').textContent =
+            now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+        // ─── Tab Switcher ──────────────────────────────────────────
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Show selected tab
+            document.getElementById('tab-' + tabId).classList.add('active');
+            // Update button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.tab-btn[onclick="switchTab('${tabId}')"]`).classList.add('active');
         }
 
-        document.getElementById('todayDate').textContent =
-            new Date().toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+        // ─── Form Submissions ──────────────────────────────────────
+        function submitNewAdmission(e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+            showToast(`✅ New admission registered for ${name}! USN will be generated after fee payment.`);
+        }
 
+        function submitLateralEntry(e) {
+            e.preventDefault();
+            const name = document.getElementById('leStudentName').value;
+            showToast(`✅ Lateral entry registered for ${name}! Eligibility verification pending.`);
+        }
+
+        // ─── Eligibility Control ──────────────────────────────────
+        function setEligibility(btn, status) {
+            const group = btn.closest('.toggle-group');
+            const row = btn.closest('tr');
+            const statusCell = row.querySelector('td:nth-child(4)');
+
+            // Update toggle buttons
+            group.querySelectorAll('button').forEach(b => b.classList.remove('active', 'eligible', 'not-eligible', 'under-verification'));
+            btn.classList.add('active');
+            if (status === 'eligible') btn.classList.add('eligible');
+            else if (status === 'not-eligible') btn.classList.add('not-eligible');
+            else if (status === 'under-verification') btn.classList.add('under-verification');
+
+            // Update status badge
+            const statusMap = {
+                'eligible': '<span class="status-badge eligible">Eligible</span>',
+                'not-eligible': '<span class="status-badge not-eligible">Not Eligible</span>',
+                'under-verification': '<span class="status-badge under-verification">Under Verification</span>'
+            };
+            statusCell.innerHTML = statusMap[status];
+
+            showToast(`✅ Eligibility updated to: ${status.replace('-', ' ')}`);
+        }
+
+        // ─── Toast ──────────────────────────────────────────────────
         function showToast(msg) {
             const existing = document.querySelector('.custom-toast');
             if (existing) existing.remove();
+
             const toast = document.createElement('div');
             toast.className = 'custom-toast';
             toast.textContent = msg;
             document.body.appendChild(toast);
-            requestAnimationFrame(() => { toast.classList.add('show'); });
+
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
+        }
+
+        // ─── Sidebar Toggle ──────────────────────────────────────
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
         window.addEventListener('resize', () => {
@@ -227,6 +1100,7 @@
                 document.getElementById('sidebarOverlay').classList.remove('active');
             }
         });
+
     </script>
 
 </body>
