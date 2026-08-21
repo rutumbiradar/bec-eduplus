@@ -1,257 +1,750 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BEC EduPlus – Attendance</title>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Google Font: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="dashboard.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BEC EduPlus – Attendance</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fc;
+    color: #1e293b;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #0f172a;
+    color: white;
+    min-height: 100vh;
+    padding: 20px 12px;
+    flex-shrink: 0;
+}
+
+.brand {
+    padding: 10px 14px 25px;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 15px;
+}
+
+.brand h1 {
+    font-size: 22px;
+}
+
+.brand p {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.section-title {
+    color: #64748b;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 14px 12px 7px;
+}
+
+.sidebar a {
+    display: block;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 11px 14px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #1e293b;
+    color: white;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar h2 {
+    font-size: 21px;
+}
+
+.topbar span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.content {
+    padding: 30px;
+}
+
+/* FORM */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+}
+
+.card h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+}
+
+/* SUMMARY */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.summary-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.summary-box h4 {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.summary-box strong {
+    font-size: 25px;
+}
+
+/* TABLE */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #0f172a;
+    color: white;
+    padding: 13px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+/* STATUS BUTTONS */
+.status-btn {
+    border: none;
+    padding: 7px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.present {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.absent {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.status-btn.selected-present {
+    background: #16a34a;
+    color: white;
+}
+
+.status-btn.selected-absent {
+    background: #dc2626;
+    color: white;
+}
+
+/* ACTIONS */
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-save {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-reset {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #15803d;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .summary {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+
+    body {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+</style>
 </head>
-<body class="dashboard-body">
 
-    <!-- ─── SIDEBAR OVERLAY ─── -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<body>
 
-    <!-- ─── SIDEBAR ─── -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <h1>
-                <i class="fas fa-graduation-cap"></i> EduPlus
-            </h1>
-            <span>BEC College · ERP v2.0</span>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="brand">
+        <h1>🎓 BEC EduPlus</h1>
+        <p>Engineering College ERP</p>
+    </div>
+
+    <div class="section-title">Main</div>
+
+    <a href="dashboard.html">Dashboard</a>
+    <a href="students.html">Students</a>
+    <a href="faculty.html">Faculty</a>
+    <a href="courses.html">Academics</a>
+
+    <div class="section-title">Operations</div>
+
+    <a href="timetable.html">Timetable</a>
+    <a href="attendance.html" class="active">Attendance</a>
+    <a href="examination.html">Examination</a>
+    <a href="obe.html">OBE</a>
+
+    <div class="section-title">Accreditation</div>
+
+    <a href="nba.html">NBA</a>
+    <a href="naac.html">NAAC / IQAC</a>
+
+    <div class="section-title">Resources</div>
+
+    <a href="research.html">Research</a>
+    <a href="placement.html">Placement</a>
+    <a href="library.html">Library</a>
+
+    <div class="section-title">Administration</div>
+
+    <a href="hr.html">HR</a>
+    <a href="finance.html">Finance</a>
+    <a href="admin.html">Administration</a>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+        <div>
+            <h2>Attendance Management</h2>
+            <span>BEC EduPlus · Academic Operations</span>
         </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Main</div>
-            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
 
-            <div class="nav-label">Operations</div>
-            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
-            <a href="attendance.html" class="active"><i class="fas fa-check-circle"></i> Attendance</a>
-            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+        <div>
+            <span id="todayDate"></span>
+        </div>
+    </header>
 
-            <div class="nav-label">Accreditation</div>
-            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
-            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
 
-            <div class="nav-label">Resources</div>
-            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
-            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
-            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+    <div class="content">
 
-            <div class="nav-label">Administration</div>
-            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
-            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
-            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+        <!-- CLASS DETAILS -->
+        <div class="card">
 
-            <div class="nav-label">System</div>
-            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-        </nav>
-    </aside>
+            <h3>📋 Attendance Details</h3>
 
-    <!-- ─── MAIN ─── -->
-    <div class="main">
+            <div class="form-grid">
 
-        <!-- TOPBAR -->
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h2>
-                    Attendance
-                    <small>Track student attendance</small>
-                </h2>
-            </div>
-            <div class="topbar-right">
-                <div class="date-badge">
-                    <i class="far fa-calendar-alt"></i>
-                    <span id="currentDate"></span>
-                </div>
-                <div class="avatar">A</div>
-            </div>
-        </header>
-
-        <!-- PAGE CONTENT -->
-        <div class="page-content">
-
-            <!-- ─── FILTER BAR ─── -->
-            <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 24px; background: #fff; padding: 16px 20px; border-radius: 16px; border: 1px solid #edf2f7;">
-                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                    <label style="font-weight: 600; font-size: 14px; color: #475569;"><i class="fas fa-calendar-day"></i> Date:</label>
-                    <input type="date" value="2026-08-20" style="padding: 8px 14px; border: 1px solid #e2e8f0; border-radius: 40px; font-size: 14px;" />
-                    
-                    <label style="font-weight: 600; font-size: 14px; color: #475569; margin-left: 8px;"><i class="fas fa-graduation-cap"></i> Course:</label>
-                    <select style="padding: 8px 14px; border: 1px solid #e2e8f0; border-radius: 40px; font-size: 14px; background: white;">
-                        <option>All Courses</option>
-                        <option>B.Tech CSE</option>
-                        <option>B.Tech ECE</option>
-                        <option>B.Tech ME</option>
-                        <option>MBA</option>
-                        <option>B.Sc Physics</option>
-                    </select>
-
-                    <label style="font-weight: 600; font-size: 14px; color: #475569; margin-left: 8px;"><i class="fas fa-layer-group"></i> Year:</label>
-                    <select style="padding: 8px 14px; border: 1px solid #e2e8f0; border-radius: 40px; font-size: 14px; background: white;">
-                        <option>All Years</option>
-                        <option>1st</option>
-                        <option>2nd</option>
-                        <option>3rd</option>
-                        <option>4th</option>
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="department">
+                        <option value="">Select Department</option>
+                        <option>Civil Engineering</option>
+                        <option>Mechanical Engineering</option>
+                        <option>Computer Science & Engineering</option>
+                        <option>Information Science & Engineering</option>
+                        <option>Electronics & Communication</option>
+                        <option>Electrical & Electronics</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Biotechnology</option>
                     </select>
                 </div>
-                <div style="margin-left: auto; display: flex; gap: 10px;">
-                    <button style="background: #3b82f6; color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer;"><i class="fas fa-search"></i> Filter</button>
-                    <button style="background: white; color: #1e293b; border: 1px solid #e2e8f0; padding: 8px 18px; border-radius: 40px; font-weight: 500; cursor: pointer;"><i class="fas fa-sync-alt"></i> Reset</button>
+
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="semester">
+                        <option value="">Select Semester</option>
+                        <option>1st Semester</option>
+                        <option>2nd Semester</option>
+                        <option>3rd Semester</option>
+                        <option>4th Semester</option>
+                        <option>5th Semester</option>
+                        <option>6th Semester</option>
+                        <option>7th Semester</option>
+                        <option>8th Semester</option>
+                    </select>
                 </div>
+
+                <div class="form-group">
+                    <label>Section</label>
+                    <select id="section">
+                        <option value="">Select Section</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select id="subject">
+                        <option value="">Select Subject</option>
+                        <option>Engineering Mathematics-I</option>
+                        <option>Engineering Mathematics-II</option>
+                        <option>Engineering Mathematics-III</option>
+                        <option>Engineering Mathematics-IV</option>
+                        <option>Numerical Methods</option>
+                        <option>Probability & Statistics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Faculty</label>
+                    <input type="text" id="faculty" placeholder="Faculty Name">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="attendanceDate">
+                </div>
+
             </div>
 
-            <!-- ─── SUMMARY CARDS ─── -->
-            <div class="cards-grid" style="margin-bottom: 28px;">
-                <div class="stat-card">
-                    <div class="icon blue"><i class="fas fa-users"></i></div>
-                    <div class="info">
-                        <h4>Total Students</h4>
-                        <div class="number">1,284</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon green"><i class="fas fa-check-circle"></i></div>
-                    <div class="info">
-                        <h4>Present</h4>
-                        <div class="number">1,102 <span class="trend">85.8%</span></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon red"><i class="fas fa-times-circle"></i></div>
-                    <div class="info">
-                        <h4>Absent</h4>
-                        <div class="number">112 <span class="trend down">8.7%</span></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon orange"><i class="fas fa-clock"></i></div>
-                    <div class="info">
-                        <h4>Leave / On-Duty</h4>
-                        <div class="number">70 <span class="trend">5.5%</span></div>
-                    </div>
-                </div>
+        </div>
+
+
+        <!-- SUMMARY -->
+        <div class="summary">
+
+            <div class="summary-box">
+                <h4>Total Students</h4>
+                <strong id="totalStudents">20</strong>
             </div>
 
-            <!-- ─── ATTENDANCE TABLE ─── -->
-            <div class="table-wrapper">
+            <div class="summary-box">
+                <h4>Present</h4>
+                <strong id="presentCount">20</strong>
+            </div>
+
+            <div class="summary-box">
+                <h4>Absent</h4>
+                <strong id="absentCount">0</strong>
+            </div>
+
+            <div class="summary-box">
+                <h4>Attendance</h4>
+                <strong id="attendancePercent">100%</strong>
+            </div>
+
+        </div>
+
+
+        <!-- STUDENT ATTENDANCE -->
+        <div class="card">
+
+            <h3>🧑‍🎓 Student Attendance</h3>
+
+            <div class="table-container">
+
                 <table>
+
                     <thead>
                         <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Course</th>
-                            <th>Year</th>
-                            <th>Date</th>
+                            <th>Sl. No.</th>
+                            <th>Roll Number</th>
+                            <th>Student Name</th>
                             <th>Status</th>
-                            <th>Marked By</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>BEC001</strong></td>
-                            <td>Priya Sharma</td>
-                            <td>B.Tech CSE</td>
-                            <td>3rd</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge green">Present</span></td>
-                            <td>Prof. Verma</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC002</strong></td>
-                            <td>Arjun Reddy</td>
-                            <td>B.Tech ECE</td>
-                            <td>2nd</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge">Absent</span></td>
-                            <td>Prof. Singh</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC003</strong></td>
-                            <td>Sneha Patel</td>
-                            <td>MBA</td>
-                            <td>1st</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge green">Present</span></td>
-                            <td>Prof. Gupta</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC004</strong></td>
-                            <td>Vikram Singh</td>
-                            <td>B.Tech ME</td>
-                            <td>4th</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge orange">Leave</span></td>
-                            <td>Prof. Rao</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC005</strong></td>
-                            <td>Ananya Iyer</td>
-                            <td>B.Sc Physics</td>
-                            <td>2nd</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge green">Present</span></td>
-                            <td>Prof. Sharma</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC006</strong></td>
-                            <td>Rahul Nair</td>
-                            <td>B.Tech CSE</td>
-                            <td>3rd</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge">Absent</span></td>
-                            <td>Prof. Verma</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BEC007</strong></td>
-                            <td>Kavya Menon</td>
-                            <td>MBA</td>
-                            <td>1st</td>
-                            <td>2026-08-20</td>
-                            <td><span class="badge green">Present</span></td>
-                            <td>Prof. Gupta</td>
-                        </tr>
-                    </tbody>
+
+                    <tbody id="studentTable"></tbody>
+
                 </table>
+
             </div>
 
-            <!-- ─── FOOTER ─── -->
-            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>© 2026 BEC EduPlus · All rights reserved.</span>
-                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+
+            <div class="actions">
+
+                <button class="btn btn-save" onclick="saveAttendance()">
+                    💾 Save Attendance
+                </button>
+
+                <button class="btn btn-reset" onclick="resetAttendance()">
+                    🔄 Reset
+                </button>
+
             </div>
 
-        </div><!-- /page-content -->
-    </div><!-- /main -->
+            <div id="message" class="message"></div>
 
-    <!-- Shared Script -->
-    <script src="script.js"></script>
+        </div>
 
-    <!-- Additional: set default date to today -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set date input to today
-            const dateInput = document.querySelector('input[type="date"]');
-            if (dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.value = today;
-            }
-        });
-    </script>
+    </div>
+
+</main>
+
+
+<script>
+
+const students = [
+    "Student 01",
+    "Student 02",
+    "Student 03",
+    "Student 04",
+    "Student 05",
+    "Student 06",
+    "Student 07",
+    "Student 08",
+    "Student 09",
+    "Student 10",
+    "Student 11",
+    "Student 12",
+    "Student 13",
+    "Student 14",
+    "Student 15",
+    "Student 16",
+    "Student 17",
+    "Student 18",
+    "Student 19",
+    "Student 20"
+];
+
+const table = document.getElementById("studentTable");
+
+students.forEach((name, index) => {
+
+    const roll = index + 1;
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${roll}</td>
+        <td>${name}</td>
+
+        <td>
+
+            <button
+                class="status-btn present selected-present"
+                onclick="markPresent(${roll}, this)">
+                Present
+            </button>
+
+            <button
+                class="status-btn absent"
+                onclick="markAbsent(${roll}, this)">
+                Absent
+            </button>
+
+        </td>
+    `;
+
+    row.dataset.status = "Present";
+
+    table.appendChild(row);
+
+});
+
+
+function markPresent(roll, button) {
+
+    const row = button.closest("tr");
+
+    row.dataset.status = "Present";
+
+    const buttons = row.querySelectorAll(".status-btn");
+
+    buttons[0].classList.add("selected-present");
+    buttons[1].classList.remove("selected-absent");
+
+    updateSummary();
+}
+
+
+function markAbsent(roll, button) {
+
+    const row = button.closest("tr");
+
+    row.dataset.status = "Absent";
+
+    const buttons = row.querySelectorAll(".status-btn");
+
+    buttons[0].classList.remove("selected-present");
+    buttons[1].classList.add("selected-absent");
+
+    updateSummary();
+}
+
+
+function updateSummary() {
+
+    const rows = document.querySelectorAll("#studentTable tr");
+
+    let present = 0;
+    let absent = 0;
+
+    rows.forEach(row => {
+
+        if (row.dataset.status === "Present") {
+            present++;
+        } else {
+            absent++;
+        }
+
+    });
+
+    const total = rows.length;
+
+    document.getElementById("totalStudents").textContent = total;
+    document.getElementById("presentCount").textContent = present;
+    document.getElementById("absentCount").textContent = absent;
+
+    const percentage =
+        total === 0 ? 0 : Math.round((present / total) * 100);
+
+    document.getElementById("attendancePercent").textContent =
+        percentage + "%";
+}
+
+
+function saveAttendance() {
+
+    const department =
+        document.getElementById("department").value;
+
+    const semester =
+        document.getElementById("semester").value;
+
+    const section =
+        document.getElementById("section").value;
+
+    const subject =
+        document.getElementById("subject").value;
+
+    const faculty =
+        document.getElementById("faculty").value;
+
+    const date =
+        document.getElementById("attendanceDate").value;
+
+    if (!department || !semester || !section || !subject || !faculty || !date) {
+
+        document.getElementById("message").textContent =
+            "⚠️ Please fill all attendance details.";
+
+        document.getElementById("message").style.color =
+            "#dc2626";
+
+        return;
+    }
+
+
+    const rows = document.querySelectorAll("#studentTable tr");
+
+    let absentRollNumbers = [];
+
+    rows.forEach(row => {
+
+        if (row.dataset.status === "Absent") {
+
+            const roll =
+                row.children[1].textContent;
+
+            absentRollNumbers.push(roll);
+
+        }
+
+    });
+
+
+    console.log("Department:", department);
+    console.log("Semester:", semester);
+    console.log("Section:", section);
+    console.log("Subject:", subject);
+    console.log("Faculty:", faculty);
+    console.log("Date:", date);
+    console.log("Absent Roll Numbers:", absentRollNumbers.join(", "));
+
+
+    document.getElementById("message").style.color =
+        "#15803d";
+
+    document.getElementById("message").textContent =
+        "✅ Attendance saved successfully! Absent Roll Numbers: " +
+        (absentRollNumbers.length
+            ? absentRollNumbers.join(", ")
+            : "None");
+}
+
+
+function resetAttendance() {
+
+    const rows =
+        document.querySelectorAll("#studentTable tr");
+
+    rows.forEach(row => {
+
+        row.dataset.status = "Present";
+
+        const buttons =
+            row.querySelectorAll(".status-btn");
+
+        buttons[0].classList.add("selected-present");
+        buttons[1].classList.remove("selected-absent");
+
+    });
+
+    document.getElementById("message").textContent = "";
+
+    updateSummary();
+}
+
+
+/* DATE */
+const today = new Date();
+
+document.getElementById("todayDate").textContent =
+    today.toLocaleDateString("en-IN", {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+
+document.getElementById("attendanceDate").value =
+    today.toISOString().split("T")[0];
+
+</script>
+
 </body>
 </html>
