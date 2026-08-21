@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>BEC EduPlus - OBE</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -91,12 +95,63 @@
             margin-bottom: 20px;
         }
 
+        /* MODULE GRID */
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .module {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .module h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .module p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* BUTTON */
+
+        .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn.secondary {
+            background: #64748b;
+        }
+
+        .btn.secondary:hover {
+            background: #475569;
+        }
+
         /* TABLE */
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 650px;
+            min-width: 700px;
         }
 
         th,
@@ -140,7 +195,7 @@
             color: #dc2626;
         }
 
-        /* PROGRESS BAR */
+        /* PROGRESS */
 
         .progress-box {
             width: 150px;
@@ -156,49 +211,63 @@
             border-radius: 10px;
         }
 
-        /* BUTTON */
+        /* DYNAMIC SECTION */
 
-        .btn {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 7px;
-            background: #2563eb;
-            color: white;
-            cursor: pointer;
+        #obeWorkspace {
+            display: none;
         }
 
-        .btn:hover {
-            background: #1d4ed8;
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        /* MODULE GRID */
+        .workspace-header h2 {
+            margin-bottom: 0;
+        }
 
-        .module-grid {
+        .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .module {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            background: #f8fafc;
-        }
-
-        .module h3 {
-            margin-bottom: 8px;
-            font-size: 17px;
-        }
-
-        .module p {
-            color: #64748b;
+        .form-group label {
+            display: block;
             font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
 
-        /* RESPONSIVE */
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        /* MOBILE */
 
         @media(max-width:600px) {
 
@@ -217,11 +286,16 @@
             .panel {
                 padding: 18px;
             }
+
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 
 <!-- HEADER -->
 
@@ -238,14 +312,15 @@
 
 <div class="container">
 
-    <!-- BACK -->
+
+    <!-- BACK TO DASHBOARD -->
 
     <a href="dashboard.html" class="back">
         ← Back to Dashboard
     </a>
 
 
-    <!-- SUMMARY -->
+    <!-- SUMMARY CARDS -->
 
     <div class="cards">
 
@@ -285,6 +360,9 @@
 
         <div class="module-grid">
 
+
+            <!-- CO -->
+
             <div class="module">
 
                 <h3>Course Outcomes</h3>
@@ -294,12 +372,18 @@
                     for every course.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('Course Outcomes')">
+
                     Open
+
                 </button>
 
             </div>
 
+
+            <!-- PO -->
 
             <div class="module">
 
@@ -309,12 +393,18 @@
                     Manage NBA Program Outcomes and their descriptions.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('Program Outcomes')">
+
                     Open
+
                 </button>
 
             </div>
 
+
+            <!-- PSO -->
 
             <div class="module">
 
@@ -325,28 +415,40 @@
                     programs.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('Program Specific Outcomes')">
+
                     Open
+
                 </button>
 
             </div>
 
+
+            <!-- CO PO -->
 
             <div class="module">
 
                 <h3>CO-PO Mapping</h3>
 
                 <p>
-                    Prepare Course Outcome to Program Outcome mapping
-                    matrices.
+                    Prepare Course Outcome to Program Outcome
+                    mapping matrices.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('CO-PO Mapping')">
+
                     Open
+
                 </button>
 
             </div>
 
+
+            <!-- CO ATTAINMENT -->
 
             <div class="module">
 
@@ -357,12 +459,18 @@
                     from assessment data.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('CO Attainment')">
+
                     Open
+
                 </button>
 
             </div>
 
+
+            <!-- PO ATTAINMENT -->
 
             <div class="module">
 
@@ -373,8 +481,12 @@
                     course contributions.
                 </p>
 
-                <button class="btn">
+                <button
+                    class="btn"
+                    onclick="openModule('PO Attainment')">
+
                     Open
+
                 </button>
 
             </div>
@@ -420,26 +532,38 @@
                 <td>6</td>
 
                 <td>
+
                     <div class="progress-box">
+
                         <div
                             class="progress-bar"
                             style="width:90%">
                         </div>
+
                     </div>
+
                 </td>
 
                 <td>82%</td>
 
                 <td>
+
                     <span class="status completed">
                         Completed
                     </span>
+
                 </td>
 
                 <td>
-                    <button class="btn">
+
+                    <button
+                        class="btn"
+                        onclick="viewCourse('Engineering Mathematics-I')">
+
                         View
+
                     </button>
+
                 </td>
 
             </tr>
@@ -454,26 +578,38 @@
                 <td>6</td>
 
                 <td>
+
                     <div class="progress-box">
+
                         <div
                             class="progress-bar"
                             style="width:75%">
                         </div>
+
                     </div>
+
                 </td>
 
                 <td>76%</td>
 
                 <td>
+
                     <span class="status progress">
                         In Progress
                     </span>
+
                 </td>
 
                 <td>
-                    <button class="btn">
+
+                    <button
+                        class="btn"
+                        onclick="viewCourse('Engineering Mathematics-II')">
+
                         View
+
                     </button>
+
                 </td>
 
             </tr>
@@ -488,26 +624,38 @@
                 <td>5</td>
 
                 <td>
+
                     <div class="progress-box">
+
                         <div
                             class="progress-bar"
                             style="width:60%">
                         </div>
+
                     </div>
+
                 </td>
 
                 <td>68%</td>
 
                 <td>
+
                     <span class="status progress">
                         In Progress
                     </span>
+
                 </td>
 
                 <td>
-                    <button class="btn">
+
+                    <button
+                        class="btn"
+                        onclick="viewCourse('Engineering Physics')">
+
                         View
+
                     </button>
+
                 </td>
 
             </tr>
@@ -522,26 +670,38 @@
                 <td>5</td>
 
                 <td>
+
                     <div class="progress-box">
+
                         <div
                             class="progress-bar"
                             style="width:40%">
                         </div>
+
                     </div>
+
                 </td>
 
                 <td>—</td>
 
                 <td>
+
                     <span class="status pending">
                         Pending
                     </span>
+
                 </td>
 
                 <td>
-                    <button class="btn">
+
+                    <button
+                        class="btn"
+                        onclick="viewCourse('Programming in C')">
+
                         View
+
                     </button>
+
                 </td>
 
             </tr>
@@ -551,7 +711,7 @@
     </div>
 
 
-    <!-- ATTAINMENT LEVEL -->
+    <!-- ATTAINMENT LEVELS -->
 
     <div class="panel">
 
@@ -560,34 +720,665 @@
         <table>
 
             <tr>
+
                 <th>Level</th>
+
                 <th>Range</th>
+
                 <th>Description</th>
+
             </tr>
 
             <tr>
+
                 <td>Level 1</td>
+
                 <td>50% – 60%</td>
+
                 <td>Basic attainment</td>
+
             </tr>
 
             <tr>
+
                 <td>Level 2</td>
+
                 <td>61% – 75%</td>
+
                 <td>Moderate attainment</td>
+
             </tr>
 
             <tr>
+
                 <td>Level 3</td>
+
                 <td>Above 75%</td>
+
                 <td>High attainment</td>
+
             </tr>
 
         </table>
 
     </div>
 
+
+    <!-- DYNAMIC WORKSPACE -->
+
+    <div
+        class="panel"
+        id="obeWorkspace">
+
+        <div class="workspace-header">
+
+            <h2 id="workspaceTitle">
+                OBE Module
+            </h2>
+
+            <button
+                class="btn secondary"
+                onclick="closeWorkspace()">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <div id="workspaceContent"></div>
+
+    </div>
+
+
 </div>
 
+
+<script>
+
+
+/* OPEN OBE MODULE */
+
+function openModule(moduleName) {
+
+    const workspace =
+        document.getElementById("obeWorkspace");
+
+    const title =
+        document.getElementById("workspaceTitle");
+
+    const content =
+        document.getElementById("workspaceContent");
+
+
+    title.textContent = moduleName;
+
+
+    let html = "";
+
+
+    if (moduleName === "Course Outcomes") {
+
+        html = `
+
+            <div class="info-box">
+
+                Create and manage Course Outcomes
+                for each course.
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Course Code</label>
+
+                    <input
+                        type="text"
+                        placeholder="Example: 21MAT11">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Course Name</label>
+
+                    <input
+                        type="text"
+                        placeholder="Course Name">
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Course Outcome</label>
+
+                <textarea
+                    placeholder="Enter Course Outcome">
+                </textarea>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveData('Course Outcome')">
+
+                Save CO
+
+            </button>
+
+        `;
+
+    }
+
+
+    else if (moduleName === "Program Outcomes") {
+
+        html = `
+
+            <div class="info-box">
+
+                NBA Program Outcomes management.
+
+            </div>
+
+            <div class="form-group">
+
+                <label>PO Number</label>
+
+                <select>
+
+                    <option>PO1</option>
+                    <option>PO2</option>
+                    <option>PO3</option>
+                    <option>PO4</option>
+                    <option>PO5</option>
+                    <option>PO6</option>
+                    <option>PO7</option>
+                    <option>PO8</option>
+                    <option>PO9</option>
+                    <option>PO10</option>
+                    <option>PO11</option>
+                    <option>PO12</option>
+
+                </select>
+
+            </div>
+
+            <br>
+
+            <div class="form-group">
+
+                <label>PO Description</label>
+
+                <textarea
+                    placeholder="Enter PO description">
+                </textarea>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveData('Program Outcome')">
+
+                Save PO
+
+            </button>
+
+        `;
+
+    }
+
+
+    else if (moduleName === "Program Specific Outcomes") {
+
+        html = `
+
+            <div class="info-box">
+
+                Manage Program Specific Outcomes.
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Program</label>
+
+                    <select>
+
+                        <option>CSE</option>
+                        <option>ISE</option>
+                        <option>ECE</option>
+                        <option>EEE</option>
+                        <option>Mechanical</option>
+                        <option>Civil</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>PSO Number</label>
+
+                    <select>
+
+                        <option>PSO1</option>
+                        <option>PSO2</option>
+                        <option>PSO3</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>PSO Description</label>
+
+                <textarea
+                    placeholder="Enter PSO description">
+                </textarea>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveData('Program Specific Outcome')">
+
+                Save PSO
+
+            </button>
+
+        `;
+
+    }
+
+
+    else if (moduleName === "CO-PO Mapping") {
+
+        html = `
+
+            <div class="info-box">
+
+                CO-PO Mapping Matrix.
+
+                <br><br>
+
+                0 = No correlation
+
+                <br>
+
+                1 = Low
+
+                <br>
+
+                2 = Medium
+
+                <br>
+
+                3 = High
+
+            </div>
+
+            <table>
+
+                <tr>
+
+                    <th>CO / PO</th>
+                    <th>PO1</th>
+                    <th>PO2</th>
+                    <th>PO3</th>
+                    <th>PO4</th>
+                    <th>PO5</th>
+
+                </tr>
+
+                <tr>
+                    <td>CO1</td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                </tr>
+
+                <tr>
+                    <td>CO2</td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                </tr>
+
+                <tr>
+                    <td>CO3</td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                    <td><input type="number" min="0" max="3"></td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveData('CO-PO Mapping')">
+
+                Save Mapping
+
+            </button>
+
+        `;
+
+    }
+
+
+    else if (moduleName === "CO Attainment") {
+
+        html = `
+
+            <div class="info-box">
+
+                Enter or review Course Outcome attainment.
+
+            </div>
+
+            <table>
+
+                <tr>
+
+                    <th>CO</th>
+                    <th>Target %</th>
+                    <th>Attainment %</th>
+                    <th>Level</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>CO1</td>
+                    <td>60</td>
+                    <td>
+                        <input
+                            type="number"
+                            value="82">
+                    </td>
+
+                    <td>Level 3</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>CO2</td>
+                    <td>60</td>
+                    <td>
+                        <input
+                            type="number"
+                            value="76">
+                    </td>
+
+                    <td>Level 3</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>CO3</td>
+                    <td>60</td>
+                    <td>
+                        <input
+                            type="number"
+                            value="68">
+                    </td>
+
+                    <td>Level 2</td>
+
+                </tr>
+
+            </table>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="calculateAttainment()">
+
+                Calculate
+
+            </button>
+
+        `;
+
+    }
+
+
+    else if (moduleName === "PO Attainment") {
+
+        html = `
+
+            <div class="info-box">
+
+                Program Outcome attainment summary.
+
+            </div>
+
+            <table>
+
+                <tr>
+
+                    <th>PO</th>
+                    <th>Attainment</th>
+                    <th>Level</th>
+
+                </tr>
+
+                <tr>
+                    <td>PO1</td>
+                    <td>82%</td>
+                    <td>Level 3</td>
+                </tr>
+
+                <tr>
+                    <td>PO2</td>
+                    <td>76%</td>
+                    <td>Level 3</td>
+                </tr>
+
+                <tr>
+                    <td>PO3</td>
+                    <td>68%</td>
+                    <td>Level 2</td>
+                </tr>
+
+                <tr>
+                    <td>PO4</td>
+                    <td>72%</td>
+                    <td>Level 2</td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="saveData('PO Attainment')">
+
+                Save Report
+
+            </button>
+
+        `;
+
+    }
+
+
+    content.innerHTML = html;
+
+    workspace.style.display = "block";
+
+    workspace.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* VIEW COURSE */
+
+function viewCourse(courseName) {
+
+    const workspace =
+        document.getElementById("obeWorkspace");
+
+    const title =
+        document.getElementById("workspaceTitle");
+
+    const content =
+        document.getElementById("workspaceContent");
+
+
+    title.textContent =
+        courseName + " - OBE Details";
+
+
+    content.innerHTML = `
+
+        <div class="info-box">
+
+            Course OBE information for:
+
+            <strong>${courseName}</strong>
+
+        </div>
+
+        <table>
+
+            <tr>
+
+                <th>Item</th>
+                <th>Details</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Course Outcomes</td>
+                <td>6 COs</td>
+
+            </tr>
+
+            <tr>
+
+                <td>CO-PO Mapping</td>
+                <td>Available</td>
+
+            </tr>
+
+            <tr>
+
+                <td>CO Attainment</td>
+                <td>82%</td>
+
+            </tr>
+
+            <tr>
+
+                <td>PO Contribution</td>
+                <td>Available</td>
+
+            </tr>
+
+            <tr>
+
+                <td>OBE Status</td>
+                <td>
+                    <span class="status completed">
+                        Available
+                    </span>
+                </td>
+
+            </tr>
+
+        </table>
+
+        <br>
+
+        <button
+            class="btn"
+            onclick="closeWorkspace()">
+
+            Close
+
+        </button>
+
+    `;
+
+
+    workspace.style.display = "block";
+
+    workspace.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* SAVE */
+
+function saveData(type) {
+
+    alert(
+        type +
+        " saved successfully.\n\n" +
+        "Database integration will be added in the next stage."
+    );
+
+}
+
+
+/* CALCULATE */
+
+function calculateAttainment() {
+
+    alert(
+        "CO Attainment calculated successfully."
+    );
+
+}
+
+
+/* CLOSE */
+
+function closeWorkspace() {
+
+    document.getElementById(
+        "obeWorkspace"
+    ).style.display = "none";
+
+}
+
+</script>
+
+
 </body>
+
 </html>
