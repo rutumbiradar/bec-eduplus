@@ -3,820 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEC ERP – Faculty</title>
 
-    <title>BEC EduPlus - Faculty</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <!-- Dashboard CSS (shared across all pages) -->
+    <link rel="stylesheet" href="dashboard.css">
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fc;
-            color: #1e293b;
-        }
-
-        .header {
-            background: #0f172a;
-            color: white;
-            padding: 20px 30px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-        }
-
-        .header p {
-            margin-top: 5px;
-            color: #cbd5e1;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .top-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .top-section h2 {
-            font-size: 24px;
-        }
-
-        .add-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .add-btn:hover {
-            background: #1d4ed8;
-        }
-
-        .search-box {
-            background: white;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 7px;
-            font-size: 15px;
-        }
-
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            overflow-x: auto;
-            border: 1px solid #e2e8f0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #0f172a;
-            color: white;
-            padding: 14px;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        td {
-            padding: 13px;
-            border-bottom: 1px solid #e2e8f0;
-            white-space: nowrap;
-        }
-
-        tr:hover {
-            background: #f8fafc;
-        }
-
-        .edit-btn,
-        .delete-btn {
-            border: none;
-            padding: 7px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        .edit-btn {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .delete-btn {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        /* MODAL */
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 15px;
-            padding: 25px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .close {
-            font-size: 25px;
-            cursor: pointer;
-            color: #64748b;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select {
-            padding: 11px;
-            border: 1px solid #cbd5e1;
-            border-radius: 7px;
-            font-size: 14px;
-        }
-
-        .save-btn {
-            margin-top: 20px;
-            width: 100%;
-            background: #16a34a;
-            color: white;
-            border: none;
-            padding: 13px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .save-btn:hover {
-            background: #15803d;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 30px;
-            color: #64748b;
-        }
-
-        @media(max-width: 600px) {
-
-            .container {
-                padding: 15px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <!-- No inline styles – everything is in dashboard.css -->
 </head>
 
-<body>
+<body class="dashboard-body">
 
-<header class="header">
+    <!-- =========================
+         MOBILE OVERLAY
+    ========================= -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <h1>
-        <i class="fas fa-chalkboard-teacher"></i>
-        BEC EduPlus
-    </h1>
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+    <aside class="sidebar" id="sidebar">
 
-    <p>Faculty Management System</p>
+        <div class="sidebar-brand">
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
+        </div>
 
-</header>
+        <nav class="sidebar-nav">
 
+            <div class="nav-label">Main</div>
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html" class="active"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html"><i class="fas fa-user-plus"></i> Admission</a>
 
-<div class="container">
+            <div class="nav-label">Operations</div>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
 
-    <div class="top-section">
+            <div class="nav-label">Accreditation</div>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
 
-        <h2>Faculty</h2>
+            <div class="nav-label">Resources</div>
+            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
 
-        <button class="add-btn" onclick="openModal()">
+            <div class="nav-label">Administration</div>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
 
-            <i class="fas fa-plus"></i>
-            Add Faculty
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
 
-        </button>
+        </nav>
 
-    </div>
+    </aside>
 
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+    <div class="main">
 
-    <div class="search-box">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>
+                    Faculty
+                    <small>BEC EduPlus</small>
+                </h2>
+            </div>
+            <div class="topbar-right">
+                <div class="date-badge">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="currentDate"></span>
+                </div>
+                <div class="avatar">A</div>
+            </div>
+        </header>
 
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by Faculty ID, Name, Department, Designation..."
-            onkeyup="displayFaculty()"
-        >
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
 
-    </div>
+            <!-- Top section: title + Add button -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+                <h3 style="font-size: 20px; font-weight: 600;"><i class="fas fa-chalkboard-teacher" style="color:#3b82f6;"></i> Faculty Management</h3>
+                <button class="btn-save" onclick="openModal()"><i class="fas fa-plus-circle"></i> Add Faculty</button>
+            </div>
 
+            <!-- Search bar -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search by Faculty ID, Name, Department, Designation..." onkeyup="displayFaculty()" />
+            </div>
 
-    <div class="table-container">
+            <!-- Faculty Table -->
+            <div class="panel" style="padding: 0; overflow: hidden;">
+                <div class="table-wrapper" style="border: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Faculty ID</th>
+                                <th>Faculty Name</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Qualification</th>
+                                <th>Specialization</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="facultyTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
 
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Faculty ID</th>
-                    <th>Faculty Name</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Qualification</th>
-                    <th>Specialization</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="facultyTableBody"></tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-
-<!-- FACULTY MODAL -->
-
-<div class="modal" id="facultyModal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <h2 id="modalTitle">
-                Add Faculty
-            </h2>
-
-            <span
-                class="close"
-                onclick="closeModal()">
-                &times;
-            </span>
+            <!-- Footer -->
+            <div class="footer">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+            </div>
 
         </div>
 
-
-        <form id="facultyForm">
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>Faculty ID</label>
-
-                    <input
-                        type="text"
-                        id="facultyId"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Faculty Name</label>
-
-                    <input
-                        type="text"
-                        id="facultyName"
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Department</label>
-
-                    <select
-                        id="department"
-                        required>
-
-                        <option value="">
-                            Select Department
-                        </option>
-
-                        <option>Mathematics</option>
-                        <option>CSE</option>
-                        <option>ISE</option>
-                        <option>ECE</option>
-                        <option>EEE</option>
-                        <option>Mechanical</option>
-                        <option>Civil</option>
-                        <option>AI & ML</option>
-                        <option>Biotechnology</option>
-                        <option>Industrial Engineering</option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Designation</label>
-
-                    <select
-                        id="designation"
-                        required>
-
-                        <option value="">
-                            Select Designation
-                        </option>
-
-                        <option>Professor</option>
-                        <option>Associate Professor</option>
-                        <option>Assistant Professor</option>
-                        <option>Visiting Faculty</option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Qualification</label>
-
-                    <input
-                        type="text"
-                        id="qualification"
-                        placeholder="Example: M.Tech, Ph.D."
-                        required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Specialization</label>
-
-                    <input
-                        type="text"
-                        id="specialization"
-                        placeholder="Example: Mathematics">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        id="email">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Phone</label>
-
-                    <input
-                        type="text"
-                        id="phone">
-
-                </div>
-
-
-            </div>
-
-
-            <button
-                class="save-btn"
-                type="submit">
-
-                <i class="fas fa-save"></i>
-                Save Faculty
-
-            </button>
-
-        </form>
-
     </div>
 
-</div>
-
-
-<script>
-
-let faculty =
-    JSON.parse(
-        localStorage.getItem("eduplusFaculty")
-    ) || [];
-
-
-let editIndex = -1;
-
-
-// DISPLAY FACULTY
-
-function displayFaculty() {
-
-    const tbody =
-        document.getElementById(
-            "facultyTableBody"
-        );
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        ).value.toLowerCase();
-
-
-    tbody.innerHTML = "";
-
-
-    const filteredFaculty =
-        faculty.filter(person =>
-
-            person.facultyId
-                .toLowerCase()
-                .includes(search) ||
-
-            person.name
-                .toLowerCase()
-                .includes(search) ||
-
-            person.department
-                .toLowerCase()
-                .includes(search) ||
-
-            person.designation
-                .toLowerCase()
-                .includes(search)
-
-        );
-
-
-    if (filteredFaculty.length === 0) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="9"
-                    class="empty">
-
-                    No faculty found.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-    }
-
-
-    filteredFaculty.forEach(person => {
-
-        const realIndex =
-            faculty.indexOf(person);
-
-
-        tbody.innerHTML += `
-
-            <tr>
-
-                <td>${person.facultyId}</td>
-
-                <td>${person.name}</td>
-
-                <td>${person.department}</td>
-
-                <td>${person.designation}</td>
-
-                <td>${person.qualification}</td>
-
-                <td>${person.specialization}</td>
-
-                <td>${person.email}</td>
-
-                <td>${person.phone}</td>
-
-                <td>
-
-                    <button
-                        class="edit-btn"
-                        onclick="editFaculty(${realIndex})">
-
-                        <i class="fas fa-edit"></i>
-
-                    </button>
-
-
-                    <button
-                        class="delete-btn"
-                        onclick="deleteFaculty(${realIndex})">
-
-                        <i class="fas fa-trash"></i>
-
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-}
-
-
-// OPEN MODAL
-
-function openModal() {
-
-    editIndex = -1;
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent = "Add Faculty";
-
-
-    document.getElementById(
-        "facultyForm"
-    ).reset();
-
-
-    document.getElementById(
-        "facultyModal"
-    ).style.display = "flex";
-
-}
-
-
-// CLOSE MODAL
-
-function closeModal() {
-
-    document.getElementById(
-        "facultyModal"
-    ).style.display = "none";
-
-}
-
-
-// SAVE FACULTY
-
-document.getElementById(
-    "facultyForm"
-).addEventListener(
-    "submit",
-    function(event) {
-
-        event.preventDefault();
-
-
-        const person = {
-
-            facultyId:
-                document.getElementById(
-                    "facultyId"
-                ).value.trim(),
-
-            name:
-                document.getElementById(
-                    "facultyName"
-                ).value.trim(),
-
-            department:
-                document.getElementById(
-                    "department"
-                ).value,
-
-            designation:
-                document.getElementById(
-                    "designation"
-                ).value,
-
-            qualification:
-                document.getElementById(
-                    "qualification"
-                ).value.trim(),
-
-            specialization:
-                document.getElementById(
-                    "specialization"
-                ).value.trim(),
-
-            email:
-                document.getElementById(
-                    "email"
-                ).value.trim(),
-
-            phone:
-                document.getElementById(
-                    "phone"
-                ).value.trim()
-
-        };
-
-
-        if (editIndex === -1) {
-
-            faculty.push(person);
-
-        } else {
-
-            faculty[editIndex] = person;
-
+    <!-- =========================
+         MODAL (Add / Edit Faculty)
+    ========================= -->
+    <div class="modal" id="facultyModal">
+        <div class="modal-content">
+            <h2 id="modalTitle"><i class="fas fa-user-plus" style="color:#3b82f6;"></i> Add Faculty</h2>
+
+            <form id="facultyForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label>Faculty ID</label>
+                        <input type="text" id="facultyId" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Faculty Name</label>
+                        <input type="text" id="facultyName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option>Mathematics</option>
+                            <option>CSE</option>
+                            <option>ISE</option>
+                            <option>ECE</option>
+                            <option>EEE</option>
+                            <option>Mechanical</option>
+                            <option>Civil</option>
+                            <option>AI & ML</option>
+                            <option>Biotechnology</option>
+                            <option>Industrial Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <select id="designation" required>
+                            <option value="">Select Designation</option>
+                            <option>Professor</option>
+                            <option>Associate Professor</option>
+                            <option>Assistant Professor</option>
+                            <option>Visiting Faculty</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Qualification</label>
+                        <input type="text" id="qualification" placeholder="Example: M.Tech, Ph.D." required />
+                    </div>
+                    <div class="form-group">
+                        <label>Specialization</label>
+                        <input type="text" id="specialization" placeholder="Example: Mathematics" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="phone" />
+                    </div>
+                </div>
+
+                <div class="modal-buttons" style="margin-top: 20px;">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Save Faculty</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+    <script>
+
+        // ─── Faculty Data ──────────────────────────────────────────
+        let faculty = JSON.parse(localStorage.getItem("eduplusFaculty")) || [];
+        let editIndex = -1;
+
+        // ─── Display Faculty ──────────────────────────────────────
+        function displayFaculty() {
+            const tbody = document.getElementById("facultyTableBody");
+            const search = document.getElementById("searchInput").value.toLowerCase();
+            tbody.innerHTML = "";
+
+            const filtered = faculty.filter(p =>
+                p.facultyId.toLowerCase().includes(search) ||
+                p.name.toLowerCase().includes(search) ||
+                p.department.toLowerCase().includes(search) ||
+                p.designation.toLowerCase().includes(search)
+            );
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:30px; color:#94a3b8;">No faculty found.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach((p, idx) => {
+                const realIndex = faculty.indexOf(p);
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${p.facultyId}</td>
+                        <td>${p.name}</td>
+                        <td>${p.department}</td>
+                        <td>${p.designation}</td>
+                        <td>${p.qualification}</td>
+                        <td>${p.specialization || '—'}</td>
+                        <td>${p.email || '—'}</td>
+                        <td>${p.phone || '—'}</td>
+                        <td>
+                            <button class="action-btn edit" onclick="editFaculty(${realIndex})"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="action-btn delete" onclick="deleteFaculty(${realIndex})"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
         }
 
+        // ─── Open Modal ────────────────────────────────────────────
+        function openModal() {
+            editIndex = -1;
+            document.getElementById("modalTitle").innerHTML = '<i class="fas fa-user-plus" style="color:#3b82f6;"></i> Add Faculty';
+            document.getElementById("facultyForm").reset();
+            document.getElementById("facultyModal").style.display = "flex";
+        }
 
-        localStorage.setItem(
-            "eduplusFaculty",
-            JSON.stringify(faculty)
-        );
+        // ─── Close Modal ──────────────────────────────────────────
+        function closeModal() {
+            document.getElementById("facultyModal").style.display = "none";
+        }
 
+        // ─── Save / Update Faculty ────────────────────────────────
+        document.getElementById("facultyForm").addEventListener("submit", function(e) {
+            e.preventDefault();
 
-        closeModal();
+            const person = {
+                facultyId: document.getElementById("facultyId").value.trim(),
+                name: document.getElementById("facultyName").value.trim(),
+                department: document.getElementById("department").value,
+                designation: document.getElementById("designation").value,
+                qualification: document.getElementById("qualification").value.trim(),
+                specialization: document.getElementById("specialization").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim()
+            };
 
+            if (editIndex === -1) {
+                faculty.push(person);
+                showToast("✅ Faculty added successfully!");
+            } else {
+                faculty[editIndex] = person;
+                showToast("✅ Faculty updated successfully!");
+            }
+
+            localStorage.setItem("eduplusFaculty", JSON.stringify(faculty));
+            closeModal();
+            displayFaculty();
+        });
+
+        // ─── Edit Faculty ──────────────────────────────────────────
+        function editFaculty(index) {
+            const p = faculty[index];
+            editIndex = index;
+            document.getElementById("modalTitle").innerHTML = '<i class="fas fa-user-edit" style="color:#3b82f6;"></i> Edit Faculty';
+            document.getElementById("facultyId").value = p.facultyId;
+            document.getElementById("facultyName").value = p.name;
+            document.getElementById("department").value = p.department;
+            document.getElementById("designation").value = p.designation;
+            document.getElementById("qualification").value = p.qualification;
+            document.getElementById("specialization").value = p.specialization || '';
+            document.getElementById("email").value = p.email || '';
+            document.getElementById("phone").value = p.phone || '';
+            document.getElementById("facultyModal").style.display = "flex";
+        }
+
+        // ─── Delete Faculty ──────────────────────────────────────
+        function deleteFaculty(index) {
+            if (confirm("Are you sure you want to delete this faculty member?")) {
+                faculty.splice(index, 1);
+                localStorage.setItem("eduplusFaculty", JSON.stringify(faculty));
+                displayFaculty();
+                showToast("🗑️ Faculty deleted.");
+            }
+        }
+
+        // ─── Toast ──────────────────────────────────────────────────
+        function showToast(msg) {
+            const existing = document.querySelector('.custom-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ─── Date & Time ──────────────────────────────────────────
+        const now = new Date();
+        document.getElementById("currentDate").textContent =
+            now.toLocaleDateString("en-IN", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+        document.getElementById("lastUpdated").textContent =
+            now.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+
+        // ─── Sidebar Toggle ──────────────────────────────────────
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+
+        if (menuToggle) {
+            menuToggle.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
+                overlay.classList.toggle("active");
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener("click", function () {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            });
+        }
+
+        // Close sidebar after navigation on mobile
+        document.querySelectorAll(".sidebar-nav a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove("open");
+                    overlay.classList.remove("active");
+                }
+            });
+        });
+
+        // Auto-close sidebar on resize
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            }
+        });
+
+        // ─── Initial display ──────────────────────────────────────
         displayFaculty();
 
-    }
-);
+        // ─── Close modal on overlay click ─────────────────────────
+        document.getElementById("facultyModal").addEventListener("click", function(e) {
+            if (e.target === this) closeModal();
+        });
 
-
-// EDIT FACULTY
-
-function editFaculty(index) {
-
-    const person =
-        faculty[index];
-
-
-    editIndex = index;
-
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent = "Edit Faculty";
-
-
-    document.getElementById(
-        "facultyId"
-    ).value =
-        person.facultyId;
-
-
-    document.getElementById(
-        "facultyName"
-    ).value =
-        person.name;
-
-
-    document.getElementById(
-        "department"
-    ).value =
-        person.department;
-
-
-    document.getElementById(
-        "designation"
-    ).value =
-        person.designation;
-
-
-    document.getElementById(
-        "qualification"
-    ).value =
-        person.qualification;
-
-
-    document.getElementById(
-        "specialization"
-    ).value =
-        person.specialization;
-
-
-    document.getElementById(
-        "email"
-    ).value =
-        person.email;
-
-
-    document.getElementById(
-        "phone"
-    ).value =
-        person.phone;
-
-
-    document.getElementById(
-        "facultyModal"
-    ).style.display =
-        "flex";
-
-}
-
-
-// DELETE FACULTY
-
-function deleteFaculty(index) {
-
-    if (
-        confirm(
-            "Are you sure you want to delete this faculty?"
-        )
-    ) {
-
-        faculty.splice(index, 1);
-
-
-        localStorage.setItem(
-            "eduplusFaculty",
-            JSON.stringify(faculty)
-        );
-
-
-        displayFaculty();
-
-    }
-
-}
-
-
-// INITIAL DISPLAY
-
-displayFaculty();
-
-</script>
+    </script>
 
 </body>
 </html>
