@@ -4,40 +4,49 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
 
-    if (!loginForm) {
-        console.log("Login form not found.");
+    if (!loginButton) {
+        console.log("EduPlus: Login button not found.");
         return;
     }
 
-    loginForm.addEventListener("submit", function (event) {
+    loginButton.addEventListener("click", function () {
 
-        event.preventDefault();
+        // Get values from the login page
+        const usernameElement = document.getElementById("username");
+        const passwordElement = document.getElementById("password");
+        const roleElement = document.getElementById("role");
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const role = document.getElementById("role").value;
+        if (!usernameElement || !passwordElement || !roleElement) {
+            alert("Login form fields could not be found.");
+            return;
+        }
 
-        // Check role
+        const username = usernameElement.value.trim();
+        const password = passwordElement.value.trim();
+        const role = roleElement.value;
+
+        // Basic validation
         if (role === "") {
             alert("Please select your role.");
             return;
         }
 
-        // Check username
         if (username === "") {
             alert("Please enter your username.");
             return;
         }
 
-        // Check password
         if (password === "") {
             alert("Please enter your password.");
             return;
         }
 
-        // Demo users
+        // ==========================================
+        // EDUPLUS DEMO USERS
+        // ==========================================
+
         const users = {
 
             admin: {
@@ -77,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         };
 
+        // Find selected role
         const user = users[role];
 
         if (!user) {
@@ -84,7 +94,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Verify username and password
+        // ==========================================
+        // CHECK LOGIN
+        // ==========================================
+
         if (
             username === user.username &&
             password === user.password
@@ -96,9 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("eduplusRole", role);
             localStorage.setItem("eduplusName", user.name);
 
-            alert("Login successful. Welcome to EduPlus!");
+            alert("Login successful! Welcome to EduPlus.");
 
-            // Go to correct page
+            // Open correct page
             window.location.href = user.page;
 
         } else {
