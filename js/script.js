@@ -1,5 +1,5 @@
 // ==========================================
-// BEC ERP LOGIN SYSTEM – Updated
+// BEC ERP LOGIN SYSTEM – Role‑Based Redirects
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ==========================================
-        // BEC ERP DEMO USERS – Role‑Specific Pages
-        // ==========================================
-
+        // ─── Demo users with role‑specific pages ──────────────
         const users = {
             admin: {
                 username: "admin",
@@ -62,13 +59,13 @@ document.addEventListener("DOMContentLoaded", function () {
             faculty: {
                 username: "faculty",
                 password: "faculty123",
-                page: "faculty_dashboard.html",  // ← Faculty goes to faculty dashboard
+                page: "faculty_dashboard.html",   // ← Faculty goes here
                 name: "Faculty"
             },
             student: {
                 username: "student",
                 password: "student123",
-                page: "student_dashboard.html",  // ← Student goes to student dashboard
+                page: "student_dashboard.html",   // ← Student goes here
                 name: "Student"
             }
         };
@@ -83,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // ─── Check credentials ──────────────────────────────────
         if (username === user.username && password === user.password) {
 
-            // Save login info
+            // Save session
             localStorage.setItem("eduplusLoggedIn", "true");
             localStorage.setItem("eduplusUsername", username);
             localStorage.setItem("eduplusRole", role);
@@ -91,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alert("Login successful! Welcome " + user.name + ".");
 
-            // ─── Redirect to role‑specific page ────────────────
+            // ─── Redirect ──────────────────────────────────────
             window.location.href = user.page;
 
         } else {
