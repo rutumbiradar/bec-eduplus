@@ -38,38 +38,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // ─── Demo users with role‑specific pages ──────────────
         const users = {
-            admin: {
-                username: "admin",
-                password: "admin123",
-                page: "admin.html",
-                name: "Administrator"
-            },
-            principal: {
-                username: "principal",
-                password: "principal123",
-                page: "dashboard.html",
-                name: "Principal"
-            },
-            hod: {
-                username: "hod",
-                password: "hod123",
-                page: "dashboard.html",
-                name: "HOD"
-            },
-            faculty: {
-                username: "faculty",
-                password: "faculty123",
-                page: "faculty_dashboard.html",   // ← Faculty goes here
-                name: "Faculty"
-            },
-            student: {
-                username: "student",
-                password: "student123",
-                page: "student_dashboard.html",   // ← Student goes here
-                name: "Student"
-            }
-        };
-
+    admin: {
+        username: "admin",
+        password: "admin123",
+        page: "dashboard.html",   // ← all go here
+        name: "Administrator"
+    },
+    principal: {
+        username: "principal",
+        password: "principal123",
+        page: "dashboard.html",
+        name: "Principal"
+    },
+    hod: {
+        username: "hod",
+        password: "hod123",
+        page: "dashboard.html",
+        name: "HOD"
+    },
+    faculty: {
+        username: "faculty",
+        password: "faculty123",
+        page: "dashboard.html",   // ← all go here
+        name: "Faculty"
+    },
+    student: {
+        username: "student",
+        password: "student123",
+        page: "dashboard.html",   // ← all go here
+        name: "Student"
+    }
+};
         const user = users[role];
 
         if (!user) {
