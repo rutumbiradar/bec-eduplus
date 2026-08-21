@@ -17,44 +17,374 @@
     <link rel="stylesheet" href="dashboard.css" />
 
     <style>
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* ─── Faculty Dashboard Styles ──────────────────────────── */
+
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(145deg, #0b2a4a, #123c69);
+            border-radius: 20px;
+            padding: 28px 32px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 16px;
-            margin: 20px 0 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(18, 60, 105, 0.25);
         }
-        .quick-card {
-            background: #ffffff;
+
+        .welcome-section .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .welcome-section .avatar-large {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #f6c445;
+            flex-shrink: 0;
+        }
+
+        .welcome-section .info h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .welcome-section .info h2 span {
+            color: #f6c445;
+        }
+
+        .welcome-section .info .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        .welcome-section .info .details i {
+            color: #f6c445;
+            margin-right: 6px;
+        }
+
+        .welcome-section .badge-right {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .welcome-section .badge-right i {
+            color: #f6c445;
+        }
+
+        /* Quick Stats Grid */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .quick-stat {
+            background: white;
             border-radius: 16px;
-            padding: 20px 14px;
+            padding: 16px 14px;
             text-align: center;
             border: 1px solid #edf2f7;
             transition: 0.2s;
             cursor: pointer;
         }
-        .quick-card:hover {
+
+        .quick-stat:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 28px rgba(0,0,0,0.06);
             border-color: #dce3ed;
         }
-        .quick-card i {
-            font-size: 28px;
-            color: #3b82f6;
-            margin-bottom: 10px;
-            display: block;
+
+        .quick-stat .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 20px;
         }
-        .quick-card span {
+
+        .quick-stat .icon-circle.blue { background: #dbeafe; color: #2563eb; }
+        .quick-stat .icon-circle.green { background: #dcfce7; color: #16a34a; }
+        .quick-stat .icon-circle.orange { background: #ffedd5; color: #ea580c; }
+        .quick-stat .icon-circle.purple { background: #ede9fe; color: #7c3aed; }
+        .quick-stat .icon-circle.red { background: #fee2e2; color: #dc2626; }
+        .quick-stat .icon-circle.teal { background: #ccfbf1; color: #0d9488; }
+        .quick-stat .icon-circle.pink { background: #fce7f3; color: #db2777; }
+        .quick-stat .icon-circle.indigo { background: #e0e7ff; color: #4f46e5; }
+        .quick-stat .icon-circle.amber { background: #fef3c7; color: #b45309; }
+
+        .quick-stat .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0b2a4a;
+        }
+
+        .quick-stat .label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Row layouts */
+        .row-two {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .row-three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Timetable */
+        .timetable-faculty {
+            width: 100%;
             font-size: 14px;
+        }
+
+        .timetable-faculty th {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #475569;
+        }
+
+        .timetable-faculty td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .timetable-faculty .current {
+            background: #dbeafe;
+            border-left: 3px solid #2563eb;
+        }
+
+        .timetable-faculty .time {
+            font-weight: 600;
+            color: #0b2a4a;
+            white-space: nowrap;
+        }
+
+        .timetable-faculty .subject {
             font-weight: 600;
             color: #1e293b;
         }
-        .quick-card .sub {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-top: 4px;
-            display: block;
+
+        .timetable-faculty .class-info {
+            color: #64748b;
+            font-size: 12px;
         }
 
+        .timetable-faculty .room {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .btn-attendance {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-attendance:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-attendance.green {
+            background: #16a34a;
+        }
+
+        .btn-attendance.green:hover {
+            background: #15803d;
+        }
+
+        /* Attendance summary */
+        .attendance-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .attendance-summary .item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .attendance-summary .item .num {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0b2a4a;
+        }
+
+        .attendance-summary .item .lbl {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Course items */
+        .course-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .course-item:last-child {
+            border-bottom: 0;
+        }
+
+        .course-item .info .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .course-item .info .meta {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .course-item .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .course-item .actions button {
+            border: none;
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .course-item .actions .btn-outline {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .course-item .actions .btn-outline:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .course-item .actions .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .course-item .actions .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Assignment stats */
+        .assign-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .assign-stats .item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .assign-stats .item .num {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .assign-stats .item .num.red { color: #dc2626; }
+        .assign-stats .item .num.green { color: #16a34a; }
+        .assign-stats .item .num.orange { color: #ea580c; }
+
+        .assign-stats .item .lbl {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Performance bars */
+        .perf-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 0;
+        }
+
+        .perf-bar .range {
+            min-width: 70px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .perf-bar .bar-wrap {
+            flex: 1;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .perf-bar .bar-wrap .fill {
+            height: 100%;
+            border-radius: 40px;
+        }
+
+        .perf-bar .count {
+            min-width: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0b2a4a;
+            text-align: right;
+        }
+
+        /* Notice items */
         .notice-item {
             display: flex;
             align-items: flex-start;
@@ -62,35 +392,32 @@
             padding: 10px 0;
             border-bottom: 1px solid #f1f5f9;
         }
+
         .notice-item:last-child {
             border-bottom: 0;
         }
+
         .notice-item .badge {
-            background: #dbeafe;
-            color: #1d4ed8;
             padding: 2px 10px;
             border-radius: 40px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             white-space: nowrap;
+            margin-top: 2px;
         }
-        .notice-item .badge.green {
-            background: #dcfce7;
-            color: #15803d;
-        }
-        .notice-item .badge.orange {
-            background: #fef3c7;
-            color: #b45309;
-        }
-        .notice-item .badge.purple {
-            background: #ede9fe;
-            color: #7c3aed;
-        }
+
+        .notice-item .badge.hod { background: #dbeafe; color: #1d4ed8; }
+        .notice-item .badge.principal { background: #ede9fe; color: #7c3aed; }
+        .notice-item .badge.exam { background: #fef3c7; color: #b45309; }
+        .notice-item .badge.meeting { background: #dcfce7; color: #15803d; }
+        .notice-item .badge.urgent { background: #fee2e2; color: #b91c1c; }
+
         .notice-item .content {
             flex: 1;
             font-size: 14px;
             color: #1e293b;
         }
+
         .notice-item .content small {
             display: block;
             color: #94a3b8;
@@ -98,21 +425,141 @@
             margin-top: 2px;
         }
 
-        .row-two {
+        /* Leave balance */
+        .leave-balance {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 28px;
-            margin-top: 8px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .leave-balance .item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .leave-balance .item .num {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0b2a4a;
+        }
+
+        .leave-balance .item .lbl {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Research stats */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .research-item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .research-item:hover {
+            background: #dbeafe;
+        }
+
+        .research-item .num {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0b2a4a;
+        }
+
+        .research-item .lbl {
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        /* Workload */
+        .workload-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .workload-item:last-child {
+            border-bottom: 0;
+        }
+
+        .workload-item .label {
+            color: #64748b;
+        }
+
+        .workload-item .value {
+            font-weight: 600;
+            color: #0b2a4a;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .row-three {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 768px) {
             .row-two {
                 grid-template-columns: 1fr;
             }
-        }
-        @media (max-width: 480px) {
-            .quick-grid {
+            .row-three {
+                grid-template-columns: 1fr;
+            }
+            .welcome-section {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .welcome-section .left {
+                flex-wrap: wrap;
+            }
+            .attendance-summary {
                 grid-template-columns: 1fr 1fr;
+            }
+            .assign-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .leave-balance {
+                grid-template-columns: 1fr 1fr;
+            }
+            .research-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quick-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .attendance-summary {
+                grid-template-columns: 1fr;
+            }
+            .assign-stats {
+                grid-template-columns: 1fr;
+            }
+            .leave-balance {
+                grid-template-columns: 1fr;
+            }
+            .research-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .course-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
         }
     </style>
@@ -132,13 +579,14 @@
             <div class="nav-label">Main</div>
             <a href="faculty_dashboard.html" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="students.html"><i class="fas fa-user-graduate"></i> My Students</a>
+            <a href="faculty.html"><i class="fas fa-users"></i> Faculty</a>
 
             <div class="nav-label">Teaching</div>
             <a href="timetable.html"><i class="fas fa-calendar-alt"></i> My Timetable</a>
             <a href="attendance.html"><i class="fas fa-check-circle"></i> Mark Attendance</a>
-            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Marks Entry</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> CIE Marks</a>
             <a href="courses.html"><i class="fas fa-book-open"></i> My Courses</a>
-            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE / CO-PO</a>
 
             <div class="nav-label">Resources</div>
             <a href="library.html"><i class="fas fa-book"></i> Library</a>
@@ -175,141 +623,528 @@
             </div>
             <div class="topbar-right">
                 <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></span>
-                <div class="avatar">F</div>
+                <div class="avatar">D</div>
             </div>
         </header>
 
         <!-- PAGE CONTENT -->
         <div class="page-content">
 
-            <!-- Greeting -->
-            <div style="margin-bottom: 20px;">
-                <h2 style="font-size: 24px; font-weight: 700; color: #0b2a4a;">Welcome, Faculty!</h2>
-                <p style="color: #64748b;">Manage your courses, student records and academic activities.</p>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="cards-grid">
-                <div class="stat-card">
-                    <div class="icon blue"><i class="fas fa-chalkboard-teacher"></i></div>
+            <!-- =========================
+                 1. WELCOME SECTION
+            ========================= -->
+            <div class="welcome-section">
+                <div class="left">
+                    <div class="avatar-large">D</div>
                     <div class="info">
-                        <h4>Courses Assigned</h4>
-                        <div class="number">4</div>
+                        <h2>Welcome, <span>Dr. M. M. Biradar</span> 👋</h2>
+                        <div class="details">
+                            <span><i class="fas fa-user-tie"></i> Professor</span>
+                            <span><i class="fas fa-building"></i> Mathematics Department</span>
+                            <span><i class="fas fa-id-badge"></i> FAC001</span>
+                            <span><i class="fas fa-calendar-alt"></i> 2026–27</span>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="icon green"><i class="fas fa-user-graduate"></i></div>
-                    <div class="info">
-                        <h4>Total Students</h4>
-                        <div class="number">214</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon purple"><i class="fas fa-check-double"></i></div>
-                    <div class="info">
-                        <h4>Attendance Today</h4>
-                        <div class="number">88%</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon orange"><i class="fas fa-file-alt"></i></div>
-                    <div class="info">
-                        <h4>Pending Evaluations</h4>
-                        <div class="number">32</div>
-                    </div>
+                <div class="badge-right">
+                    <i class="fas fa-graduation-cap"></i>
+                    5 Subjects · 6 Classes
                 </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="quick-grid">
-                <div class="quick-card" onclick="location.href='timetable.html'">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>My Timetable</span>
-                    <span class="sub">View schedule</span>
+            <!-- =========================
+                 2. QUICK STATS CARDS
+            ========================= -->
+            <div class="quick-stats">
+                <div class="quick-stat" onclick="location.href='timetable.html'">
+                    <div class="icon-circle blue"><i class="fas fa-clock"></i></div>
+                    <div class="number">4</div>
+                    <div class="label">Today's Classes</div>
                 </div>
-                <div class="quick-card" onclick="location.href='attendance.html'">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Mark Attendance</span>
-                    <span class="sub">Today's classes</span>
+                <div class="quick-stat" onclick="location.href='students.html'">
+                    <div class="icon-circle green"><i class="fas fa-user-graduate"></i></div>
+                    <div class="number">180</div>
+                    <div class="label">Students</div>
                 </div>
-                <div class="quick-card" onclick="location.href='examination.html'">
-                    <i class="fas fa-pencil-alt"></i>
-                    <span>Enter Marks</span>
-                    <span class="sub">CIE / SEE</span>
+                <div class="quick-stat" onclick="location.href='attendance.html'">
+                    <div class="icon-circle orange"><i class="fas fa-check-circle"></i></div>
+                    <div class="number">2</div>
+                    <div class="label">Attendance Pending</div>
                 </div>
-                <div class="quick-card" onclick="location.href='students.html'">
-                    <i class="fas fa-users"></i>
-                    <span>Student List</span>
-                    <span class="sub">View students</span>
+                <div class="quick-stat" onclick="location.href='#'">
+                    <div class="icon-circle purple"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="number">5</div>
+                    <div class="label">Assignments</div>
                 </div>
-                <div class="quick-card" onclick="location.href='courses.html'">
-                    <i class="fas fa-book-open"></i>
-                    <span>My Courses</span>
-                    <span class="sub">Course materials</span>
+                <div class="quick-stat" onclick="location.href='#'">
+                    <div class="icon-circle red"><i class="fas fa-bell"></i></div>
+                    <div class="number">3</div>
+                    <div class="label">New Notices</div>
                 </div>
-                <div class="quick-card" onclick="location.href='obe.html'">
-                    <i class="fas fa-bullseye"></i>
-                    <span>OBE</span>
-                    <span class="sub">CO/PO attainment</span>
+                <div class="quick-stat" onclick="location.href='examination.html'">
+                    <div class="icon-circle amber"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="number">12</div>
+                    <div class="label">CIE Pending</div>
+                </div>
+                <div class="quick-stat" onclick="location.href='examination.html'">
+                    <div class="icon-circle indigo"><i class="fas fa-calendar-check"></i></div>
+                    <div class="number">2</div>
+                    <div class="label">Upcoming Exams</div>
+                </div>
+                <div class="quick-stat" onclick="location.href='#'">
+                    <div class="icon-circle teal"><i class="fas fa-tasks"></i></div>
+                    <div class="number">4</div>
+                    <div class="label">Tasks</div>
                 </div>
             </div>
 
-            <!-- Second Row -->
+            <!-- =========================
+                 3. ROW TWO: Timetable + Notices
+            ========================= -->
             <div class="row-two">
 
-                <!-- Recent Activity -->
+                <!-- TODAY'S TIMETABLE -->
                 <div class="panel">
-                    <h3><i class="fas fa-bolt"></i> Recent Activity</h3>
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <span class="dot blue"></span>
-                            <div class="act-text">Attendance marked for CSE-A (92%)<small>2h ago</small></div>
-                            <span class="act-time">2h ago</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="dot green"></span>
-                            <div class="act-text">New student enrolled in your course<small>3h ago</small></div>
-                            <span class="act-time">3h ago</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="dot orange"></span>
-                            <div class="act-text">CIE-II marks entry deadline approaching<small>6h ago</small></div>
-                            <span class="act-time">6h ago</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="dot purple"></span>
-                            <div class="act-text">Faculty meeting tomorrow at 10 AM<small>1d ago</small></div>
-                            <span class="act-time">1d ago</span>
-                        </div>
+                    <h3><i class="fas fa-clock" style="color:#3b82f6;"></i> Today's Classes</h3>
+                    <p style="color:#94a3b8; font-size:13px; margin-top:-8px; margin-bottom:14px;">Friday, 21 Aug 2026</p>
+                    <table class="timetable-faculty">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Subject</th>
+                                <th>Class</th>
+                                <th>Room</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="current">
+                                <td><span class="time">08:00 – 09:00</span></td>
+                                <td><span class="subject">Engineering Mathematics-I</span></td>
+                                <td><span class="class-info">CSE-A</span></td>
+                                <td><span class="room">Room 204</span></td>
+                                <td><button class="btn-attendance" onclick="showToast('📝 Taking attendance for CSE-A')">Take Attendance</button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="time">09:00 – 10:00</span></td>
+                                <td><span class="subject">Engineering Mathematics-I</span></td>
+                                <td><span class="class-info">CSE-B</span></td>
+                                <td><span class="room">Room 205</span></td>
+                                <td><button class="btn-attendance" onclick="showToast('📝 Taking attendance for CSE-B')">Take Attendance</button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="time">10:15 – 11:15</span></td>
+                                <td><span class="subject">Mathematics-II</span></td>
+                                <td><span class="class-info">ISE-A</span></td>
+                                <td><span class="room">Room 301</span></td>
+                                <td><button class="btn-attendance green" onclick="showToast('✅ Attendance already marked for ISE-A')">Marked</button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="time">11:15 – 12:15</span></td>
+                                <td><span class="subject">Mathematics-II</span></td>
+                                <td><span class="class-info">ISE-B</span></td>
+                                <td><span class="room">Room 302</span></td>
+                                <td><button class="btn-attendance" onclick="showToast('📝 Taking attendance for ISE-B')">Take Attendance</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top:12px; text-align:right;">
+                        <button class="btn-sm" onclick="location.href='timetable.html'" style="background:transparent; color:#3b82f6; box-shadow:none;">
+                            View Full Timetable <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Notices -->
+                <!-- NOTICES -->
                 <div class="panel">
-                    <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                    <h3><i class="fas fa-bell" style="color:#f59e0b;"></i> Notices <span style="background:#dc2626; color:white; font-size:11px; padding:2px 10px; border-radius:40px; margin-left:8px;">3 New</span></h3>
                     <div>
                         <div class="notice-item">
-                            <span class="badge orange">Meeting</span>
-                            <div class="content">Faculty meeting on 22 Aug – agenda shared.<small>Today</small></div>
+                            <span class="badge hod">HOD</span>
+                            <div class="content">
+                                Department meeting tomorrow at 10 AM – agenda attached
+                                <small>2h ago</small>
+                            </div>
                         </div>
                         <div class="notice-item">
-                            <span class="badge green">Academic</span>
-                            <div class="content">Submit CIE-II marks by 25 Aug.<small>2d ago</small></div>
+                            <span class="badge exam">Exam</span>
+                            <div class="content">
+                                CIE-II schedule released – submit question papers by 25 Aug
+                                <small>4h ago</small>
+                            </div>
                         </div>
                         <div class="notice-item">
-                            <span class="badge purple">Workshop</span>
-                            <div class="content">FDP on AI/ML next week – register now.<small>3d ago</small></div>
+                            <span class="badge urgent">Urgent</span>
+                            <div class="content">
+                                Last date for CIE marks entry: 28 Aug
+                                <small>6h ago</small>
+                            </div>
                         </div>
                         <div class="notice-item">
-                            <span class="badge blue">Exam</span>
-                            <div class="content">CIE-III schedule released – check timetable.<small>5d ago</small></div>
+                            <span class="badge principal">Principal</span>
+                            <div class="content">
+                                NBA self-assessment report deadline extended
+                                <small>1d ago</small>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <span class="badge meeting">Meeting</span>
+                            <div class="content">
+                                FDP on Outcome Based Education next week – register now
+                                <small>2d ago</small>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Footer -->
+            <!-- =========================
+                 4. ROW THREE: Attendance + Assignments + Courses
+            ========================= -->
+            <div class="row-three">
+
+                <!-- ATTENDANCE SUMMARY -->
+                <div class="panel">
+                    <h3><i class="fas fa-check-circle" style="color:#16a34a;"></i> Attendance Summary</h3>
+                    <div class="attendance-summary">
+                        <div class="item">
+                            <div class="num">180</div>
+                            <div class="lbl">Total Students</div>
+                        </div>
+                        <div class="item">
+                            <div class="num">162</div>
+                            <div class="lbl">Present</div>
+                        </div>
+                        <div class="item">
+                            <div class="num" style="color:#dc2626;">18</div>
+                            <div class="lbl">Absent</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:10px;">
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                            <span>Engineering Mathematics-I</span>
+                            <span><strong>90%</strong> (54/60)</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                            <span>Mathematics-II</span>
+                            <span><strong>85%</strong> (51/60)</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0;">
+                            <span>Advanced Mathematics</span>
+                            <span><strong>92%</strong> (55/60)</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:10px; background:#fef3c7; border-radius:8px; padding:8px 12px; font-size:13px; color:#b45309;">
+                        ⚠️ <strong>Low Attendance Alert:</strong> CSE-B has 78% attendance (below 85%)
+                    </div>
+
+                    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="btn-sm" onclick="location.href='attendance.html'"><i class="fas fa-check-circle"></i> Mark Attendance</button>
+                        <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📊 Downloading attendance report...')"><i class="fas fa-download"></i> Download Report</button>
+                    </div>
+                </div>
+
+                <!-- ASSIGNMENTS -->
+                <div class="panel">
+                    <h3><i class="fas fa-clipboard-list" style="color:#ea580c;"></i> Assignments</h3>
+                    <div class="assign-stats">
+                        <div class="item">
+                            <div class="num red">12</div>
+                            <div class="lbl">Not Submitted</div>
+                        </div>
+                        <div class="item">
+                            <div class="num green">48</div>
+                            <div class="lbl">Submitted</div>
+                        </div>
+                        <div class="item">
+                            <div class="num orange">5</div>
+                            <div class="lbl">Pending Evaluation</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:8px;">
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                            <span>Mathematics — Assignment 2</span>
+                            <span><span style="color:#16a34a;">24</span>/30 submitted</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                            <span>Mathematics — Assignment 1</span>
+                            <span><span style="color:#16a34a;">28</span>/30 submitted</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0;">
+                            <span>Mathematics-II — Quiz 1</span>
+                            <span><span style="color:#ea580c;">5</span>/30 pending evaluation</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="btn-sm" onclick="showToast('📝 Creating new assignment...')"><i class="fas fa-plus-circle"></i> Create</button>
+                        <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📋 Viewing all assignments...')"><i class="fas fa-list"></i> View All</button>
+                    </div>
+                </div>
+
+                <!-- MY COURSES -->
+                <div class="panel">
+                    <h3><i class="fas fa-book-open" style="color:#7c3aed;"></i> My Courses</h3>
+                    <div style="margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:14px;">5 Courses · 6 Classes</span>
+                    </div>
+
+                    <div class="course-item">
+                        <div class="info">
+                            <div class="name">Engineering Mathematics-I</div>
+                            <div class="meta">CSE-A, CSE-B · 60 students each</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" onclick="location.href='attendance.html'">Attendance</button>
+                            <button class="btn-outline" onclick="location.href='courses.html'">View</button>
+                        </div>
+                    </div>
+                    <div class="course-item">
+                        <div class="info">
+                            <div class="name">Mathematics-II</div>
+                            <div class="meta">ISE-A, ISE-B · 60 students each</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" onclick="location.href='attendance.html'">Attendance</button>
+                            <button class="btn-outline" onclick="location.href='courses.html'">View</button>
+                        </div>
+                    </div>
+                    <div class="course-item">
+                        <div class="info">
+                            <div class="name">Advanced Mathematics</div>
+                            <div class="meta">ECE-A · 55 students</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" onclick="location.href='attendance.html'">Attendance</button>
+                            <button class="btn-outline" onclick="location.href='courses.html'">View</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:10px; text-align:right;">
+                        <button class="btn-sm" onclick="location.href='courses.html'" style="background:transparent; color:#3b82f6; box-shadow:none;">
+                            View All Courses <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 5. ROW: Student Performance + CIE + Leave/Research
+            ========================= -->
+            <div class="row-two">
+
+                <!-- STUDENT PERFORMANCE -->
+                <div class="panel">
+                    <h3><i class="fas fa-chart-bar" style="color:#4f46e5;"></i> Class Performance</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span style="font-weight:600; font-size:16px; color:#0b2a4a;">CSE-A Mathematics-I</span>
+                        <span style="background:#dbeafe; padding:4px 14px; border-radius:40px; font-weight:600; font-size:14px; color:#1d4ed8;">Average: 72%</span>
+                    </div>
+
+                    <div class="perf-bar">
+                        <span class="range">90–100</span>
+                        <div class="bar-wrap"><div class="fill" style="width:13%; background:#16a34a;"></div></div>
+                        <span class="count">8</span>
+                    </div>
+                    <div class="perf-bar">
+                        <span class="range">80–89</span>
+                        <div class="bar-wrap"><div class="fill" style="width:25%; background:#22c55e;"></div></div>
+                        <span class="count">15</span>
+                    </div>
+                    <div class="perf-bar">
+                        <span class="range">70–79</span>
+                        <div class="bar-wrap"><div class="fill" style="width:33%; background:#f59e0b;"></div></div>
+                        <span class="count">20</span>
+                    </div>
+                    <div class="perf-bar">
+                        <span class="range">60–69</span>
+                        <div class="bar-wrap"><div class="fill" style="width:17%; background:#f97316;"></div></div>
+                        <span class="count">10</span>
+                    </div>
+                    <div class="perf-bar">
+                        <span class="range">Below 60</span>
+                        <div class="bar-wrap"><div class="fill" style="width:12%; background:#dc2626;"></div></div>
+                        <span class="count">7</span>
+                    </div>
+
+                    <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn-sm" onclick="showToast('📊 Viewing detailed performance...')"><i class="fas fa-chart-line"></i> Detailed View</button>
+                        <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📥 Exporting performance report...')"><i class="fas fa-file-export"></i> Export</button>
+                    </div>
+                </div>
+
+                <!-- CIE + Leave + Research -->
+                <div>
+
+                    <!-- CIE Management -->
+                    <div class="panel" style="margin-bottom:16px;">
+                        <h3><i class="fas fa-pencil-alt" style="color:#ea580c;"></i> CIE Management</h3>
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:12px;">
+                            <div style="background:#f8fafc; border-radius:8px; padding:10px; text-align:center;">
+                                <div style="font-size:18px; font-weight:700; color:#0b2a4a;">CIE-1</div>
+                                <div style="font-size:11px; color:#16a34a;">✅ Completed</div>
+                            </div>
+                            <div style="background:#f8fafc; border-radius:8px; padding:10px; text-align:center;">
+                                <div style="font-size:18px; font-weight:700; color:#0b2a4a;">CIE-2</div>
+                                <div style="font-size:11px; color:#ea580c;">⏳ In Progress</div>
+                            </div>
+                            <div style="background:#f8fafc; border-radius:8px; padding:10px; text-align:center;">
+                                <div style="font-size:18px; font-weight:700; color:#0b2a4a;">CIE-3</div>
+                                <div style="font-size:11px; color:#94a3b8;">📅 Scheduled</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <button class="btn-sm" onclick="location.href='examination.html'"><i class="fas fa-edit"></i> Enter Marks</button>
+                            <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📤 Importing marks from Excel...')"><i class="fas fa-file-import"></i> Import</button>
+                            <button class="btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="showToast('📄 Generating marksheet...')"><i class="fas fa-file-pdf"></i> Marksheet</button>
+                        </div>
+                    </div>
+
+                    <!-- Leave + Research -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+
+                        <!-- Leave Management -->
+                        <div class="panel">
+                            <h3><i class="fas fa-umbrella-beach" style="color:#0d9488;"></i> Leave</h3>
+                            <div class="leave-balance">
+                                <div class="item">
+                                    <div class="num">8</div>
+                                    <div class="lbl">CL</div>
+                                </div>
+                                <div class="item">
+                                    <div class="num">20</div>
+                                    <div class="lbl">EL</div>
+                                </div>
+                                <div class="item">
+                                    <div class="num">1</div>
+                                    <div class="lbl">Pending</div>
+                                </div>
+                            </div>
+                            <button class="btn-sm" onclick="showToast('📝 Applying for leave...')" style="width:100%;"><i class="fas fa-pen"></i> Apply for Leave</button>
+                        </div>
+
+                        <!-- Research Summary -->
+                        <div class="panel">
+                            <h3><i class="fas fa-flask" style="color:#7c3aed;"></i> Research</h3>
+                            <div class="research-grid">
+                                <div class="research-item" onclick="showToast('📄 Viewing publications...')">
+                                    <div class="num">23</div>
+                                    <div class="lbl">Publications</div>
+                                </div>
+                                <div class="research-item" onclick="showToast('💡 Viewing patents...')">
+                                    <div class="num">4</div>
+                                    <div class="lbl">Patents</div>
+                                </div>
+                                <div class="research-item" onclick="showToast('📚 Viewing books...')">
+                                    <div class="num">2</div>
+                                    <div class="lbl">Books</div>
+                                </div>
+                                <div class="research-item" onclick="showToast('🧪 Viewing projects...')">
+                                    <div class="num">3</div>
+                                    <div class="lbl">Projects</div>
+                                </div>
+                                <div class="research-item" onclick="showToast('🎤 Viewing conferences...')">
+                                    <div class="num">12</div>
+                                    <div class="lbl">Conferences</div>
+                                </div>
+                                <div class="research-item" onclick="showToast('🏆 Viewing awards...')">
+                                    <div class="num">5</div>
+                                    <div class="lbl">Awards</div>
+                                </div>
+                            </div>
+                            <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                                <button class="btn-sm" style="padding:4px 12px; font-size:11px;" onclick="showToast('➕ Adding publication...')"><i class="fas fa-plus"></i> Add</button>
+                                <button class="btn-sm" style="padding:4px 12px; font-size:11px; background:#e2e8f0; color:#1e293b;" onclick="showToast('👤 Viewing research profile...')"><i class="fas fa-id-card"></i> Profile</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 6. ROW: Workload + Mentoring + Quick Actions
+            ========================= -->
+            <div class="row-three">
+
+                <!-- Workload -->
+                <div class="panel">
+                    <h3><i class="fas fa-chart-pie" style="color:#4f46e5;"></i> Weekly Workload</h3>
+                    <div class="workload-item">
+                        <span class="label">Theory</span>
+                        <span class="value">12 hrs</span>
+                    </div>
+                    <div class="workload-item">
+                        <span class="label">Laboratory</span>
+                        <span class="value">4 hrs</span>
+                    </div>
+                    <div class="workload-item">
+                        <span class="label">Tutorial</span>
+                        <span class="value">2 hrs</span>
+                    </div>
+                    <div class="workload-item">
+                        <span class="label">Mentoring</span>
+                        <span class="value">1 hr</span>
+                    </div>
+                    <div class="workload-item">
+                        <span class="label">Other Duties</span>
+                        <span class="value">2 hrs</span>
+                    </div>
+                    <div class="workload-item" style="border-top:2px solid #0b2a4a; padding-top:8px; margin-top:4px; font-weight:700;">
+                        <span class="label">Total</span>
+                        <span class="value" style="font-size:18px;">21 hrs</span>
+                    </div>
+                </div>
+
+                <!-- Student Mentoring -->
+                <div class="panel">
+                    <h3><i class="fas fa-hand-holding-heart" style="color:#db2777;"></i> My Mentees</h3>
+                    <div style="font-size:28px; font-weight:700; color:#0b2a4a;">20</div>
+                    <div style="color:#64748b; font-size:14px; margin-bottom:12px;">Students</div>
+
+                    <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                        <span>⚠️ <span style="color:#dc2626;">3</span> students below 75% attendance</span>
+                        <span style="color:#dc2626;">Action needed</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid #f1f5f9;">
+                        <span>📊 <span style="color:#ea580c;">2</span> students with backlogs</span>
+                        <span style="color:#ea580c;">Review</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:13px; padding:4px 0;">
+                        <span>✅ <span style="color:#16a34a;">15</span> students on track</span>
+                        <span style="color:#16a34a;">Good</span>
+                    </div>
+
+                    <button class="btn-sm" onclick="showToast('👨‍🎓 Viewing mentee list...')" style="width:100%; margin-top:12px;"><i class="fas fa-users"></i> View Mentees</button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="panel">
+                    <h3><i class="fas fa-bolt" style="color:#f59e0b;"></i> Quick Actions</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <button class="btn-sm" onclick="location.href='attendance.html'" style="font-size:12px; padding:8px 12px;"><i class="fas fa-check-circle"></i> Take Attendance</button>
+                        <button class="btn-sm" onclick="location.href='examination.html'" style="font-size:12px; padding:8px 12px;"><i class="fas fa-pencil-alt"></i> Enter CIE Marks</button>
+                        <button class="btn-sm" onclick="showToast('📝 Creating assignment...')" style="font-size:12px; padding:8px 12px;"><i class="fas fa-plus-circle"></i> Create Assignment</button>
+                        <button class="btn-sm" onclick="showToast('📤 Uploading material...')" style="font-size:12px; padding:8px 12px;"><i class="fas fa-upload"></i> Upload Material</button>
+                        <button class="btn-sm" onclick="location.href='students.html'" style="font-size:12px; padding:8px 12px;"><i class="fas fa-users"></i> View Students</button>
+                        <button class="btn-sm" onclick="showToast('📁 Opening course file...')" style="font-size:12px; padding:8px 12px;"><i class="fas fa-folder-open"></i> Course File</button>
+                        <button class="btn-sm" onclick="showToast('📊 Viewing course documentation...')" style="font-size:12px; padding:8px 12px;"><i class="fas fa-file-alt"></i> Course Doc</button>
+                        <button class="btn-sm" onclick="showToast('📅 Viewing academic calendar...')" style="font-size:12px; padding:8px 12px;"><i class="fas fa-calendar-alt"></i> Calendar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 FOOTER
+            ========================= -->
             <div class="footer">
                 <span>© 2026 BEC EduPlus · All rights reserved.</span>
                 <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
@@ -330,6 +1165,26 @@
             now.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
         document.getElementById('lastUpdated').textContent =
             now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+        // ─── Toast ──────────────────────────────────────────────────
+        function showToast(msg) {
+            const existing = document.querySelector('.custom-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
         // ─── Sidebar Toggle ──────────────────────────────────────
         function toggleSidebar() {
