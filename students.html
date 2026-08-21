@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BEC EduPlus – Settings</title>
+    <title>BEC EduPlus – Students</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
 
@@ -31,6 +34,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .topbar-left i {
+            font-size: 28px;
+            color: #60a5fa;
         }
 
         .topbar h1 {
@@ -58,10 +75,10 @@
             background: #1d4ed8;
         }
 
-        /* CONTAINER */
+        /* MAIN */
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: auto;
             padding: 30px;
         }
@@ -79,128 +96,212 @@
             color: #64748b;
         }
 
-        /* SETTINGS GRID */
+        /* STAT CARDS */
 
-        .settings-grid {
+        .stats {
             display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(260px, 1fr));
-
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
         }
 
-        .setting-card {
+        .stat-card {
             background: white;
-
             border: 1px solid #e2e8f0;
-
             border-radius: 14px;
+            padding: 20px;
 
-            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
 
-            box-shadow:
-                0 3px 10px rgba(0,0,0,0.04);
-
-            transition: 0.2s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
         }
 
-        .setting-card:hover {
-            transform: translateY(-3px);
+        .stat-icon {
+            width: 50px;
+            height: 50px;
 
-            box-shadow:
-                0 8px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
         }
 
-        .setting-icon {
-            font-size: 30px;
-            margin-bottom: 12px;
+        .blue {
+            background: #dbeafe;
+            color: #2563eb;
         }
 
-        .setting-card h3 {
-            margin-bottom: 8px;
+        .green {
+            background: #dcfce7;
+            color: #16a34a;
         }
 
-        .setting-card p {
+        .orange {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+        .purple {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .stat-card h3 {
+            font-size: 24px;
+            margin-bottom: 3px;
+        }
+
+        .stat-card p {
             color: #64748b;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            margin-bottom: 16px;
+            font-size: 13px;
         }
 
-        .open-btn {
-            background: #2563eb;
+        /* MAIN PANEL */
 
+        .panel {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 25px;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .panel-header h3 {
+            font-size: 19px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+
+            width: 230px;
+
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+        }
+
+        .search-btn {
+            background: #2563eb;
             color: white;
 
             border: none;
+            border-radius: 8px;
 
-            padding: 9px 16px;
-
-            border-radius: 7px;
+            padding: 10px 15px;
 
             cursor: pointer;
         }
 
-        .open-btn:hover {
+        .search-btn:hover {
             background: #1d4ed8;
         }
 
-        /* SYSTEM INFORMATION */
+        /* TABLE */
 
-        .system-box {
-
-            margin-top: 30px;
-
-            background: white;
-
-            border: 1px solid #e2e8f0;
-
-            border-radius: 14px;
-
-            padding: 25px;
+        .table-container {
+            overflow-x: auto;
         }
 
-        .system-box h3 {
-            margin-bottom: 18px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
         }
 
-        .system-row {
+        th {
+            background: #f1f5f9;
+            color: #334155;
 
-            display: flex;
+            text-align: left;
 
-            justify-content: space-between;
+            padding: 13px;
 
-            padding: 12px 0;
-
-            border-bottom:
-                1px solid #f1f5f9;
+            font-size: 13px;
         }
 
-        .system-row:last-child {
-            border-bottom: none;
+        td {
+            padding: 13px;
+
+            border-bottom: 1px solid #f1f5f9;
+
+            font-size: 14px;
         }
 
-        .label {
-            color: #64748b;
+        tr:hover {
+            background: #f8fafc;
         }
 
-        .value {
+        /* STATUS */
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .status {
-            color: #16a34a;
+        .active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .inactive {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* VIEW BUTTON */
+
+        .view-btn {
+            background: #eff6ff;
+            color: #2563eb;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 6px 11px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+        .view-btn:hover {
+            background: #dbeafe;
         }
 
         /* FOOTER */
 
         footer {
-
-            margin-top: 40px;
-
+            margin-top: 35px;
             padding: 20px;
 
             text-align: center;
@@ -226,8 +327,16 @@
                 font-size: 23px;
             }
 
-            .topbar h1 {
-                font-size: 18px;
+            .search-box {
+                width: 100%;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-btn {
+                flex-shrink: 0;
             }
 
         }
@@ -244,25 +353,30 @@
 
 <div class="topbar">
 
-    <div>
+    <div class="topbar-left">
 
-        <h1>BEC EduPlus</h1>
+        <i class="fas fa-user-graduate"></i>
 
-        <p>
-            Engineering College Management System
-        </p>
+        <div>
+
+            <h1>BEC EduPlus</h1>
+
+            <p>Student Management System</p>
+
+        </div>
 
     </div>
 
 
-    <a
-        href="dashboard.html"
-        class="dashboard-btn"
-    >
-        ← Dashboard
+    <!-- IMPORTANT: GOES TO DASHBOARD ONLY -->
+
+    <a href="dashboard.html" class="dashboard-btn">
+        <i class="fas fa-arrow-left"></i>
+        Dashboard
     </a>
 
 </div>
+
 
 
 <!-- MAIN -->
@@ -270,243 +384,93 @@
 <div class="container">
 
 
+    <!-- PAGE TITLE -->
+
     <div class="page-title">
 
-        <h2>System Settings</h2>
+        <h2>Students</h2>
 
         <p>
-            Configure and manage BEC EduPlus
+            Manage student records, programmes,
+            departments and academic information.
         </p>
 
     </div>
 
 
-    <!-- SETTINGS -->
 
-    <div class="settings-grid">
+    <!-- STATISTICS -->
+
+    <div class="stats">
 
 
-        <!-- PROFILE -->
+        <div class="stat-card">
 
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                👤
+            <div class="stat-icon blue">
+                <i class="fas fa-user-graduate"></i>
             </div>
 
-            <h3>User Profile</h3>
+            <div>
 
-            <p>
-                Manage administrator profile,
-                contact information and account details.
-            </p>
+                <h3>4286</h3>
 
-            <button
-                class="open-btn"
-                onclick="showMessage('User Profile')"
-            >
-                Open
-            </button>
+                <p>Total Students</p>
+
+            </div>
 
         </div>
 
 
-        <!-- PASSWORD -->
 
-        <div class="setting-card">
+        <div class="stat-card">
 
-            <div class="setting-icon">
-                🔐
+            <div class="stat-icon green">
+                <i class="fas fa-user-check"></i>
             </div>
 
-            <h3>Change Password</h3>
+            <div>
 
-            <p>
-                Change your account password
-                and maintain account security.
-            </p>
+                <h3>4120</h3>
 
-            <button
-                class="open-btn"
-                onclick="showMessage('Change Password')"
-            >
-                Open
-            </button>
+                <p>Active Students</p>
+
+            </div>
 
         </div>
 
 
-        <!-- USERS -->
 
-        <div class="setting-card">
+        <div class="stat-card">
 
-            <div class="setting-icon">
-                👥
+            <div class="stat-icon orange">
+                <i class="fas fa-user-clock"></i>
             </div>
 
-            <h3>User & Role Management</h3>
+            <div>
 
-            <p>
-                Manage administrators, principals,
-                HODs, faculty and student access.
-            </p>
+                <h3>96</h3>
 
-            <button
-                class="open-btn"
-                onclick="showMessage('User & Role Management')"
-            >
-                Open
-            </button>
+                <p>Pending Records</p>
+
+            </div>
 
         </div>
 
 
-        <!-- INSTITUTION -->
 
-        <div class="setting-card">
+        <div class="stat-card">
 
-            <div class="setting-icon">
-                🏫
+            <div class="stat-icon purple">
+                <i class="fas fa-graduation-cap"></i>
             </div>
 
-            <h3>Institution Settings</h3>
+            <div>
 
-            <p>
-                Configure college name, address,
-                logo and institutional information.
-            </p>
+                <h3>18</h3>
 
-            <button
-                class="open-btn"
-                onclick="showMessage('Institution Settings')"
-            >
-                Open
-            </button>
+                <p>Programmes</p>
 
-        </div>
-
-
-        <!-- ACADEMIC -->
-
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                📅
             </div>
-
-            <h3>Academic Settings</h3>
-
-            <p>
-                Configure academic year,
-                semester and programme settings.
-            </p>
-
-            <button
-                class="open-btn"
-                onclick="showMessage('Academic Settings')"
-            >
-                Open
-            </button>
-
-        </div>
-
-
-        <!-- NOTIFICATIONS -->
-
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                🔔
-            </div>
-
-            <h3>Notifications</h3>
-
-            <p>
-                Configure system notifications,
-                alerts and announcements.
-            </p>
-
-            <button
-                class="open-btn"
-                onclick="showMessage('Notifications')"
-            >
-                Open
-            </button>
-
-        </div>
-
-
-        <!-- BACKUP -->
-
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                💾
-            </div>
-
-            <h3>Backup & Restore</h3>
-
-            <p>
-                Manage system backup,
-                restore and data protection.
-            </p>
-
-            <button
-                class="open-btn"
-                onclick="showMessage('Backup & Restore')"
-            >
-                Open
-            </button>
-
-        </div>
-
-
-        <!-- SYSTEM -->
-
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                ⚙️
-            </div>
-
-            <h3>System Configuration</h3>
-
-            <p>
-                Configure EduPlus system
-                preferences and application settings.
-            </p>
-
-            <button
-                class="open-btn"
-                onclick="showMessage('System Configuration')"
-            >
-                Open
-            </button>
-
-        </div>
-
-
-        <!-- AUDIT -->
-
-        <div class="setting-card">
-
-            <div class="setting-icon">
-                📊
-            </div>
-
-            <h3>Audit Log</h3>
-
-            <p>
-                View system activities,
-                user actions and administrative records.
-            </p>
-
-            <button
-                class="open-btn"
-                onclick="showMessage('Audit Log')"
-            >
-                Open
-            </button>
 
         </div>
 
@@ -514,74 +478,230 @@
     </div>
 
 
-    <!-- SYSTEM INFORMATION -->
 
-    <div class="system-box">
+    <!-- STUDENT TABLE -->
 
-        <h3>System Information</h3>
-
-
-        <div class="system-row">
-
-            <span class="label">
-                Application
-            </span>
-
-            <span class="value">
-                BEC EduPlus
-            </span>
-
-        </div>
+    <div class="panel">
 
 
-        <div class="system-row">
+        <div class="panel-header">
 
-            <span class="label">
-                Version
-            </span>
-
-            <span class="value">
-                2.0
-            </span>
-
-        </div>
+            <h3>
+                <i class="fas fa-users"></i>
+                Student Records
+            </h3>
 
 
-        <div class="system-row">
+            <div class="search-box">
 
-            <span class="label">
-                Academic Year
-            </span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search student..."
+                >
 
-            <span class="value">
-                2026–27
-            </span>
+                <button
+                    class="search-btn"
+                    onclick="searchStudents()"
+                >
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </div>
 
         </div>
 
 
-        <div class="system-row">
 
-            <span class="label">
-                Platform
-            </span>
-
-            <span class="value">
-                GitHub Pages
-            </span>
-
-        </div>
+        <div class="table-container">
 
 
-        <div class="system-row">
+            <table id="studentTable">
 
-            <span class="label">
-                System Status
-            </span>
+                <thead>
 
-            <span class="value status">
-                ● Online
-            </span>
+                    <tr>
+
+                        <th>USN</th>
+
+                        <th>Name</th>
+
+                        <th>Programme</th>
+
+                        <th>Semester</th>
+
+                        <th>Department</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>01BEC001</td>
+
+                        <td>Rahul Kumar</td>
+
+                        <td>B.E.</td>
+
+                        <td>4</td>
+
+                        <td>CSE</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                        <td>
+                            <button
+                                class="view-btn"
+                                onclick="viewStudent('01BEC001')"
+                            >
+                                View
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>01BEC002</td>
+
+                        <td>Priya Patil</td>
+
+                        <td>B.E.</td>
+
+                        <td>6</td>
+
+                        <td>ECE</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                        <td>
+                            <button
+                                class="view-btn"
+                                onclick="viewStudent('01BEC002')"
+                            >
+                                View
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>01BEC003</td>
+
+                        <td>Arjun Biradar</td>
+
+                        <td>B.E.</td>
+
+                        <td>2</td>
+
+                        <td>ME</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                        <td>
+                            <button
+                                class="view-btn"
+                                onclick="viewStudent('01BEC003')"
+                            >
+                                View
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>01BEC004</td>
+
+                        <td> Sneha Kulkarni</td>
+
+                        <td>B.E.</td>
+
+                        <td>8</td>
+
+                        <td>ISE</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                        <td>
+                            <button
+                                class="view-btn"
+                                onclick="viewStudent('01BEC004')"
+                            >
+                                View
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>01BEC005</td>
+
+                        <td>Vijay Patil</td>
+
+                        <td>B.E.</td>
+
+                        <td>4</td>
+
+                        <td>EEE</td>
+
+                        <td>
+                            <span class="status inactive">
+                                Inactive
+                            </span>
+                        </td>
+
+                        <td>
+                            <button
+                                class="view-btn"
+                                onclick="viewStudent('01BEC005')"
+                            >
+                                View
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
 
         </div>
 
@@ -590,6 +710,9 @@
 
 </div>
 
+
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -599,17 +722,67 @@
 </footer>
 
 
+
 <script>
 
-function showMessage(name) {
+
+/* SEARCH STUDENTS */
+
+function searchStudents() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    const filter =
+        input.value.toLowerCase();
+
+    const table =
+        document.getElementById("studentTable");
+
+    const rows =
+        table.getElementsByTagName("tbody")[0]
+             .getElementsByTagName("tr");
+
+
+    for (let i = 0; i < rows.length; i++) {
+
+        const text =
+            rows[i].textContent.toLowerCase();
+
+        if (text.includes(filter)) {
+
+            rows[i].style.display = "";
+
+        } else {
+
+            rows[i].style.display = "none";
+
+        }
+
+    }
+
+}
+
+
+/* SEARCH WHILE TYPING */
+
+document
+    .getElementById("searchInput")
+    .addEventListener("keyup", searchStudents);
+
+
+/* VIEW STUDENT */
+
+function viewStudent(usn) {
 
     alert(
-        name +
-        " module is ready.\n\n" +
-        "We will connect this module to the EduPlus database in the next phase."
+        "Student Details\n\n" +
+        "USN: " + usn +
+        "\n\nStudent profile module will be connected in the next phase."
     );
 
 }
+
 
 </script>
 
