@@ -13,230 +13,286 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 
-    <!-- Dashboard CSS (shared) -->
+    <!-- Dashboard CSS -->
     <link rel="stylesheet" href="dashboard.css" />
 
-    <!-- Extra styles for IRIS‑like dashboard -->
     <style>
-        /* ─── Role switcher ────────────────────────────────────── */
-        .role-switcher {
+        .welcome-section {
+            background: linear-gradient(145deg, #0b2a4a, #123c69);
+            border-radius: 20px;
+            padding: 24px 28px;
+            color: white;
             display: flex;
-            background: #e9edf2;
-            border-radius: 40px;
-            padding: 4px;
-            gap: 4px;
-        }
-        .role-switcher button {
-            border: none;
-            background: transparent;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 13px;
-            color: #64748b;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .role-switcher button.active {
-            background: #ffffff;
-            color: #0f172a;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .role-switcher button:hover:not(.active) {
-            color: #0f172a;
-        }
-
-        /* ─── Quick action cards ──────────────────────────────── */
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 16px;
-            margin: 20px 0 28px;
+            margin-bottom: 24px;
         }
-        .quick-card {
-            background: #ffffff;
+        .welcome-section .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .welcome-section .avatar-large {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 3px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #f6c445;
+        }
+        .welcome-section .info h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .welcome-section .info h2 span { color: #f6c445; }
+        .welcome-section .info .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+        .welcome-section .info .details i { color: #f6c445; margin-right: 6px; }
+        .welcome-section .badge-right {
+            background: rgba(255,255,255,0.12);
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .quick-stat {
+            background: white;
             border-radius: 16px;
-            padding: 18px 14px;
+            padding: 18px 16px;
             text-align: center;
             border: 1px solid #edf2f7;
-            transition: 0.2s;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .quick-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-            border-color: #dce3ed;
+        .quick-stat:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .quick-stat .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 20px;
         }
-        .quick-card i {
-            font-size: 26px;
-            color: #3b82f6;
-            margin-bottom: 8px;
-            display: block;
+        .quick-stat .icon-circle.blue { background: #dbeafe; color: #2563eb; }
+        .quick-stat .icon-circle.green { background: #dcfce7; color: #16a34a; }
+        .quick-stat .icon-circle.purple { background: #ede9fe; color: #7c3aed; }
+        .quick-stat .icon-circle.orange { background: #ffedd5; color: #ea580c; }
+        .quick-stat .number { font-size: 24px; font-weight: 700; color: #0b2a4a; }
+        .quick-stat .label { font-size: 13px; color: #64748b; }
+        .panel {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 22px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 20px;
         }
-        .quick-card span {
-            font-size: 14px;
+        .panel h3 {
+            font-size: 17px;
             font-weight: 600;
-            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        /* ─── Activity & Notices ──────────────────────────────── */
+        .panel h3 i { color: #3b82f6; }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .activity-item:last-child { border-bottom: 0; }
+        .activity-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .activity-item .dot.blue { background: #3b82f6; }
+        .activity-item .dot.green { background: #22c55e; }
+        .activity-item .dot.orange { background: #f59e0b; }
+        .activity-item .act-text {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .activity-item .act-text small {
+            display: block;
+            font-weight: 400;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .activity-item .act-time {
+            font-size: 12px;
+            color: #94a3b8;
+        }
         .row-two {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 28px;
-            margin-top: 8px;
+            gap: 20px;
         }
-        .notice-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .notice-item:last-child {
-            border-bottom: 0;
-        }
-        .notice-item .badge {
-            background: #dbeafe;
-            color: #1d4ed8;
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .notice-item .content {
-            flex: 1;
-            font-size: 14px;
-            color: #1e293b;
-        }
-        .notice-item .content small {
-            display: block;
-            color: #94a3b8;
-            font-size: 12px;
-            margin-top: 2px;
-        }
-
-        /* ─── Responsive tweaks ────────────────────────────────── */
         @media (max-width: 768px) {
-            .row-two {
-                grid-template-columns: 1fr;
-            }
-            .role-switcher button {
-                padding: 4px 12px;
-                font-size: 12px;
-            }
+            .row-two { grid-template-columns: 1fr; }
+            .welcome-section { flex-direction: column; align-items: flex-start; }
         }
-        @media (max-width: 480px) {
-            .quick-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #edf2f7;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #94a3b8;
         }
+        /* Hide unwanted sidebar items based on role */
+        .sidebar-nav .student-only { display: none; }
+        .sidebar-nav .faculty-only { display: none; }
+        .sidebar-nav .admin-only { display: none; }
+        .sidebar-nav .hod-only { display: none; }
+        .sidebar-nav .principal-only { display: none; }
+        body.role-student .student-only { display: flex; }
+        body.role-faculty .faculty-only { display: flex; }
+        body.role-admin .admin-only { display: flex; }
+        body.role-hod .hod-only { display: flex; }
+        body.role-principal .principal-only { display: flex; }
     </style>
 </head>
 
-<body class="dashboard-body">
+<body class="dashboard-body" id="dashboardBody">
 
-    <!-- =========================
-         SIDEBAR (same as before)
-    ========================= -->
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
             <span>BEC College · ERP v2.0</span>
         </div>
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav" id="sidebarNav">
+            <!-- ─── Main ─────────────────────────────────────────── -->
             <div class="nav-label">Main</div>
             <a href="dashboard.html" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
-            <a href="admission.html"><i class="fas fa-user-plus"></i> Admission</a>
 
+            <!-- Student only -->
+            <a href="students.html" class="student-only"><i class="fas fa-user-graduate"></i> My Profile</a>
+
+            <!-- Faculty only -->
+            <a href="students.html" class="faculty-only"><i class="fas fa-user-graduate"></i> My Students</a>
+            <a href="faculty.html" class="faculty-only"><i class="fas fa-users"></i> Faculty</a>
+
+            <!-- Admin / HOD / Principal -->
+            <a href="students.html" class="admin-only hod-only principal-only"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html" class="admin-only hod-only principal-only"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html" class="admin-only hod-only principal-only"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html" class="admin-only"><i class="fas fa-user-plus"></i> Admission</a>
+
+            <!-- ─── Operations ────────────────────────────────────── -->
             <div class="nav-label">Operations</div>
-            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
-            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
-            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
 
+            <!-- Everyone -->
+            <a href="timetable.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html" class="faculty-only admin-only hod-only principal-only"><i class="fas fa-bullseye"></i> OBE</a>
+
+            <!-- Student only -->
+            <a href="courses.html" class="student-only"><i class="fas fa-book-open"></i> My Courses</a>
+
+            <!-- Faculty only -->
+            <a href="courses.html" class="faculty-only"><i class="fas fa-book-open"></i> My Courses</a>
+            <a href="obe.html" class="faculty-only"><i class="fas fa-bullseye"></i> OBE</a>
+
+            <!-- ─── Accreditation ────────────────────────────────── -->
             <div class="nav-label">Accreditation</div>
-            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
-            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+            <a href="nba.html" class="faculty-only admin-only hod-only principal-only"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html" class="faculty-only admin-only hod-only principal-only"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
 
+            <!-- ─── Resources ────────────────────────────────────── -->
             <div class="nav-label">Resources</div>
-            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
-            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
-            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+            <a href="research.html" class="faculty-only admin-only hod-only principal-only"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html" class="student-only admin-only hod-only principal-only"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-book"></i> Library</a>
 
-            <div class="nav-label">Administration</div>
-            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
-            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
-            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+            <!-- ─── Accounts (Student only) ──────────────────────── -->
+            <div class="nav-label student-only">Accounts</div>
+            <a href="finance.html" class="student-only"><i class="fas fa-coins"></i> Fee Status</a>
 
+            <!-- ─── Administration ────────────────────────────────── -->
+            <div class="nav-label admin-only hod-only principal-only">Administration</div>
+            <a href="hr.html" class="admin-only hod-only principal-only"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html" class="admin-only hod-only principal-only"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html" class="admin-only hod-only principal-only"><i class="fas fa-building"></i> Administration</a>
+
+            <!-- ─── System ────────────────────────────────────────── -->
             <div class="nav-label">System</div>
-            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="settings.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-cog"></i> Settings</a>
+            <a href="index.html" class="student-only faculty-only admin-only hod-only principal-only"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
 
-    <!-- SIDEBAR OVERLAY (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
+    <!-- MAIN -->
     <div class="main">
 
         <!-- TOPBAR -->
         <header class="topbar">
             <div class="topbar-left">
-                <button class="menu-toggle" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h2>
-                    Dashboard
-                    <small>BEC EduPlus</small>
-                </h2>
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <h2 id="pageTitle">Dashboard <small>BEC EduPlus</small></h2>
             </div>
             <div class="topbar-right">
-                <!-- Role Switcher -->
-                <div class="role-switcher" id="roleSwitcher">
-                    <button class="active" data-role="student" onclick="switchRole('student')">Student</button>
-                    <button data-role="faculty" onclick="switchRole('faculty')">Faculty</button>
-                </div>
-
                 <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></span>
-                <div class="avatar">A</div>
+                <div class="avatar" id="avatarLetter">U</div>
             </div>
         </header>
 
         <!-- PAGE CONTENT -->
         <div class="page-content">
 
-            <!-- =========================
-                 ROLE‑BASED GREETING
-            ========================= -->
-            <div style="margin-bottom: 20px;">
-                <h2 style="font-size: 24px; font-weight: 700; color: #0b2a4a;" id="greeting">Welcome back, Student!</h2>
-                <p style="color: #64748b;" id="roleDescription">Access your academic dashboard, marks, attendance and more.</p>
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="left">
+                    <div class="avatar-large" id="welcomeAvatar">U</div>
+                    <div class="info">
+                        <h2>Welcome, <span id="userName">User</span> 👋</h2>
+                        <div class="details" id="userDetails">
+                            <span><i class="fas fa-id-badge"></i> USN: 1BC23CS001</span>
+                            <span><i class="fas fa-code-branch"></i> CSE</span>
+                            <span><i class="fas fa-calendar-alt"></i> 5th Semester</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="badge-right" id="roleBadge">
+                    <i class="fas fa-graduation-cap"></i> <span id="roleName">Student</span>
+                </div>
             </div>
 
-            <!-- =========================
-                 STATISTICS CARDS (role‑aware)
-            ========================= -->
-            <div class="cards-grid" id="statsContainer">
+            <!-- Quick Stats (role‑based) -->
+            <div class="quick-stats" id="quickStats">
                 <!-- Will be filled by JavaScript -->
             </div>
 
-            <!-- =========================
-                 QUICK ACTIONS (role‑aware)
-            ========================= -->
-            <div class="quick-grid" id="quickActions">
-                <!-- Will be filled by JavaScript -->
-            </div>
-
-            <!-- =========================
-                 SECOND ROW: Activity + Notices
-            ========================= -->
+            <!-- Row Two -->
             <div class="row-two">
 
                 <!-- Recent Activity -->
@@ -247,207 +303,211 @@
                     </div>
                 </div>
 
-                <!-- Notices / Announcements -->
+                <!-- Notices -->
                 <div class="panel">
                     <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
-                    <div id="notices">
+                    <div id="noticesList">
                         <!-- Filled by JavaScript -->
                     </div>
                 </div>
 
             </div>
 
-            <!-- =========================
-                 FOOTER
-            ========================= -->
+            <!-- Footer -->
             <div class="footer">
-                <span>© 2026 BEC EduPlus · All rights reserved.</span>
-                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+                <span>© 2026 BEC EduPlus</span>
+                <span><i class="far fa-clock"></i> <span id="lastUpdated"></span></span>
             </div>
 
-        </div> <!-- /page-content -->
+        </div>
 
-    </div> <!-- /main -->
+    </div>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
     <script>
+        // ─── Get logged-in user info ──────────────────────────────
+        const role = localStorage.getItem('eduplusRole') || 'student';
+        const name = localStorage.getItem('eduplusName') || 'User';
+        const username = localStorage.getItem('eduplusUsername') || 'user';
 
-        // ─── Data for Student and Faculty ──────────────────────────
+        // ─── Set role class on body ──────────────────────────────
+        document.body.classList.add('role-' + role);
 
-        const roleData = {
+        // ─── Update UI ────────────────────────────────────────────
+        document.getElementById('userName').textContent = name;
+        document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+        document.getElementById('welcomeAvatar').textContent = name.charAt(0).toUpperCase();
+        document.getElementById('roleName').textContent = role.charAt(0).toUpperCase() + role.slice(1);
 
+        // Role‑specific details
+        const roleDetails = {
             student: {
-                greeting: 'Welcome back, Student!',
-                description: 'Access your academic dashboard, marks, attendance and more.',
+                title: 'Student Dashboard',
+                details: '<span><i class="fas fa-id-badge"></i> USN: 1BC23CS001</span><span><i class="fas fa-code-branch"></i> CSE</span><span><i class="fas fa-calendar-alt"></i> 5th Semester</span>',
                 stats: [
-                    { icon: 'fa-user-graduate', color: 'blue', label: 'Current CGPA', value: '8.42' },
-                    { icon: 'fa-check-circle', color: 'green', label: 'Attendance', value: '92%' },
-                    { icon: 'fa-file-alt', color: 'purple', label: 'Assignments', value: '4 Pending' },
-                    { icon: 'fa-calendar-check', color: 'orange', label: 'Upcoming Exams', value: '3' }
-                ],
-                quickActions: [
-                    { icon: 'fa-calendar-alt', label: 'View Timetable', onclick: "location.href='timetable.html'" },
-                    { icon: 'fa-clipboard-list', label: 'Attendance', onclick: "location.href='attendance.html'" },
-                    { icon: 'fa-pencil-alt', label: 'Exams', onclick: "location.href='examination.html'" },
-                    { icon: 'fa-book-open', label: 'Courses', onclick: "location.href='courses.html'" }
+                    { icon: 'fa-check-circle', color: 'green', label: 'Attendance', value: '87%' },
+                    { icon: 'fa-star', color: 'blue', label: 'SGPA', value: '8.24' },
+                    { icon: 'fa-trophy', color: 'purple', label: 'CGPA', value: '8.05' },
+                    { icon: 'fa-book-open', color: 'orange', label: 'Courses', value: '5' },
+                    { icon: 'fa-clipboard-list', color: 'red', label: 'Assignments', value: '3' },
+                    { icon: 'fa-bell', color: 'teal', label: 'Notifications', value: '3' }
                 ],
                 activity: [
-                    { text: 'Attendance marked for today (92%)', time: '2h ago' },
-                    { text: 'New assignment posted: Data Structures', time: '5h ago' },
-                    { text: 'CIE-II results published for CSE', time: '1d ago' },
-                    { text: 'Library book due tomorrow', time: '2d ago' }
+                    { dot: 'blue', text: 'Attendance marked for today (92%)', time: '2h ago' },
+                    { dot: 'green', text: 'New assignment posted: Data Structures', time: '5h ago' },
+                    { dot: 'orange', text: 'CIE-II results published for CSE', time: '1d ago' }
                 ],
                 notices: [
-                    { badge: 'Exam', content: 'CIE-III schedule released – check timetable.', time: 'Today' },
-                    { badge: 'Event', content: 'Tech Fest 2026 registrations open.', time: '2d ago' },
-                    { badge: 'Academic', content: 'Last date for assignment submission: 25 Aug.', time: '3d ago' }
+                    { badge: 'Exam', color: '#fef3c7', textColor: '#b45309', title: 'CIE-III schedule released', time: 'Today' },
+                    { badge: 'Event', color: '#dbeafe', textColor: '#1d4ed8', title: 'Tech Fest 2026 registrations open', time: '2d ago' },
+                    { badge: 'Academic', color: '#dcfce7', textColor: '#15803d', title: 'Assignment deadline: 25 Aug', time: '3d ago' }
                 ]
             },
-
             faculty: {
-                greeting: 'Welcome back, Faculty!',
-                description: 'Manage your courses, attendance, marks and academic activities.',
+                title: 'Faculty Dashboard',
+                details: '<span><i class="fas fa-user-tie"></i> Professor</span><span><i class="fas fa-building"></i> Mathematics Dept.</span><span><i class="fas fa-id-badge"></i> FAC001</span>',
                 stats: [
-                    { icon: 'fa-chalkboard-teacher', color: 'blue', label: 'Courses Assigned', value: '4' },
-                    { icon: 'fa-user-graduate', color: 'green', label: 'Total Students', value: '214' },
-                    { icon: 'fa-check-double', color: 'purple', label: 'Attendance Today', value: '88%' },
-                    { icon: 'fa-file-alt', color: 'orange', label: 'Pending Evaluations', value: '32' }
-                ],
-                quickActions: [
-                    { icon: 'fa-calendar-alt', label: 'My Timetable', onclick: "location.href='timetable.html'" },
-                    { icon: 'fa-check-circle', label: 'Mark Attendance', onclick: "location.href='attendance.html'" },
-                    { icon: 'fa-pencil-alt', label: 'Enter Marks', onclick: "location.href='examination.html'" },
-                    { icon: 'fa-users', label: 'Student List', onclick: "location.href='students.html'" }
+                    { icon: 'fa-clock', color: 'blue', label: 'Today\'s Classes', value: '4' },
+                    { icon: 'fa-user-graduate', color: 'green', label: 'Students', value: '180' },
+                    { icon: 'fa-check-circle', color: 'orange', label: 'Attendance Pending', value: '2' },
+                    { icon: 'fa-clipboard-list', color: 'purple', label: 'Assignments', value: '5' },
+                    { icon: 'fa-pencil-alt', color: 'red', label: 'CIE Pending', value: '12' },
+                    { icon: 'fa-tasks', color: 'teal', label: 'Tasks', value: '4' }
                 ],
                 activity: [
-                    { text: 'Attendance marked for CSE-A (92%)', time: '1h ago' },
-                    { text: 'New student enrolled in your course', time: '3h ago' },
-                    { text: 'CIE-II marks entry deadline approaching', time: '6h ago' },
-                    { text: 'Faculty meeting tomorrow at 10 AM', time: '1d ago' }
+                    { dot: 'blue', text: 'Attendance marked for CSE-A (92%)', time: '2h ago' },
+                    { dot: 'green', text: 'New student enrolled in your course', time: '3h ago' },
+                    { dot: 'orange', text: 'CIE-II marks entry deadline approaching', time: '6h ago' }
                 ],
                 notices: [
-                    { badge: 'Meeting', content: 'Faculty meeting on 22 Aug – agenda shared.', time: 'Today' },
-                    { badge: 'Academic', content: 'Submit CIE-II marks by 25 Aug.', time: '2d ago' },
-                    { badge: 'Workshop', content: 'FDP on AI/ML next week – register now.', time: '3d ago' }
+                    { badge: 'HOD', color: '#dbeafe', textColor: '#1d4ed8', title: 'Department meeting tomorrow at 10 AM', time: 'Today' },
+                    { badge: 'Exam', color: '#fef3c7', textColor: '#b45309', title: 'CIE-II schedule released – submit papers by 25 Aug', time: '2d ago' },
+                    { badge: 'Principal', color: '#ede9fe', textColor: '#7c3aed', title: 'NBA self-assessment deadline extended', time: '3d ago' }
+                ]
+            },
+            admin: {
+                title: 'Admin Dashboard',
+                details: '<span><i class="fas fa-user-cog"></i> Administrator</span><span><i class="fas fa-building"></i> BEC College</span>',
+                stats: [
+                    { icon: 'fa-user-graduate', color: 'blue', label: 'Total Students', value: '4,286' },
+                    { icon: 'fa-chalkboard-teacher', color: 'green', label: 'Faculty', value: '284' },
+                    { icon: 'fa-book-open', color: 'purple', label: 'Courses', value: '96' },
+                    { icon: 'fa-coins', color: 'orange', label: 'Revenue', value: '₹8.42 Cr' }
+                ],
+                activity: [
+                    { dot: 'blue', text: 'New admission applications received (45)', time: '2h ago' },
+                    { dot: 'green', text: 'Faculty meeting scheduled for tomorrow', time: '5h ago' },
+                    { dot: 'orange', text: 'NBA documentation review completed', time: '1d ago' }
+                ],
+                notices: [
+                    { badge: 'Urgent', color: '#fee2e2', textColor: '#b91c1c', title: 'Exam fee payment deadline: 25 Aug', time: 'Today' },
+                    { badge: 'Meeting', color: '#dcfce7', textColor: '#15803d', title: 'Board meeting on 22 Aug', time: '2d ago' },
+                    { badge: 'Academic', color: '#dbeafe', textColor: '#1d4ed8', title: 'CIE-II marks entry deadline: 28 Aug', time: '3d ago' }
+                ]
+            },
+            hod: {
+                title: 'HOD Dashboard',
+                details: '<span><i class="fas fa-user-tie"></i> HOD</span><span><i class="fas fa-building"></i> CSE Department</span>',
+                stats: [
+                    { icon: 'fa-user-graduate', color: 'blue', label: 'Students', value: '480' },
+                    { icon: 'fa-chalkboard-teacher', color: 'green', label: 'Faculty', value: '32' },
+                    { icon: 'fa-book-open', color: 'purple', label: 'Courses', value: '12' },
+                    { icon: 'fa-tasks', color: 'orange', label: 'Pending Tasks', value: '8' }
+                ],
+                activity: [
+                    { dot: 'blue', text: 'Faculty attendance reviewed', time: '1h ago' },
+                    { dot: 'green', text: 'New course proposal submitted', time: '4h ago' },
+                    { dot: 'orange', text: 'Department meeting scheduled', time: '1d ago' }
+                ],
+                notices: [
+                    { badge: 'Meeting', color: '#dcfce7', textColor: '#15803d', title: 'Department meeting at 10 AM', time: 'Today' },
+                    { badge: 'Exam', color: '#fef3c7', textColor: '#b45309', title: 'CIE-II schedule released', time: '2d ago' },
+                    { badge: 'Academic', color: '#dbeafe', textColor: '#1d4ed8', title: 'NBA self-assessment deadline', time: '3d ago' }
+                ]
+            },
+            principal: {
+                title: 'Principal Dashboard',
+                details: '<span><i class="fas fa-user-tie"></i> Principal</span><span><i class="fas fa-building"></i> BEC College</span>',
+                stats: [
+                    { icon: 'fa-user-graduate', color: 'blue', label: 'Total Students', value: '4,286' },
+                    { icon: 'fa-chalkboard-teacher', color: 'green', label: 'Faculty', value: '284' },
+                    { icon: 'fa-building', color: 'purple', label: 'Departments', value: '14' },
+                    { icon: 'fa-award', color: 'orange', label: 'Accreditation', value: 'A+' }
+                ],
+                activity: [
+                    { dot: 'blue', text: 'College development plan reviewed', time: '1h ago' },
+                    { dot: 'green', text: 'NAAC self-study report submitted', time: '3h ago' },
+                    { dot: 'orange', text: 'Budget allocation approved', time: '1d ago' }
+                ],
+                notices: [
+                    { badge: 'Urgent', color: '#fee2e2', textColor: '#b91c1c', title: 'Exam fee payment deadline', time: 'Today' },
+                    { badge: 'Meeting', color: '#dcfce7', textColor: '#15803d', title: 'Board meeting on 22 Aug', time: '2d ago' },
+                    { badge: 'Academic', color: '#dbeafe', textColor: '#1d4ed8', title: 'NBA assessment visit next month', time: '3d ago' }
                 ]
             }
-
         };
 
-        // ─── Current role ──────────────────────────────────────────
+        const data = roleDetails[role] || roleDetails.student;
 
-        let currentRole = 'student'; // default
+        // ─── Update title ──────────────────────────────────────────
+        document.getElementById('pageTitle').innerHTML = data.title + ' <small>BEC EduPlus</small>';
+        document.getElementById('userDetails').innerHTML = data.details;
 
-        // ─── Render functions ──────────────────────────────────────
+        // ─── Quick Stats ──────────────────────────────────────────
+        const statsContainer = document.getElementById('quickStats');
+        statsContainer.innerHTML = '';
+        data.stats.forEach(stat => {
+            statsContainer.innerHTML += `
+                <div class="quick-stat">
+                    <div class="icon-circle ${stat.color}"><i class="fas ${stat.icon}"></i></div>
+                    <div class="number">${stat.value}</div>
+                    <div class="label">${stat.label}</div>
+                </div>
+            `;
+        });
 
-        function renderDashboard(role) {
-            const data = roleData[role];
-            if (!data) return;
-
-            // Greeting
-            document.getElementById('greeting').textContent = data.greeting;
-            document.getElementById('roleDescription').textContent = data.description;
-
-            // Stats
-            const statsContainer = document.getElementById('statsContainer');
-            statsContainer.innerHTML = '';
-            data.stats.forEach(stat => {
-                const card = document.createElement('div');
-                card.className = 'stat-card';
-                card.innerHTML = `
-                    <div class="icon ${stat.color}"><i class="fas ${stat.icon}"></i></div>
-                    <div class="info">
-                        <h4>${stat.label}</h4>
-                        <div class="number">${stat.value}</div>
-                    </div>
-                `;
-                statsContainer.appendChild(card);
-            });
-
-            // Quick Actions
-            const actionsContainer = document.getElementById('quickActions');
-            actionsContainer.innerHTML = '';
-            data.quickActions.forEach(action => {
-                const card = document.createElement('div');
-                card.className = 'quick-card';
-                card.innerHTML = `<i class="fas ${action.icon}"></i><span>${action.label}</span>`;
-                card.addEventListener('click', action.onclick);
-                actionsContainer.appendChild(card);
-            });
-
-            // Activity List
-            const activityList = document.getElementById('activityList');
-            activityList.innerHTML = '';
-            data.activity.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'activity-item';
-                div.innerHTML = `
-                    <span class="dot blue"></span>
+        // ─── Activity ─────────────────────────────────────────────
+        const activityList = document.getElementById('activityList');
+        activityList.innerHTML = '';
+        data.activity.forEach(item => {
+            activityList.innerHTML += `
+                <div class="activity-item">
+                    <span class="dot ${item.dot}"></span>
                     <div class="act-text">${item.text}<small>${item.time}</small></div>
                     <span class="act-time">${item.time}</span>
-                `;
-                activityList.appendChild(div);
-            });
+                </div>
+            `;
+        });
 
-            // Notices
-            const noticesContainer = document.getElementById('notices');
-            noticesContainer.innerHTML = '';
-            data.notices.forEach(notice => {
-                const div = document.createElement('div');
-                div.className = 'notice-item';
-                div.innerHTML = `
-                    <span class="badge">${notice.badge}</span>
-                    <div class="content">
-                        ${notice.content}
-                        <small>${notice.time}</small>
-                    </div>
-                `;
-                noticesContainer.appendChild(div);
-            });
-        }
+        // ─── Notices ──────────────────────────────────────────────
+        const noticesList = document.getElementById('noticesList');
+        noticesList.innerHTML = '';
+        data.notices.forEach(item => {
+            noticesList.innerHTML += `
+                <div style="padding:6px 0; border-bottom:1px solid #f1f5f9;">
+                    <span style="background:${item.color}; color:${item.textColor}; padding:2px 10px; border-radius:40px; font-size:11px; font-weight:600;">${item.badge}</span>
+                    <div style="font-size:14px; margin-top:4px;">${item.title}<small style="display:block; color:#94a3b8; font-size:12px;">${item.time}</small></div>
+                </div>
+            `;
+        });
 
-        // ─── Switch role ──────────────────────────────────────────
+        // ─── Date ──────────────────────────────────────────────────
+        const now = new Date();
+        document.getElementById('currentDate').textContent =
+            now.toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+        document.getElementById('lastUpdated').textContent =
+            now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
 
-        function switchRole(role) {
-            currentRole = role;
-            // Update active button
-            document.querySelectorAll('.role-switcher button').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.role === role);
-            });
-            renderDashboard(role);
-        }
-
-        // ─── Sidebar toggle (mobile) ─────────────────────────────
-
+        // ─── Sidebar Toggle ──────────────────────────────────────
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
-
-        // ─── Date & Time ──────────────────────────────────────────
-
-        const now = new Date();
-        document.getElementById('currentDate').textContent =
-            now.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-        document.getElementById('lastUpdated').textContent =
-            now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-
-        // ─── Auto‑close sidebar on resize ──────────────────────
-
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 document.getElementById('sidebar').classList.remove('open');
                 document.getElementById('sidebarOverlay').classList.remove('active');
             }
         });
-
-        // ─── Initial render ──────────────────────────────────────
-
-        renderDashboard('student');
-
     </script>
 
 </body>
