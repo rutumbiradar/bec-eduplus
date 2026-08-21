@@ -1,750 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BEC ERP – Dashboard</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
     <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-          rel="stylesheet">
+    <!-- Dashboard CSS (shared) -->
+    <link rel="stylesheet" href="dashboard.css" />
 
-    <!-- Dashboard CSS (shared across all pages) -->
-    <link rel="stylesheet" href="dashboard.css">
+    <!-- Extra styles for IRIS‑like dashboard -->
+    <style>
+        /* ─── Role switcher ────────────────────────────────────── */
+        .role-switcher {
+            display: flex;
+            background: #e9edf2;
+            border-radius: 40px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .role-switcher button {
+            border: none;
+            background: transparent;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #64748b;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .role-switcher button.active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .role-switcher button:hover:not(.active) {
+            color: #0f172a;
+        }
 
-    <!-- ⚠️ All styles are now in dashboard.css – no <style> block needed here -->
+        /* ─── Quick action cards ──────────────────────────────── */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 20px 0 28px;
+        }
+        .quick-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
+            border: 1px solid #edf2f7;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+            border-color: #dce3ed;
+        }
+        .quick-card i {
+            font-size: 26px;
+            color: #3b82f6;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .quick-card span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* ─── Activity & Notices ──────────────────────────────── */
+        .row-two {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 28px;
+            margin-top: 8px;
+        }
+        .notice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .notice-item:last-child {
+            border-bottom: 0;
+        }
+        .notice-item .badge {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .notice-item .content {
+            flex: 1;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .notice-item .content small {
+            display: block;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        /* ─── Responsive tweaks ────────────────────────────────── */
+        @media (max-width: 768px) {
+            .row-two {
+                grid-template-columns: 1fr;
+            }
+            .role-switcher button {
+                padding: 4px 12px;
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .quick-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body class="dashboard-body">
 
     <!-- =========================
-         MOBILE OVERLAY
+         SIDEBAR (same as before)
     ========================= -->
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- =========================
-         SIDEBAR
-    ========================= -->
-
     <aside class="sidebar" id="sidebar">
-
         <div class="sidebar-brand">
-
-            <h1>
-                <i class="fas fa-graduation-cap"></i>
-                EduPlus
-            </h1>
-
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
             <span>BEC College · ERP v2.0</span>
-
         </div>
-
-
         <nav class="sidebar-nav">
-
-            <!-- MAIN -->
-
             <div class="nav-label">Main</div>
-
-            <a href="dashboard.html" class="active">
-                <i class="fas fa-th-large"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <!-- STUDENTS -->
-            <a href="students.html">
-                <i class="fas fa-user-graduate"></i>
-                <span>Students</span>
-            </a>
-
-            <!-- FACULTY -->
-            <a href="faculty.html">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Faculty</span>
-            </a>
-
-            <!-- ACADEMICS -->
-            <a href="courses.html">
-                <i class="fas fa-book-open"></i>
-                <span>Academics</span>
-            </a>
-
-            <!-- ADMISSION -->
-            <a href="admission.html">
-                <i class="fas fa-user-plus"></i>
-                <span>Admission</span>
-            </a>
-
-
-            <!-- OPERATIONS -->
+            <a href="dashboard.html" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html"><i class="fas fa-user-plus"></i> Admission</a>
 
             <div class="nav-label">Operations</div>
-
-            <a href="timetable.html">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Timetable</span>
-            </a>
-
-            <a href="attendance.html">
-                <i class="fas fa-check-circle"></i>
-                <span>Attendance</span>
-            </a>
-
-            <a href="examination.html">
-                <i class="fas fa-pencil-alt"></i>
-                <span>Examination</span>
-            </a>
-
-            <a href="obe.html">
-                <i class="fas fa-bullseye"></i>
-                <span>OBE</span>
-            </a>
-
-
-            <!-- ACCREDITATION -->
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
 
             <div class="nav-label">Accreditation</div>
-
-            <a href="nba.html">
-                <i class="fas fa-trophy"></i>
-                <span>NBA</span>
-            </a>
-
-            <a href="naac.html">
-                <i class="fas fa-chart-line"></i>
-                <span>NAAC / IQAC</span>
-            </a>
-
-
-            <!-- RESOURCES -->
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
 
             <div class="nav-label">Resources</div>
-
-            <a href="research.html">
-                <i class="fas fa-flask"></i>
-                <span>Research</span>
-            </a>
-
-            <a href="placement.html">
-                <i class="fas fa-briefcase"></i>
-                <span>Placement</span>
-            </a>
-
-            <a href="library.html">
-                <i class="fas fa-book"></i>
-                <span>Library</span>
-            </a>
-
-
-            <!-- ADMINISTRATION -->
+            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
 
             <div class="nav-label">Administration</div>
-
-            <!-- HR kept for later -->
-            <a href="hr.html">
-                <i class="fas fa-users"></i>
-                <span>HR</span>
-            </a>
-
-            <a href="finance.html">
-                <i class="fas fa-coins"></i>
-                <span>Finance</span>
-            </a>
-
-            <a href="admin.html">
-                <i class="fas fa-building"></i>
-                <span>Administration</span>
-            </a>
-
-
-            <!-- SYSTEM -->
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
 
             <div class="nav-label">System</div>
-
-            <a href="settings.html">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
         </nav>
-
     </aside>
 
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- =========================
          MAIN CONTENT
     ========================= -->
-
     <div class="main">
 
-
         <!-- TOPBAR -->
-
         <header class="topbar">
-
             <div class="topbar-left">
-
-                <button
-                    class="menu-toggle"
-                    id="menuToggle"
-                    aria-label="Toggle sidebar">
-
+                <button class="menu-toggle" onclick="toggleSidebar()">
                     <i class="fas fa-bars"></i>
-
                 </button>
-
                 <h2>
                     Dashboard
                     <small>BEC EduPlus</small>
                 </h2>
-
             </div>
-
-
             <div class="topbar-right">
-
-                <div class="date-badge">
-
-                    <i class="far fa-calendar-alt"></i>
-
-                    <span id="currentDate"></span>
-
+                <!-- Role Switcher -->
+                <div class="role-switcher" id="roleSwitcher">
+                    <button class="active" data-role="student" onclick="switchRole('student')">Student</button>
+                    <button data-role="faculty" onclick="switchRole('faculty')">Faculty</button>
                 </div>
 
-                <div class="avatar">
-                    A
-                </div>
-
+                <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></span>
+                <div class="avatar">A</div>
             </div>
-
         </header>
 
-
-        <!-- =========================
-             PAGE CONTENT
-        ========================= -->
-
+        <!-- PAGE CONTENT -->
         <div class="page-content">
 
-
             <!-- =========================
-                 STATISTICS
+                 ROLE‑BASED GREETING
             ========================= -->
-
-            <div class="cards-grid">
-
-
-                <!-- STUDENTS -->
-
-                <div class="stat-card">
-
-                    <div class="icon blue">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Students</h4>
-
-                        <div class="number">
-                            4,286
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                8%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FACULTY -->
-
-                <div class="stat-card">
-
-                    <div class="icon green">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Faculty</h4>
-
-                        <div class="number">
-                            284
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                3%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- COURSES -->
-
-                <div class="stat-card">
-
-                    <div class="icon purple">
-                        <i class="fas fa-book"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Courses</h4>
-
-                        <div class="number">
-                            96
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                5%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ATTENDANCE -->
-
-                <div class="stat-card">
-
-                    <div class="icon orange">
-                        <i class="fas fa-check-double"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Attendance</h4>
-
-                        <div class="number">
-                            87%
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                2%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CIE -->
-
-                <div class="stat-card">
-
-                    <div class="icon red">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>CIE</h4>
-
-                        <div class="number">
-                            1,422
-
-                            <span class="trend down">
-                                <i class="fas fa-arrow-down"></i>
-                                1%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- RESEARCH -->
-
-                <div class="stat-card">
-
-                    <div class="icon teal">
-                        <i class="fas fa-flask"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Research</h4>
-
-                        <div class="number">
-                            68
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                12%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PLACEMENT -->
-
-                <div class="stat-card">
-
-                    <div class="icon pink">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Placement</h4>
-
-                        <div class="number">
-                            94%
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                6%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ACCREDITATION -->
-
-                <div class="stat-card">
-
-                    <div class="icon indigo">
-                        <i class="fas fa-award"></i>
-                    </div>
-
-                    <div class="info">
-
-                        <h4>Accreditation</h4>
-
-                        <div class="number">
-                            A+
-
-                            <span class="trend">
-                                <i class="fas fa-arrow-up"></i>
-                                1
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 24px; font-weight: 700; color: #0b2a4a;" id="greeting">Welcome back, Student!</h2>
+                <p style="color: #64748b;" id="roleDescription">Access your academic dashboard, marks, attendance and more.</p>
             </div>
 
+            <!-- =========================
+                 STATISTICS CARDS (role‑aware)
+            ========================= -->
+            <div class="cards-grid" id="statsContainer">
+                <!-- Will be filled by JavaScript -->
+            </div>
 
             <!-- =========================
-                 SECOND ROW
+                 QUICK ACTIONS (role‑aware)
             ========================= -->
+            <div class="quick-grid" id="quickActions">
+                <!-- Will be filled by JavaScript -->
+            </div>
 
+            <!-- =========================
+                 SECOND ROW: Activity + Notices
+            ========================= -->
             <div class="row-two">
 
-
-                <!-- ATTENDANCE CHART -->
-
+                <!-- Recent Activity -->
                 <div class="panel">
-
-                    <h3>
-                        <i class="fas fa-chart-bar"></i>
-                        Weekly Attendance Overview
-                    </h3>
-
-
-                    <div class="placeholder-chart">
-
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-
+                    <h3><i class="fas fa-bolt"></i> Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <!-- Filled by JavaScript -->
                     </div>
-
-
-                    <div style="
-                        display:flex;
-                        justify-content:space-between;
-                        margin-top:12px;
-                        font-size:12px;
-                        color:#94a3b8;
-                        padding:0 4px;
-                    ">
-
-                        <span>Mon</span>
-                        <span>Tue</span>
-                        <span>Wed</span>
-                        <span>Thu</span>
-                        <span>Fri</span>
-                        <span>Sat</span>
-                        <span>Sun</span>
-
-                    </div>
-
                 </div>
 
-
-                <!-- RECENT ACTIVITY -->
-
+                <!-- Notices / Announcements -->
                 <div class="panel">
-
-                    <h3>
-                        <i class="fas fa-bolt"></i>
-                        Recent Activity
-                    </h3>
-
-
-                    <div class="activity-list">
-
-
-                        <div class="activity-item">
-
-                            <span class="dot blue"></span>
-
-                            <div class="act-text">
-
-                                Attendance marked for CSE-A
-
-                                <small>
-                                    Prof. Sharma · 78 students
-                                </small>
-
-                            </div>
-
-                            <span class="act-time">
-                                2h ago
-                            </span>
-
-                        </div>
-
-
-                        <div class="activity-item">
-
-                            <span class="dot green"></span>
-
-                            <div class="act-text">
-
-                                New placement offer · Microsoft
-
-                                <small>
-                                    4 students shortlisted
-                                </small>
-
-                            </div>
-
-                            <span class="act-time">
-                                5h ago
-                            </span>
-
-                        </div>
-
-
-                        <div class="activity-item">
-
-                            <span class="dot orange"></span>
-
-                            <div class="act-text">
-
-                                CIE results published · ECE
-
-                                <small>
-                                    Average score 78%
-                                </small>
-
-                            </div>
-
-                            <span class="act-time">
-                                1d ago
-                            </span>
-
-                        </div>
-
-
-                        <div class="activity-item">
-
-                            <span class="dot purple"></span>
-
-                            <div class="act-text">
-
-                                NBA self-assessment report
-
-                                <small>
-                                    Submitted for review
-                                </small>
-
-                            </div>
-
-                            <span class="act-time">
-                                2d ago
-                            </span>
-
-                        </div>
-
-
+                    <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                    <div id="notices">
+                        <!-- Filled by JavaScript -->
                     </div>
-
                 </div>
 
             </div>
-
 
             <!-- =========================
                  FOOTER
             ========================= -->
-
             <div class="footer">
-
-                <span>
-                    © 2026 BEC EduPlus · All rights reserved.
-                </span>
-
-                <span>
-                    <i class="far fa-clock"></i>
-                    Last updated:
-                    <span id="lastUpdated"></span>
-                </span>
-
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
             </div>
 
+        </div> <!-- /page-content -->
 
-        </div>
-
-    </div>
+    </div> <!-- /main -->
 
 
     <!-- =========================
          JAVASCRIPT
     ========================= -->
-
     <script>
 
-        // ==============================
-        // DATE
-        // ==============================
+        // ─── Data for Student and Faculty ──────────────────────────
+
+        const roleData = {
+
+            student: {
+                greeting: 'Welcome back, Student!',
+                description: 'Access your academic dashboard, marks, attendance and more.',
+                stats: [
+                    { icon: 'fa-user-graduate', color: 'blue', label: 'Current CGPA', value: '8.42' },
+                    { icon: 'fa-check-circle', color: 'green', label: 'Attendance', value: '92%' },
+                    { icon: 'fa-file-alt', color: 'purple', label: 'Assignments', value: '4 Pending' },
+                    { icon: 'fa-calendar-check', color: 'orange', label: 'Upcoming Exams', value: '3' }
+                ],
+                quickActions: [
+                    { icon: 'fa-calendar-alt', label: 'View Timetable', onclick: "location.href='timetable.html'" },
+                    { icon: 'fa-clipboard-list', label: 'Attendance', onclick: "location.href='attendance.html'" },
+                    { icon: 'fa-pencil-alt', label: 'Exams', onclick: "location.href='examination.html'" },
+                    { icon: 'fa-book-open', label: 'Courses', onclick: "location.href='courses.html'" }
+                ],
+                activity: [
+                    { text: 'Attendance marked for today (92%)', time: '2h ago' },
+                    { text: 'New assignment posted: Data Structures', time: '5h ago' },
+                    { text: 'CIE-II results published for CSE', time: '1d ago' },
+                    { text: 'Library book due tomorrow', time: '2d ago' }
+                ],
+                notices: [
+                    { badge: 'Exam', content: 'CIE-III schedule released – check timetable.', time: 'Today' },
+                    { badge: 'Event', content: 'Tech Fest 2026 registrations open.', time: '2d ago' },
+                    { badge: 'Academic', content: 'Last date for assignment submission: 25 Aug.', time: '3d ago' }
+                ]
+            },
+
+            faculty: {
+                greeting: 'Welcome back, Faculty!',
+                description: 'Manage your courses, attendance, marks and academic activities.',
+                stats: [
+                    { icon: 'fa-chalkboard-teacher', color: 'blue', label: 'Courses Assigned', value: '4' },
+                    { icon: 'fa-user-graduate', color: 'green', label: 'Total Students', value: '214' },
+                    { icon: 'fa-check-double', color: 'purple', label: 'Attendance Today', value: '88%' },
+                    { icon: 'fa-file-alt', color: 'orange', label: 'Pending Evaluations', value: '32' }
+                ],
+                quickActions: [
+                    { icon: 'fa-calendar-alt', label: 'My Timetable', onclick: "location.href='timetable.html'" },
+                    { icon: 'fa-check-circle', label: 'Mark Attendance', onclick: "location.href='attendance.html'" },
+                    { icon: 'fa-pencil-alt', label: 'Enter Marks', onclick: "location.href='examination.html'" },
+                    { icon: 'fa-users', label: 'Student List', onclick: "location.href='students.html'" }
+                ],
+                activity: [
+                    { text: 'Attendance marked for CSE-A (92%)', time: '1h ago' },
+                    { text: 'New student enrolled in your course', time: '3h ago' },
+                    { text: 'CIE-II marks entry deadline approaching', time: '6h ago' },
+                    { text: 'Faculty meeting tomorrow at 10 AM', time: '1d ago' }
+                ],
+                notices: [
+                    { badge: 'Meeting', content: 'Faculty meeting on 22 Aug – agenda shared.', time: 'Today' },
+                    { badge: 'Academic', content: 'Submit CIE-II marks by 25 Aug.', time: '2d ago' },
+                    { badge: 'Workshop', content: 'FDP on AI/ML next week – register now.', time: '3d ago' }
+                ]
+            }
+
+        };
+
+        // ─── Current role ──────────────────────────────────────────
+
+        let currentRole = 'student'; // default
+
+        // ─── Render functions ──────────────────────────────────────
+
+        function renderDashboard(role) {
+            const data = roleData[role];
+            if (!data) return;
+
+            // Greeting
+            document.getElementById('greeting').textContent = data.greeting;
+            document.getElementById('roleDescription').textContent = data.description;
+
+            // Stats
+            const statsContainer = document.getElementById('statsContainer');
+            statsContainer.innerHTML = '';
+            data.stats.forEach(stat => {
+                const card = document.createElement('div');
+                card.className = 'stat-card';
+                card.innerHTML = `
+                    <div class="icon ${stat.color}"><i class="fas ${stat.icon}"></i></div>
+                    <div class="info">
+                        <h4>${stat.label}</h4>
+                        <div class="number">${stat.value}</div>
+                    </div>
+                `;
+                statsContainer.appendChild(card);
+            });
+
+            // Quick Actions
+            const actionsContainer = document.getElementById('quickActions');
+            actionsContainer.innerHTML = '';
+            data.quickActions.forEach(action => {
+                const card = document.createElement('div');
+                card.className = 'quick-card';
+                card.innerHTML = `<i class="fas ${action.icon}"></i><span>${action.label}</span>`;
+                card.addEventListener('click', action.onclick);
+                actionsContainer.appendChild(card);
+            });
+
+            // Activity List
+            const activityList = document.getElementById('activityList');
+            activityList.innerHTML = '';
+            data.activity.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'activity-item';
+                div.innerHTML = `
+                    <span class="dot blue"></span>
+                    <div class="act-text">${item.text}<small>${item.time}</small></div>
+                    <span class="act-time">${item.time}</span>
+                `;
+                activityList.appendChild(div);
+            });
+
+            // Notices
+            const noticesContainer = document.getElementById('notices');
+            noticesContainer.innerHTML = '';
+            data.notices.forEach(notice => {
+                const div = document.createElement('div');
+                div.className = 'notice-item';
+                div.innerHTML = `
+                    <span class="badge">${notice.badge}</span>
+                    <div class="content">
+                        ${notice.content}
+                        <small>${notice.time}</small>
+                    </div>
+                `;
+                noticesContainer.appendChild(div);
+            });
+        }
+
+        // ─── Switch role ──────────────────────────────────────────
+
+        function switchRole(role) {
+            currentRole = role;
+            // Update active button
+            document.querySelectorAll('.role-switcher button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.role === role);
+            });
+            renderDashboard(role);
+        }
+
+        // ─── Sidebar toggle (mobile) ─────────────────────────────
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        // ─── Date & Time ──────────────────────────────────────────
 
         const now = new Date();
+        document.getElementById('currentDate').textContent =
+            now.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+        document.getElementById('lastUpdated').textContent =
+            now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
 
-        const currentDate =
-            document.getElementById("currentDate");
+        // ─── Auto‑close sidebar on resize ──────────────────────
 
-        const lastUpdated =
-            document.getElementById("lastUpdated");
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('active');
+            }
+        });
 
+        // ─── Initial render ──────────────────────────────────────
 
-        if (currentDate) {
-
-            currentDate.textContent =
-                now.toLocaleDateString("en-IN", {
-                    weekday: "short",
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric"
-                });
-
-        }
-
-
-        if (lastUpdated) {
-
-            lastUpdated.textContent =
-                now.toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                });
-
-        }
-
-
-        // ==============================
-        // MOBILE SIDEBAR
-        // ==============================
-
-        const menuToggle =
-            document.getElementById("menuToggle");
-
-        const sidebar =
-            document.getElementById("sidebar");
-
-        const overlay =
-            document.getElementById("sidebarOverlay");
-
-
-        if (menuToggle) {
-
-            menuToggle.addEventListener("click", function () {
-
-                sidebar.classList.toggle("open");
-
-                overlay.classList.toggle("active");
-
-            });
-
-        }
-
-
-        if (overlay) {
-
-            overlay.addEventListener("click", function () {
-
-                sidebar.classList.remove("open");
-
-                overlay.classList.remove("active");
-
-            });
-
-        }
-
-
-        // ==============================
-        // CLOSE SIDEBAR AFTER NAVIGATION
-        // ==============================
-
-        document
-            .querySelectorAll(".sidebar-nav a")
-            .forEach(function(link) {
-
-                link.addEventListener("click", function() {
-
-                    if (window.innerWidth <= 768) {
-
-                        sidebar.classList.remove("open");
-
-                        overlay.classList.remove("active");
-
-                    }
-
-                });
-
-            });
+        renderDashboard('student');
 
     </script>
 
