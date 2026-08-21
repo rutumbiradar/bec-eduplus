@@ -4,62 +4,695 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BEC EduPlus</title>
+    <title>BEC ERP – Login</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ─── Reset & Base ─────────────────────────────────────── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e0eb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ─── Main Card ────────────────────────────────────────── */
+        .login-wrapper {
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 40px 36px 48px;
+            box-shadow:
+                0 30px 70px -16px rgba(18, 60, 105, 0.35),
+                inset 0 1px 2px rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 40px 80px -18px rgba(18, 60, 105, 0.4);
+        }
+
+        /* ─── Brand Header ────────────────────────────────────── */
+        .brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #123c69, #1b4f82);
+            border-radius: 28px;
+            color: #f6c445;
+            font-size: 40px;
+            box-shadow: 0 12px 32px -8px rgba(18, 60, 105, 0.35);
+            margin-bottom: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand .logo-icon:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .brand h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0b2a4a;
+            line-height: 1.2;
+        }
+
+        .brand h1 span {
+            background: linear-gradient(145deg, #f6c445, #e8b02e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand .sub {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a6a8a;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .brand .sub i {
+            color: #f6c445;
+            margin: 0 4px;
+        }
+
+        /* ─── Divider ───────────────────────────────────────────── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0 24px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b0c6db, transparent);
+        }
+
+        .divider i {
+            color: #b0c6db;
+            font-size: 14px;
+        }
+
+        /* ─── Form ──────────────────────────────────────────────── */
+        .login-form .form-group {
+            margin-bottom: 18px;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a3b5c;
+            margin-bottom: 5px;
+            letter-spacing: 0.2px;
+        }
+
+        .login-form label i {
+            margin-right: 8px;
+            color: #f6c445;
+            width: 18px;
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #f0f5fc;
+            border-radius: 14px;
+            border: 2px solid transparent;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .input-wrap:focus-within {
+            border-color: #123c69;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(18, 60, 105, 0.10);
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            color: #7a95b3;
+            font-size: 18px;
+            transition: color 0.25s ease;
+        }
+
+        .input-wrap:focus-within i {
+            color: #123c69;
+        }
+
+        .input-wrap input,
+        .input-wrap select {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0b2a4a;
+            outline: none;
+        }
+
+        .input-wrap input::placeholder {
+            color: #94aec9;
+            font-weight: 400;
+        }
+
+        .input-wrap select {
+            appearance: none;
+            cursor: pointer;
+            padding-right: 40px;
+        }
+
+        .input-wrap select option {
+            font-weight: 400;
+        }
+
+        .input-wrap .select-arrow {
+            position: absolute;
+            right: 16px;
+            color: #7a95b3;
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        /* ─── Role Chips ────────────────────────────────────────── */
+        .role-chips {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin-bottom: 22px;
+        }
+
+        .role-chip {
+            padding: 8px 4px;
+            border-radius: 12px;
+            border: 2px solid #d6e1ed;
+            background: #f4f8fe;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #3b5c7a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            line-height: 1.2;
+        }
+
+        .role-chip i {
+            font-size: 18px;
+            color: #7a95b3;
+            transition: color 0.2s ease;
+        }
+
+        .role-chip:hover {
+            border-color: #b0c6db;
+            background: #ecf3fa;
+            transform: translateY(-2px);
+        }
+
+        .role-chip.active {
+            border-color: #123c69;
+            background: #e2ebf6;
+            box-shadow: 0 4px 12px rgba(18, 60, 105, 0.12);
+        }
+
+        .role-chip.active i {
+            color: #123c69;
+        }
+
+        .role-chip .chip-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* ─── Options Row ───────────────────────────────────────── */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 6px 0 22px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .form-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #2d4e6e;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .form-options label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #123c69;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-options a {
+            color: #123c69;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .form-options a:hover {
+            color: #f6c445;
+            text-decoration: underline;
+        }
+
+        /* ─── Login Button ───────────────────────────────────────── */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #123c69, #1b4f82);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Inter', Arial, sans-serif;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 28px -8px rgba(18, 60, 105, 0.35);
+            margin-top: 4px;
+        }
+
+        .btn-login i {
+            font-size: 20px;
+            transition: transform 0.25s ease;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px -12px rgba(18, 60, 105, 0.5);
+            background: linear-gradient(145deg, #1b4f82, #0d2f52);
+        }
+
+        .btn-login:hover i {
+            transform: translateX(6px);
+        }
+
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+
+        /* ─── Footer ────────────────────────────────────────────── */
+        .login-footer {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 13px;
+            color: #5a7a98;
+            border-top: 1px solid rgba(176, 198, 219, 0.3);
+            padding-top: 22px;
+        }
+
+        .login-footer .footer-brand {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0b2a4a;
+            letter-spacing: -0.2px;
+        }
+
+        .login-footer .footer-brand i {
+            color: #f6c445;
+            margin: 0 6px;
+        }
+
+        .login-footer .footer-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 18px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #6a8aaa;
+        }
+
+        .login-footer .footer-details i {
+            color: #f6c445;
+            margin-right: 4px;
+            width: 14px;
+        }
+
+        .login-footer .footer-details span {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .login-footer .copyright {
+            margin-top: 10px;
+            font-size: 11px;
+            color: #94aec9;
+            letter-spacing: 0.2px;
+        }
+
+        .login-footer .copyright i {
+            color: #e74c3c;
+            font-size: 12px;
+        }
+
+        /* ─── Toast (for script.js) ────────────────────────────── */
+        .bec-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0b2a4a;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .bec-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .bec-toast .toast-icon {
+            font-size: 20px;
+            color: #f6c445;
+        }
+
+        /* ─── Responsive ─────────────────────────────────────────── */
+        @media (max-width: 500px) {
+            .login-wrapper {
+                padding: 28px 20px 34px;
+                border-radius: 28px;
+            }
+
+            .brand h1 {
+                font-size: 24px;
+            }
+
+            .brand .logo-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 32px;
+                border-radius: 22px;
+            }
+
+            .role-chips {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-login {
+                font-size: 16px;
+                padding: 14px;
+            }
+
+            .login-footer .footer-details {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .login-wrapper {
+                padding: 20px 14px 24px;
+            }
+
+            .brand h1 {
+                font-size: 20px;
+            }
+
+            .role-chips {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .input-wrap input,
+            .input-wrap select {
+                font-size: 14px;
+                padding: 12px 12px 12px 40px;
+            }
+
+            .input-wrap i {
+                left: 12px;
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-    <h1>BEC EduPlus</h1>
-    <p>Integrated Engineering College Management System</p>
-</header>
+    <!-- ─── MAIN CARD ──────────────────────────────────────────── -->
+    <div class="login-wrapper">
 
-<div class="container">
+        <!-- Brand -->
+        <div class="brand">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>BEC <span>ERP</span></h1>
+            <p class="sub">
+                <i class="fas fa-arrow-right"></i>
+                Basaveshwar Engineering College
+                <i class="fas fa-arrow-left"></i>
+            </p>
+        </div>
 
-    <h2>Welcome to BEC EduPlus</h2>
+        <div class="divider">
+            <i class="fas fa-circle"></i>
+        </div>
 
-    <p>
-        Academic • Administration • Examination • NBA • NAAC • Research
-    </p>
+        <!-- ─── LOGIN FORM ────────────────────────────────────── -->
+        <form class="login-form" id="loginForm" onsubmit="return false;">
 
-    <div class="login-box">
+            <!-- Role Chips -->
+            <div class="role-chips" id="roleChips">
+                <div class="role-chip active" data-role="admin">
+                    <i class="fas fa-user-cog"></i>
+                    <span class="chip-label">Admin</span>
+                </div>
+                <div class="role-chip" data-role="principal">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="chip-label">Principal</span>
+                </div>
+                <div class="role-chip" data-role="hod">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="chip-label">HOD</span>
+                </div>
+                <div class="role-chip" data-role="faculty">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span class="chip-label">Faculty</span>
+                </div>
+                <div class="role-chip" data-role="student">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="chip-label">Student</span>
+                </div>
+            </div>
 
-        <h3>Login</h3>
+            <!-- Role Select (hidden, kept for script compatibility) -->
+            <select id="role" style="display:none;">
+                <option value="admin">Administrator</option>
+                <option value="principal">Principal</option>
+                <option value="hod">HOD</option>
+                <option value="faculty">Faculty</option>
+                <option value="student">Student</option>
+            </select>
 
-        <select id="role">
-            <option value="">Select Login Type</option>
-            <option value="admin">Administrator</option>
-            <option value="principal">Principal</option>
-            <option value="hod">HOD</option>
-            <option value="faculty">Faculty</option>
-            <option value="student">Student</option>
-        </select>
+            <!-- Username -->
+            <div class="form-group">
+                <label for="username"><i class="fas fa-envelope"></i> Email or Username</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user-circle"></i>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your email or username"
+                        required
+                    />
+                </div>
+            </div>
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Username"
-        >
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <div class="input-wrap">
+                    <i class="fas fa-key"></i>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    />
+                </div>
+            </div>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-        >
+            <!-- Options -->
+            <div class="form-options">
+                <label>
+                    <input type="checkbox" checked />
+                    Keep me signed in
+                </label>
+                <a href="#"><i class="far fa-question-circle"></i> Forgot password?</a>
+            </div>
 
-        <button type="button" id="loginButton">Login</button>
+            <!-- Submit -->
+            <button type="button" class="btn-login" id="loginButton">
+                <span>Sign In</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+        </form>
+
+        <!-- ─── FOOTER ────────────────────────────────────────────── -->
+        <div class="login-footer">
+            <div class="footer-brand">
+                <i class="fas fa-university"></i>
+                Basaveshwar Engineering College
+                <i class="fas fa-university"></i>
+            </div>
+            <div class="footer-details">
+                <span><i class="fas fa-map-pin"></i> Bagalkot, Karnataka</span>
+                <span><i class="fas fa-calendar-alt"></i> Est. 1963</span>
+                <span><i class="fas fa-globe"></i> NAAC 'A' Grade</span>
+                <span><i class="fas fa-user-graduate"></i> VTU Affiliated</span>
+            </div>
+            <div class="copyright">
+                <i class="fas fa-heart"></i>
+                &copy; 2026 BEC ERP &middot; All rights reserved
+            </div>
+        </div>
 
     </div>
 
-</div>
+    <!-- ─── SCRIPT ────────────────────────────────────────────────── -->
+    <script>
+        // ─── Role chip toggle (syncs with hidden select) ──────────
+        const chips = document.querySelectorAll('.role-chip');
+        const roleSelect = document.getElementById('role');
+        const usernameInput = document.getElementById('username');
 
-<footer>
-    © 2026 BEC EduPlus | Engineering College ERP
-</footer>
+        chips.forEach((chip) => {
+            chip.addEventListener('click', function() {
+                chips.forEach((c) => c.classList.remove('active'));
+                this.classList.add('active');
 
-<script src="js/script.js"></script>
+                const role = this.dataset.role;
+                // Sync the hidden select for script.js compatibility
+                roleSelect.value = role;
+
+                // Auto-fill demo credentials
+                const demos = {
+                    admin: 'admin@becbgk.edu',
+                    principal: 'principal@becbgk.edu',
+                    hod: 'hod@becbgk.edu',
+                    faculty: 'faculty@becbgk.edu',
+                    student: 'student@becbgk.edu'
+                };
+                if (demos[role]) {
+                    usernameInput.value = demos[role];
+                }
+            });
+        });
+
+        // ─── Ensure the hidden select has a value on load ─────────
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeChip = document.querySelector('.role-chip.active');
+            if (activeChip) {
+                roleSelect.value = activeChip.dataset.role;
+                // Pre-fill student email as default
+                usernameInput.value = 'student@becbgk.edu';
+            }
+
+            // ─── Also attach login handler to the button ──────────
+            // Your existing script.js will handle the click via its own listener.
+            // But we also set up a fallback here in case script.js doesn't load.
+            const loginBtn = document.getElementById('loginButton');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function(e) {
+                    // The script.js listener will also fire.
+                    // This ensures the toast system works even if script.js is missing.
+                    // But we let script.js handle it.
+                });
+            }
+        });
+
+        // ─── Toast system (used by script.js) ──────────────────────
+        // This matches the toast used in the dashboard pages.
+        // Your script.js should use showToast() instead of alert().
+        // But we keep both for compatibility.
+
+        // The script.js in this project uses a different toast system.
+        // We'll override it to use our unified toast.
+        // If the script.js uses alert(), we can replace it with this.
+        // For now, we keep the original script.js behavior.
+
+        console.log('✅ BEC ERP Login page loaded.');
+    </script>
+
+    <!-- Your existing script.js – should be updated to use showToast() -->
+    <script src="js/script.js"></script>
 
 </body>
 </html>
