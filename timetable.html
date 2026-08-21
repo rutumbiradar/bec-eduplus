@@ -1,95 +1,1183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BEC EduPlus – Timetable</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="dashboard.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BEC EduPlus - Timetable</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .header p {
+            margin-top: 5px;
+            color: #94a3b8;
+        }
+
+        .back-btn {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            max-width: 1500px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .title {
+            margin-bottom: 25px;
+        }
+
+        .title h2 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .title p {
+            color: #64748b;
+        }
+
+        /* FILTERS */
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+
+            margin-bottom: 25px;
+        }
+
+        .filters select {
+            padding: 11px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            min-width: 180px;
+        }
+
+        .button {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            background: #16a34a;
+            color: white;
+        }
+
+        .print-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .clear-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* TIMETABLE */
+
+        .table-container {
+            background: white;
+            border-radius: 14px;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            min-width: 1300px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0f172a;
+            color: white;
+            padding: 13px;
+            border: 1px solid #334155;
+            font-size: 13px;
+        }
+
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            height: 90px;
+        }
+
+        .day {
+            background: #e2e8f0;
+            font-weight: bold;
+            min-width: 110px;
+        }
+
+        .period {
+            min-width: 135px;
+        }
+
+        .time {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .subject {
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        .faculty {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #475569;
+        }
+
+        .room {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .lunch {
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: bold;
+        }
+
+        .break {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: bold;
+        }
+
+        .lab {
+            background: #dcfce7;
+        }
+
+        .math {
+            background: #dbeafe;
+        }
+
+        .programming {
+            background: #ede9fe;
+        }
+
+        .action {
+            margin-top: 5px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            padding: 4px 7px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .edit-btn {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* MODAL */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0,0,0,0.5);
+
+            justify-content: center;
+            align-items: center;
+
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: white;
+            width: 520px;
+            max-width: 92%;
+
+            padding: 25px;
+            border-radius: 14px;
+
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .save-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* PRINT */
+
+        @media print {
+
+            .header {
+                background: white;
+                color: black;
+            }
+
+            .back-btn,
+            .filters,
+            .action {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                padding: 5px;
+            }
+
+            table {
+                min-width: 100%;
+            }
+
+        }
+
+        /* MOBILE */
+
+        @media(max-width:800px) {
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
-<body class="dashboard-body">
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
-            <span>BEC College · ERP v2.0</span>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Main</div>
-            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
-            <div class="nav-label">Operations</div>
-            <a href="timetable.html" class="active"><i class="fas fa-calendar-alt"></i> Timetable</a>
-            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
-            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
-            <div class="nav-label">Accreditation</div>
-            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
-            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
-            <div class="nav-label">Resources</div>
-            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
-            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
-            <a href="library.html"><i class="fas fa-book"></i> Library</a>
-            <div class="nav-label">Administration</div>
-            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
-            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
-            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
-            <div class="nav-label">System</div>
-            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-        </nav>
-    </aside>
+<body>
 
-    <div class="main">
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-                <h2>Timetable <small>Weekly class schedule</small></h2>
-            </div>
-            <div class="topbar-right">
-                <div class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></div>
-                <div class="avatar">A</div>
-            </div>
-        </header>
-        <div class="page-content">
-            <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:24px; background:#fff; padding:16px 20px; border-radius:16px; border:1px solid #edf2f7;">
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                    <select style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:40px; font-size:14px; background:white;">
-                        <option>B.Tech CSE · 3rd Year</option>
-                        <option>B.Tech ECE · 2nd Year</option>
-                        <option>MBA · 1st Year</option>
-                    </select>
-                    <button style="background:#3b82f6; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;"><i class="fas fa-print"></i> Print</button>
-                </div>
-            </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>09:00 – 10:00</strong></td><td>DSA</td><td>Algorithms</td><td>DSA</td><td>Algorithms</td><td>DSA</td></tr>
-                        <tr><td><strong>10:00 – 11:00</strong></td><td>Maths</td><td>DSA</td><td>Maths</td><td>DSA</td><td>Maths</td></tr>
-                        <tr><td><strong>11:00 – 12:00</strong></td><td>Physics</td><td>Maths</td><td>Physics</td><td>Maths</td><td>Physics</td></tr>
-                        <tr><td><strong>12:00 – 01:00</strong></td><td colspan="5" style="text-align:center; font-weight:600; color:#64748b;">Lunch Break</td></tr>
-                        <tr><td><strong>01:00 – 02:00</strong></td><td>Algorithms</td><td>Physics</td><td>Algorithms</td><td>Physics</td><td>Algorithms</td></tr>
-                        <tr><td><strong>02:00 – 03:00</strong></td><td>Lab</td><td>Lab</td><td>Lab</td><td>Lab</td><td>Lab</td></tr>
-                    </tbody>
-                </table>
-            </div>
+<!-- HEADER -->
 
-            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>© 2026 BEC EduPlus · All rights reserved.</span>
-                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
-            </div>
-        </div>
+<header class="header">
+
+    <div>
+
+        <h1>BEC EduPlus</h1>
+
+        <p>Academic Timetable Management</p>
+
     </div>
-    <script src="script.js"></script>
+
+    <a href="dashboard.html" class="back-btn">
+        ← Dashboard
+    </a>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <!-- TITLE -->
+
+    <div class="title">
+
+        <h2>Master Timetable</h2>
+
+        <p>
+            Monday – Saturday | 8 Periods
+        </p>
+
+    </div>
+
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <select id="department">
+
+            <option value="">Select Department</option>
+
+            <option>CSE</option>
+            <option>ISE</option>
+            <option>ECE</option>
+            <option>EEE</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+            <option>AI & ML</option>
+            <option>Biotechnology</option>
+
+        </select>
+
+
+        <select id="semester">
+
+            <option value="">Select Semester</option>
+
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+
+        </select>
+
+
+        <select id="section">
+
+            <option value="">Select Section</option>
+
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+
+        </select>
+
+
+        <button
+            class="button add-btn"
+            onclick="openModal()">
+
+            + Add Period
+
+        </button>
+
+
+        <button
+            class="button print-btn"
+            onclick="window.print()">
+
+            🖨 Print
+
+        </button>
+
+
+        <button
+            class="button clear-btn"
+            onclick="clearTimetable()">
+
+            Clear
+
+        </button>
+
+    </div>
+
+
+
+    <!-- TIMETABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Day</th>
+
+                    <th>
+                        Period 1
+                        <span class="time">08:00 – 09:00</span>
+                    </th>
+
+                    <th>
+                        Period 2
+                        <span class="time">09:00 – 10:00</span>
+                    </th>
+
+                    <th>
+                        Period 3
+                        <span class="time">10:15 – 11:15</span>
+                    </th>
+
+                    <th>
+                        Period 4
+                        <span class="time">11:15 – 12:15</span>
+                    </th>
+
+                    <th>
+                        Lunch
+                        <span class="time">12:15 – 01:00</span>
+                    </th>
+
+                    <th>
+                        Period 5
+                        <span class="time">01:00 – 02:00</span>
+                    </th>
+
+                    <th>
+                        Period 6
+                        <span class="time">02:00 – 03:00</span>
+                    </th>
+
+                    <th>
+                        Period 7
+                        <span class="time">03:15 – 04:15</span>
+                    </th>
+
+                    <th>
+                        Period 8
+                        <span class="time">04:15 – 05:15</span>
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="timetableBody">
+
+
+                <!-- MONDAY -->
+
+                <tr>
+
+                    <td class="day">Monday</td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">Prof. Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td class="break">
+                        Break
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Programming Lab</div>
+                        <div class="faculty">Lab Faculty</div>
+                        <div class="room">Lab 1</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Library</div>
+                        <div class="room">Library</div>
+                    </td>
+
+                </tr>
+
+
+
+                <!-- TUESDAY -->
+
+                <tr>
+
+                    <td class="day">Tuesday</td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Physics Lab</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Lab 3</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Sports</div>
+                        <div class="room">Ground</div>
+                    </td>
+
+                </tr>
+
+
+
+                <!-- WEDNESDAY -->
+
+                <tr>
+
+                    <td class="day">Wednesday</td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Programming Lab</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Lab 1</div>
+                    </td>
+
+                    <td class="math">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Mentoring</div>
+                        <div class="faculty">Class Advisor</div>
+                    </td>
+
+                </tr>
+
+
+
+                <!-- THURSDAY -->
+
+                <tr>
+
+                    <td class="day">Thursday</td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Programming Lab</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Lab 1</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Library</div>
+                        <div class="room">Library</div>
+                    </td>
+
+                </tr>
+
+
+
+                <!-- FRIDAY -->
+
+                <tr>
+
+                    <td class="day">Friday</td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Programming Lab</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Lab 1</div>
+                    </td>
+
+                    <td class="math">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Sports</div>
+                        <div class="room">Ground</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Mentoring</div>
+                        <div class="faculty">Class Advisor</div>
+                    </td>
+
+                </tr>
+
+
+
+                <!-- SATURDAY -->
+
+                <tr>
+
+                    <td class="day">Saturday</td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td class="math">
+                        <div class="subject">Engineering Maths-I</div>
+                        <div class="faculty">Dr. M. M. Biradar</div>
+                        <div class="room">Room 101</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Physics</div>
+                        <div class="faculty">Physics Dept.</div>
+                        <div class="room">Room 103</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">English</div>
+                        <div class="faculty">English Dept.</div>
+                        <div class="room">Room 104</div>
+                    </td>
+
+                    <td class="lunch">
+                        LUNCH
+                    </td>
+
+                    <td class="lab">
+                        <div class="subject">Scilab Lab</div>
+                        <div class="faculty">Maths Dept.</div>
+                        <div class="room">Lab 2</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Programming</div>
+                        <div class="faculty">CSE Faculty</div>
+                        <div class="room">Room 102</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Library</div>
+                        <div class="room">Library</div>
+                    </td>
+
+                    <td>
+                        <div class="subject">Mentoring</div>
+                        <div class="faculty">Class Advisor</div>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ADD PERIOD MODAL -->
+
+<div class="modal" id="periodModal">
+
+    <div class="modal-box">
+
+        <h2>Add Timetable Period</h2>
+
+
+        <div class="form-group">
+
+            <label>Day</label>
+
+            <select id="day">
+
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Period</label>
+
+            <select id="period">
+
+                <option value="1">Period 1</option>
+                <option value="2">Period 2</option>
+                <option value="3">Period 3</option>
+                <option value="4">Period 4</option>
+                <option value="6">Period 5</option>
+                <option value="7">Period 6</option>
+                <option value="8">Period 7</option>
+                <option value="9">Period 8</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Subject</label>
+
+            <input
+                type="text"
+                id="subject"
+                placeholder="Example: Engineering Mathematics"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Faculty</label>
+
+            <input
+                type="text"
+                id="faculty"
+                placeholder="Faculty name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Room / Lab</label>
+
+            <input
+                type="text"
+                id="room"
+                placeholder="Example: Room 101"
+            >
+
+        </div>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeModal()">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="save-btn"
+                onclick="savePeriod()">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* OPEN MODAL */
+
+function openModal() {
+
+    document.getElementById("periodModal")
+        .style.display = "flex";
+
+}
+
+
+/* CLOSE MODAL */
+
+function closeModal() {
+
+    document.getElementById("periodModal")
+        .style.display = "none";
+
+}
+
+
+/* SAVE PERIOD */
+
+function savePeriod() {
+
+    const day =
+        document.getElementById("day").value;
+
+    const period =
+        parseInt(document.getElementById("period").value);
+
+    const subject =
+        document.getElementById("subject").value.trim();
+
+    const faculty =
+        document.getElementById("faculty").value.trim();
+
+    const room =
+        document.getElementById("room").value.trim();
+
+
+    if (!subject || !faculty) {
+
+        alert("Please enter Subject and Faculty.");
+
+        return;
+
+    }
+
+
+    const rows =
+        document.querySelectorAll("#timetableBody tr");
+
+    let targetRow = null;
+
+
+    rows.forEach(row => {
+
+        if (
+            row.cells[0].textContent.trim()
+            === day
+        ) {
+
+            targetRow = row;
+
+        }
+
+    });
+
+
+    if (!targetRow) {
+
+        alert("Day not found.");
+
+        return;
+
+    }
+
+
+    const cell =
+        targetRow.cells[period];
+
+
+    cell.innerHTML = `
+
+        <div class="subject">
+            ${subject}
+        </div>
+
+        <div class="faculty">
+            ${faculty}
+        </div>
+
+        <div class="room">
+            ${room}
+        </div>
+
+    `;
+
+
+    cell.className = "";
+
+
+    alert("Timetable updated successfully.");
+
+    closeModal();
+
+
+    document.getElementById("subject").value = "";
+    document.getElementById("faculty").value = "";
+    document.getElementById("room").value = "";
+
+}
+
+
+/* CLEAR */
+
+function clearTimetable() {
+
+    if (
+        !confirm(
+            "Clear all timetable entries?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    document.querySelectorAll(
+        "#timetableBody td"
+    ).forEach((cell, index) => {
+
+        if (
+            index % 10 !== 0 &&
+            !cell.classList.contains("lunch")
+        ) {
+
+            cell.innerHTML = "";
+
+        }
+
+    });
+
+}
+
+
+</script>
+
+
 </body>
+
 </html>
