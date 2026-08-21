@@ -11,58 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <!-- Dashboard CSS -->
     <link rel="stylesheet" href="dashboard.css" />
-
-    <style>
-        /* additional page‑specific overrides (optional) */
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .module-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 22px 20px;
-            border: 1px solid #edf2f7;
-            transition: 0.2s;
-        }
-        .module-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-            border-color: #dce3ed;
-        }
-        .module-card h4 {
-            font-size: 16px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .module-card h4 i {
-            color: #3b82f6;
-        }
-        .module-card p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 14px;
-        }
-        .module-card .btn-sm {
-            background: #3b82f6;
-            color: #fff;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .module-card .btn-sm:hover {
-            background: #2563eb;
-        }
-    </style>
 </head>
 <body class="dashboard-body">
 
@@ -228,19 +176,17 @@
         document.getElementById('todayDate').textContent =
             new Date().toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
 
-        // ─── Toast (simple) ──────────────────────────────────────
+        // ─── Toast ──────────────────────────────────────────────────
         function showToast(msg) {
-            // quick inline toast
             const existing = document.querySelector('.custom-toast');
             if (existing) existing.remove();
             const toast = document.createElement('div');
             toast.className = 'custom-toast';
-            toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:14px 28px;border-radius:40px;font-size:15px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.25);z-index:9999;border:1px solid rgba(255,255,255,0.1);transition:opacity 0.3s;opacity:0;';
             toast.textContent = msg;
             document.body.appendChild(toast);
-            requestAnimationFrame(() => { toast.style.opacity = '1'; });
+            requestAnimationFrame(() => { toast.classList.add('show'); });
             setTimeout(() => {
-                toast.style.opacity = '0';
+                toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
