@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BEC EduPlus – Dashboard</title>
     <!-- Font Awesome 6 (free) -->
-    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -811,7 +812,42 @@ document.querySelectorAll('.sidebar-nav a').forEach(link => {
         }
     });
 });
-    </script>
+   
+<script>
+    // Date
+    const now = new Date();
 
+    document.getElementById("currentDate").textContent =
+        now.toLocaleDateString("en-IN", {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        });
+
+    document.getElementById("lastUpdated").textContent =
+        now.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    // Mobile sidebar
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", function () {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("active");
+    });
+</script>
+
+</body>
+</html>
 <body> 
 </html>
