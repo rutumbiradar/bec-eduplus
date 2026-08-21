@@ -94,6 +94,16 @@
 }
 .dashboard-body .sidebar-nav a.active i { color: #3b82f6; }
 
+/* ─── SIDEBAR OVERLAY ───────────────────────────────────────── */
+.dashboard-body .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 90;
+}
+.dashboard-body .sidebar-overlay.active { display: block; }
+
 /* ─── MAIN CONTENT ─── */
 .dashboard-body .main {
     flex: 1;
@@ -352,6 +362,8 @@
     color: #1e293b;
 }
 .dashboard-body table tr:hover td { background: #f8fafc; }
+
+/* ─── BADGES ──────────────────────────────────────────────────── */
 .dashboard-body .badge {
     background: #dbeafe;
     color: #1d4ed8;
@@ -362,6 +374,18 @@
 }
 .dashboard-body .badge.green { background: #dcfce7; color: #15803d; }
 .dashboard-body .badge.orange { background: #ffedd5; color: #c2410c; }
+
+/* status badges (admission) */
+.dashboard-body .badge-status {
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.dashboard-body .badge-status.verified { background: #dbeafe; color: #1d4ed8; }
+.dashboard-body .badge-status.submitted { background: #dcfce7; color: #15803d; }
+.dashboard-body .badge-status.pending { background: #ffedd5; color: #c2410c; }
+.dashboard-body .badge-status.rejected { background: #fee2e2; color: #b91c1c; }
 
 /* ─── FORM ELEMENTS ─────────────────────────────────────────── */
 .dashboard-body .form-grid {
@@ -409,6 +433,7 @@
     align-items: center;
     gap: 8px;
     font-size: 14px;
+    font-family: inherit;
 }
 .dashboard-body .btn-save:hover { background: #2563eb; }
 
@@ -425,6 +450,7 @@
     align-items: center;
     gap: 8px;
     font-size: 14px;
+    font-family: inherit;
 }
 .dashboard-body .btn-reset:hover { background: #cbd5e1; }
 
@@ -436,8 +462,23 @@
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+    font-family: inherit;
 }
 .dashboard-body .btn-cancel:hover { background: #cbd5e1; }
+
+.dashboard-body .btn-sm {
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+}
+.dashboard-body .btn-sm:hover { background: #2563eb; }
 
 /* status buttons (Present / Absent) */
 .dashboard-body .status-btn {
@@ -449,6 +490,7 @@
     cursor: pointer;
     margin: 2px;
     transition: 0.2s;
+    font-family: inherit;
 }
 .dashboard-body .status-btn.present {
     background: #dcfce7;
@@ -482,6 +524,7 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    font-family: inherit;
 }
 .dashboard-body .action-btn.edit {
     background: #dcfce7;
@@ -605,20 +648,6 @@
     line-height: 1.5;
     margin-bottom: 14px;
 }
-.dashboard-body .module-card .btn-sm {
-    background: #3b82f6;
-    color: #fff;
-    border: none;
-    padding: 6px 16px;
-    border-radius: 40px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.dashboard-body .module-card .btn-sm:hover {
-    background: #2563eb;
-}
 
 .dashboard-body .action-grid {
     display: grid;
@@ -656,7 +685,7 @@
     margin-top: 4px;
 }
 
-/* ─── TOAST (optional inline) ────────────────────────────────── */
+/* ─── TOAST (inline) ────────────────────────────────────────── */
 .dashboard-body .custom-toast {
     position: fixed;
     bottom: 30px;
@@ -717,13 +746,3 @@
     .dashboard-body .form-grid { grid-template-columns: 1fr; }
     .dashboard-body .modal-content { padding: 24px; }
 }
-
-/* ─── SIDEBAR OVERLAY ───────────────────────────────────────── */
-.dashboard-body .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 90;
-}
-.dashboard-body .sidebar-overlay.active { display: block; }
