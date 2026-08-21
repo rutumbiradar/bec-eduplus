@@ -1,17 +1,112 @@
-function login() {
+// ==========================================
+// EDUPLUS LOGIN SYSTEM
+// ==========================================
 
-    const role = document.getElementById("role").value;
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function () {
 
-    if (role === "" || username === "" || password === "") {
-        alert("Please enter all login details.");
+    const loginForm = document.getElementById("loginForm");
+
+    if (!loginForm) {
+        console.log("Login form not found.");
         return;
     }
 
-    alert(
-        "Welcome to BEC EduPlus!\n\n" +
-        "Selected Role: " + role +
-        "\n\nThe real authentication system will be connected later."
-    );
-}
+    loginForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const role = document.getElementById("role").value;
+
+        // Check role
+        if (role === "") {
+            alert("Please select your role.");
+            return;
+        }
+
+        // Check username
+        if (username === "") {
+            alert("Please enter your username.");
+            return;
+        }
+
+        // Check password
+        if (password === "") {
+            alert("Please enter your password.");
+            return;
+        }
+
+        // Demo users
+        const users = {
+
+            admin: {
+                username: "admin",
+                password: "admin123",
+                page: "admin.html",
+                name: "Administrator"
+            },
+
+            principal: {
+                username: "principal",
+                password: "principal123",
+                page: "dashboard.html",
+                name: "Principal"
+            },
+
+            hod: {
+                username: "hod",
+                password: "hod123",
+                page: "dashboard.html",
+                name: "HOD"
+            },
+
+            faculty: {
+                username: "faculty",
+                password: "faculty123",
+                page: "dashboard.html",
+                name: "Faculty"
+            },
+
+            student: {
+                username: "student",
+                password: "student123",
+                page: "dashboard.html",
+                name: "Student"
+            }
+
+        };
+
+        const user = users[role];
+
+        if (!user) {
+            alert("Invalid role selected.");
+            return;
+        }
+
+        // Verify username and password
+        if (
+            username === user.username &&
+            password === user.password
+        ) {
+
+            // Save login information
+            localStorage.setItem("eduplusLoggedIn", "true");
+            localStorage.setItem("eduplusUsername", username);
+            localStorage.setItem("eduplusRole", role);
+            localStorage.setItem("eduplusName", user.name);
+
+            alert("Login successful. Welcome to EduPlus!");
+
+            // Go to correct page
+            window.location.href = user.page;
+
+        } else {
+
+            alert("Invalid username or password.");
+
+        }
+
+    });
+
+});
