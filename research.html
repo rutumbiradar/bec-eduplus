@@ -4,364 +4,326 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BEC EduPlus - Research</title>
+    <title>BEC ERP – Research</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1e293b;
-        }
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 
-        .header {
-            background: #0f172a;
-            color: white;
-            padding: 22px 30px;
-        }
+    <!-- Dashboard CSS (shared across all pages) -->
+    <link rel="stylesheet" href="dashboard.css">
 
-        .header h1 {
-            font-size: 25px;
-            margin-bottom: 6px;
-        }
-
-        .header p {
-            color: #cbd5e1;
-            font-size: 14px;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .back {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 18px;
-            background: #334155;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-
-        .back:hover {
-            background: #1e293b;
-        }
-
-        .title {
-            margin-bottom: 25px;
-        }
-
-        .title h2 {
-            font-size: 25px;
-            margin-bottom: 8px;
-        }
-
-        .title p {
-            color: #64748b;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .stat {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .stat h4 {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .stat strong {
-            font-size: 28px;
-            color: #0f172a;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 22px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-
-        .card h3 {
-            color: #2563eb;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .card p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 9px 15px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-        }
-
-        .open-btn {
-            background: #2563eb;
-            color: white;
-        }
-
-        .open-btn:hover {
-            background: #1d4ed8;
-        }
-
-        .view-btn {
-            background: #e2e8f0;
-            color: #1e293b;
-        }
-
-        .view-btn:hover {
-            background: #cbd5e1;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 25px;
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 18px;
-            }
-
-            .header {
-                padding: 20px;
-            }
-        }
-    </style>
+    <!-- No inline styles – everything is in dashboard.css -->
 </head>
 
-<body>
+<body class="dashboard-body">
 
-<div class="header">
-    <h1>BEC EduPlus</h1>
-    <p>Research & Innovation Management</p>
-</div>
+    <!-- =========================
+         MOBILE OVERLAY
+    ========================= -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="container">
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+    <aside class="sidebar" id="sidebar">
 
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
+        <div class="sidebar-brand">
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
+        </div>
 
-    <div class="title">
-        <h2>Research & Innovation</h2>
-        <p>Manage publications, projects, patents, research scholars and innovation activities.</p>
+        <nav class="sidebar-nav">
+
+            <div class="nav-label">Main</div>
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html"><i class="fas fa-user-plus"></i> Admission</a>
+
+            <div class="nav-label">Operations</div>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+
+            <div class="nav-label">Accreditation</div>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+
+            <div class="nav-label">Resources</div>
+            <a href="research.html" class="active"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+
+            <div class="nav-label">Administration</div>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+
+        </nav>
+
+    </aside>
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>
+                    Research
+                    <small>BEC EduPlus</small>
+                </h2>
+            </div>
+            <div class="topbar-right">
+                <div class="date-badge">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="currentDate"></span>
+                </div>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- Page Title -->
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 24px; font-weight: 700; color: #0b2a4a; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-flask" style="color: #f6c445;"></i> Research & Innovation
+                </h2>
+                <p style="color: #3b5c7a; font-weight: 500; margin-top: 4px;">
+                    Manage publications, projects, patents, research scholars and innovation activities.
+                </p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="cards-grid">
+
+                <div class="stat-card">
+                    <div class="icon blue"><i class="fas fa-file-alt"></i></div>
+                    <div class="info">
+                        <h4>Publications</h4>
+                        <div class="number">23</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon green"><i class="fas fa-lightbulb"></i></div>
+                    <div class="info">
+                        <h4>Patents</h4>
+                        <div class="number">4</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon purple"><i class="fas fa-book"></i></div>
+                    <div class="info">
+                        <h4>Books</h4>
+                        <div class="number">2</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon orange"><i class="fas fa-project-diagram"></i></div>
+                    <div class="info">
+                        <h4>Projects</h4>
+                        <div class="number">12</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon indigo"><i class="fas fa-user-graduate"></i></div>
+                    <div class="info">
+                        <h4>Research Scholars</h4>
+                        <div class="number">18</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Research Modules -->
+            <h3 style="margin: 28px 0 16px; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-cubes" style="color: #3b82f6;"></i> Research Modules
+            </h3>
+
+            <div class="module-grid">
+
+                <div class="module-card">
+                    <h4><i class="fas fa-file-alt"></i> Publications</h4>
+                    <p>Manage journal papers, conference papers, citations and publication details.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Publications module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Publications module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <h4><i class="fas fa-lightbulb"></i> Patents</h4>
+                    <p>Record patents, applications, inventors and intellectual property information.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Patents module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Patents module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <h4><i class="fas fa-book"></i> Books</h4>
+                    <p>Maintain details of textbooks, reference books and edited books.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Books module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Books module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <h4><i class="fas fa-project-diagram"></i> Research Projects</h4>
+                    <p>Manage funded and consultancy research projects.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Research Projects module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Research Projects module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <h4><i class="fas fa-user-graduate"></i> Research Scholars</h4>
+                    <p>Manage PhD scholars, supervisors, registration and research progress.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Research Scholars module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Research Scholars module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <h4><i class="fas fa-rocket"></i> Innovation &amp; IPR</h4>
+                    <p>Manage innovation activities, IPR, startups and technology development.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-sm" onclick="showToast('Opening Innovation and IPR module')"><i class="fas fa-folder-open"></i> Open</button>
+                        <button class="btn-sm" style="background: #e2e8f0; color: #1e293b;" onclick="showToast('Viewing Innovation and IPR module')"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Information Panel -->
+            <div class="panel" style="margin-top: 28px;">
+                <h3><i class="fas fa-info-circle"></i> Research Highlights</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 24px;">
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-file-alt" style="color: #3b82f6;"></i> 23 Publications
+                    </div>
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-lightbulb" style="color: #f6c445;"></i> 4 Patents Filed
+                    </div>
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-book" style="color: #7c3aed;"></i> 2 Books Published
+                    </div>
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-project-diagram" style="color: #ea580c;"></i> 12 Research Projects
+                    </div>
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-user-graduate" style="color: #16a34a;"></i> 18 Research Scholars
+                    </div>
+                    <div style="padding:6px 0; color:#475569; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-rocket" style="color: #dc2626;"></i> 5 Innovation Activities
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Statistics -->
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+    <script>
 
-    <div class="stats">
+        // ─── Date & Time ──────────────────────────────────────────
+        const now = new Date();
+        document.getElementById("currentDate").textContent =
+            now.toLocaleDateString("en-IN", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+        document.getElementById("lastUpdated").textContent =
+            now.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
 
-        <div class="stat">
-            <h4>Publications</h4>
-            <strong>23</strong>
-        </div>
+        // ─── Toast ──────────────────────────────────────────────────
+        function showToast(msg) {
+            const existing = document.querySelector('.custom-toast');
+            if (existing) existing.remove();
 
-        <div class="stat">
-            <h4>Patents</h4>
-            <strong>4</strong>
-        </div>
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
 
-        <div class="stat">
-            <h4>Books</h4>
-            <strong>2</strong>
-        </div>
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
 
-        <div class="stat">
-            <h4>Projects</h4>
-            <strong>12</strong>
-        </div>
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
-        <div class="stat">
-            <h4>Research Scholars</h4>
-            <strong>18</strong>
-        </div>
+        // ─── Sidebar Toggle ──────────────────────────────────────
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
 
-    </div>
+        if (menuToggle) {
+            menuToggle.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
+                overlay.classList.toggle("active");
+            });
+        }
 
-    <!-- Research Modules -->
+        if (overlay) {
+            overlay.addEventListener("click", function () {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            });
+        }
 
-    <div class="cards">
+        // Close sidebar after navigation on mobile
+        document.querySelectorAll(".sidebar-nav a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove("open");
+                    overlay.classList.remove("active");
+                }
+            });
+        });
 
-        <div class="card">
-            <h3>📄 Publications</h3>
-            <p>Manage journal papers, conference papers, citations and publication details.</p>
+        // Auto-close sidebar on resize
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            }
+        });
 
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Publications')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Publications')">
-                    View
-                </button>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h3>💡 Patents</h3>
-            <p>Record patents, applications, inventors and intellectual property information.</p>
-
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Patents')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Patents')">
-                    View
-                </button>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h3>📚 Books</h3>
-            <p>Maintain details of textbooks, reference books and edited books.</p>
-
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Books')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Books')">
-                    View
-                </button>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h3>🔬 Research Projects</h3>
-            <p>Manage funded and consultancy research projects.</p>
-
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Research Projects')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Research Projects')">
-                    View
-                </button>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h3>🎓 Research Scholars</h3>
-            <p>Manage PhD scholars, supervisors, registration and research progress.</p>
-
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Research Scholars')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Research Scholars')">
-                    View
-                </button>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h3>🚀 Innovation & IPR</h3>
-            <p>Manage innovation activities, IPR, startups and technology development.</p>
-
-            <div class="buttons">
-                <button class="btn open-btn"
-                    onclick="openModule('Innovation and IPR')">
-                    Open
-                </button>
-
-                <button class="btn view-btn"
-                    onclick="viewModule('Innovation and IPR')">
-                    View
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<div class="footer">
-    © 2026 BEC EduPlus | Research & Innovation Management
-</div>
-
-
-<script>
-
-function openModule(moduleName) {
-
-    alert(
-        "Opening " + moduleName +
-        "\n\nResearch data management module is ready."
-    );
-
-}
-
-function viewModule(moduleName) {
-
-    alert(
-        "Viewing " + moduleName +
-        "\n\nResearch records and documents will appear here."
-    );
-
-}
-
-</script>
+    </script>
 
 </body>
 </html>
