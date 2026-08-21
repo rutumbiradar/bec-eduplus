@@ -1,792 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BEC EduPlus – Students</title>
+    <title>BEC ERP – Students</title>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <style>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- Dashboard CSS (shared across all pages) -->
+    <link rel="stylesheet" href="dashboard.css">
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fc;
-            color: #1e293b;
-        }
-
-        /* TOP BAR */
-
-        .topbar {
-            background: #0f172a;
-            color: white;
-            padding: 18px 30px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .topbar-left i {
-            font-size: 28px;
-            color: #60a5fa;
-        }
-
-        .topbar h1 {
-            font-size: 22px;
-        }
-
-        .topbar p {
-            color: #94a3b8;
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
-        .dashboard-btn {
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-
-            padding: 10px 18px;
-            border-radius: 8px;
-
-            font-size: 14px;
-        }
-
-        .dashboard-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* MAIN */
-
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .page-title {
-            margin-bottom: 25px;
-        }
-
-        .page-title h2 {
-            font-size: 28px;
-            margin-bottom: 6px;
-        }
-
-        .page-title p {
-            color: #64748b;
-        }
-
-        /* STAT CARDS */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 20px;
-
-            display: flex;
-            align-items: center;
-            gap: 15px;
-
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-
-            border-radius: 12px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 22px;
-        }
-
-        .blue {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .green {
-            background: #dcfce7;
-            color: #16a34a;
-        }
-
-        .orange {
-            background: #ffedd5;
-            color: #ea580c;
-        }
-
-        .purple {
-            background: #ede9fe;
-            color: #7c3aed;
-        }
-
-        .stat-card h3 {
-            font-size: 24px;
-            margin-bottom: 3px;
-        }
-
-        .stat-card p {
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        /* MAIN PANEL */
-
-        .panel {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 25px;
-
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-        }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 20px;
-
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .panel-header h3 {
-            font-size: 19px;
-        }
-
-        /* SEARCH */
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-box input {
-            padding: 10px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-
-            width: 230px;
-
-            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: #2563eb;
-        }
-
-        .search-btn {
-            background: #2563eb;
-            color: white;
-
-            border: none;
-            border-radius: 8px;
-
-            padding: 10px 15px;
-
-            cursor: pointer;
-        }
-
-        .search-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* TABLE */
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-
-        th {
-            background: #f1f5f9;
-            color: #334155;
-
-            text-align: left;
-
-            padding: 13px;
-
-            font-size: 13px;
-        }
-
-        td {
-            padding: 13px;
-
-            border-bottom: 1px solid #f1f5f9;
-
-            font-size: 14px;
-        }
-
-        tr:hover {
-            background: #f8fafc;
-        }
-
-        /* STATUS */
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .active {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .inactive {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        /* VIEW BUTTON */
-
-        .view-btn {
-            background: #eff6ff;
-            color: #2563eb;
-
-            border: 1px solid #bfdbfe;
-
-            padding: 6px 11px;
-
-            border-radius: 6px;
-
-            cursor: pointer;
-        }
-
-        .view-btn:hover {
-            background: #dbeafe;
-        }
-
-        /* FOOTER */
-
-        footer {
-            margin-top: 35px;
-            padding: 20px;
-
-            text-align: center;
-
-            color: #94a3b8;
-
-            font-size: 13px;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-
-            .topbar {
-                padding: 15px;
-            }
-
-            .container {
-                padding: 20px;
-            }
-
-            .page-title h2 {
-                font-size: 23px;
-            }
-
-            .search-box {
-                width: 100%;
-            }
-
-            .search-box input {
-                width: 100%;
-            }
-
-            .search-btn {
-                flex-shrink: 0;
-            }
-
-        }
-
-    </style>
-
+    <!-- No inline styles – everything is in dashboard.css -->
 </head>
 
+<body class="dashboard-body">
 
-<body>
+    <!-- =========================
+         MOBILE OVERLAY
+    ========================= -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+    <aside class="sidebar" id="sidebar">
 
-<!-- TOP BAR -->
-
-<div class="topbar">
-
-    <div class="topbar-left">
-
-        <i class="fas fa-user-graduate"></i>
-
-        <div>
-
-            <h1>BEC EduPlus</h1>
-
-            <p>Student Management System</p>
-
+        <div class="sidebar-brand">
+            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
+            <span>BEC College · ERP v2.0</span>
         </div>
 
-    </div>
-
-
-    <!-- IMPORTANT: GOES TO DASHBOARD ONLY -->
-
-    <a href="dashboard.html" class="dashboard-btn">
-        <i class="fas fa-arrow-left"></i>
-        Dashboard
-    </a>
-
-</div>
-
-
-
-<!-- MAIN -->
-
-<div class="container">
-
-
-    <!-- PAGE TITLE -->
-
-    <div class="page-title">
-
-        <h2>Students</h2>
-
-        <p>
-            Manage student records, programmes,
-            departments and academic information.
-        </p>
-
-    </div>
-
-
-
-    <!-- STATISTICS -->
-
-    <div class="stats">
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon blue">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-
-            <div>
-
-                <h3>4286</h3>
-
-                <p>Total Students</p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon green">
-                <i class="fas fa-user-check"></i>
-            </div>
-
-            <div>
-
-                <h3>4120</h3>
-
-                <p>Active Students</p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon orange">
-                <i class="fas fa-user-clock"></i>
-            </div>
-
-            <div>
-
-                <h3>96</h3>
-
-                <p>Pending Records</p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon purple">
-                <i class="fas fa-graduation-cap"></i>
-            </div>
-
-            <div>
-
-                <h3>18</h3>
-
-                <p>Programmes</p>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- STUDENT TABLE -->
-
-    <div class="panel">
-
-
-        <div class="panel-header">
-
-            <h3>
-                <i class="fas fa-users"></i>
-                Student Records
-            </h3>
-
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search student..."
-                >
-
-                <button
-                    class="search-btn"
-                    onclick="searchStudents()"
-                >
-                    <i class="fas fa-search"></i>
+        <nav class="sidebar-nav">
+
+            <div class="nav-label">Main</div>
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="students.html" class="active"><i class="fas fa-user-graduate"></i> Students</a>
+            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
+            <a href="admission.html"><i class="fas fa-user-plus"></i> Admission</a>
+
+            <div class="nav-label">Operations</div>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
+            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
+            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
+
+            <div class="nav-label">Accreditation</div>
+            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
+            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+
+            <div class="nav-label">Resources</div>
+            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
+            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
+            <a href="library.html"><i class="fas fa-book"></i> Library</a>
+
+            <div class="nav-label">Administration</div>
+            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
+            <a href="finance.html"><i class="fas fa-coins"></i> Finance</a>
+            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
+
+            <div class="nav-label">System</div>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+
+        </nav>
+
+    </aside>
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
                 </button>
+                <h2>
+                    Students
+                    <small>BEC EduPlus</small>
+                </h2>
+            </div>
+            <div class="topbar-right">
+                <div class="date-badge">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="currentDate"></span>
+                </div>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- Page Title -->
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 24px; font-weight: 700; color: #0b2a4a; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-user-graduate" style="color: #f6c445;"></i> Students
+                </h2>
+                <p style="color: #3b5c7a; font-weight: 500; margin-top: 4px;">
+                    Manage student records, programmes, departments and academic information.
+                </p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="cards-grid">
+
+                <div class="stat-card">
+                    <div class="icon blue"><i class="fas fa-user-graduate"></i></div>
+                    <div class="info">
+                        <h4>Total Students</h4>
+                        <div class="number">4,286</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon green"><i class="fas fa-user-check"></i></div>
+                    <div class="info">
+                        <h4>Active Students</h4>
+                        <div class="number">4,120</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon orange"><i class="fas fa-user-clock"></i></div>
+                    <div class="info">
+                        <h4>Pending Records</h4>
+                        <div class="number">96</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon purple"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="info">
+                        <h4>Programmes</h4>
+                        <div class="number">18</div>
+                    </div>
+                </div>
 
             </div>
 
-        </div>
-
-
-
-        <div class="table-container">
-
-
-            <table id="studentTable">
-
-                <thead>
-
-                    <tr>
-
-                        <th>USN</th>
-
-                        <th>Name</th>
-
-                        <th>Programme</th>
-
-                        <th>Semester</th>
-
-                        <th>Department</th>
-
-                        <th>Status</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                    <tr>
-
-                        <td>01BEC001</td>
-
-                        <td>Rahul Kumar</td>
-
-                        <td>B.E.</td>
-
-                        <td>4</td>
-
-                        <td>CSE</td>
-
-                        <td>
-                            <span class="status active">
-                                Active
-                            </span>
-                        </td>
-
-                        <td>
-                            <button
-                                class="view-btn"
-                                onclick="viewStudent('01BEC001')"
-                            >
-                                View
-                            </button>
-                        </td>
-
-                    </tr>
-
-
-
-                    <tr>
-
-                        <td>01BEC002</td>
-
-                        <td>Priya Patil</td>
-
-                        <td>B.E.</td>
-
-                        <td>6</td>
-
-                        <td>ECE</td>
-
-                        <td>
-                            <span class="status active">
-                                Active
-                            </span>
-                        </td>
-
-                        <td>
-                            <button
-                                class="view-btn"
-                                onclick="viewStudent('01BEC002')"
-                            >
-                                View
-                            </button>
-                        </td>
-
-                    </tr>
-
-
-
-                    <tr>
-
-                        <td>01BEC003</td>
-
-                        <td>Arjun Biradar</td>
-
-                        <td>B.E.</td>
-
-                        <td>2</td>
-
-                        <td>ME</td>
-
-                        <td>
-                            <span class="status active">
-                                Active
-                            </span>
-                        </td>
-
-                        <td>
-                            <button
-                                class="view-btn"
-                                onclick="viewStudent('01BEC003')"
-                            >
-                                View
-                            </button>
-                        </td>
-
-                    </tr>
-
-
-
-                    <tr>
-
-                        <td>01BEC004</td>
-
-                        <td> Sneha Kulkarni</td>
-
-                        <td>B.E.</td>
-
-                        <td>8</td>
-
-                        <td>ISE</td>
-
-                        <td>
-                            <span class="status active">
-                                Active
-                            </span>
-                        </td>
-
-                        <td>
-                            <button
-                                class="view-btn"
-                                onclick="viewStudent('01BEC004')"
-                            >
-                                View
-                            </button>
-                        </td>
-
-                    </tr>
-
-
-
-                    <tr>
-
-                        <td>01BEC005</td>
-
-                        <td>Vijay Patil</td>
-
-                        <td>B.E.</td>
-
-                        <td>4</td>
-
-                        <td>EEE</td>
-
-                        <td>
-                            <span class="status inactive">
-                                Inactive
-                            </span>
-                        </td>
-
-                        <td>
-                            <button
-                                class="view-btn"
-                                onclick="viewStudent('01BEC005')"
-                            >
-                                View
-                            </button>
-                        </td>
-
-                    </tr>
-
-
-                </tbody>
-
-            </table>
-
+            <!-- Student Table -->
+            <div class="panel">
+                <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-users" style="color: #3b82f6;"></i> Student Records
+                    </h3>
+                    <div class="search-bar" style="margin: 0;">
+                        <input type="text" id="searchInput" placeholder="Search student by USN, Name, Department..." style="min-width: 220px;" />
+                        <button class="btn-save" onclick="searchStudents()" style="padding: 10px 18px;">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>USN</th>
+                                <th>Name</th>
+                                <th>Programme</th>
+                                <th>Semester</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01BEC001</td>
+                                <td>Rahul Kumar</td>
+                                <td>B.E.</td>
+                                <td>4</td>
+                                <td>CSE</td>
+                                <td><span class="badge-status submitted">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit" onclick="viewStudent('01BEC001')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>01BEC002</td>
+                                <td>Priya Patil</td>
+                                <td>B.E.</td>
+                                <td>6</td>
+                                <td>ECE</td>
+                                <td><span class="badge-status submitted">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit" onclick="viewStudent('01BEC002')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>01BEC003</td>
+                                <td>Arjun Biradar</td>
+                                <td>B.E.</td>
+                                <td>2</td>
+                                <td>ME</td>
+                                <td><span class="badge-status submitted">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit" onclick="viewStudent('01BEC003')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>01BEC004</td>
+                                <td>Sneha Kulkarni</td>
+                                <td>B.E.</td>
+                                <td>8</td>
+                                <td>ISE</td>
+                                <td><span class="badge-status submitted">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit" onclick="viewStudent('01BEC004')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>01BEC005</td>
+                                <td>Vijay Patil</td>
+                                <td>B.E.</td>
+                                <td>4</td>
+                                <td>EEE</td>
+                                <td><span class="badge-status pending">Inactive</span></td>
+                                <td>
+                                    <button class="action-btn edit" onclick="viewStudent('01BEC005')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <span>© 2026 BEC EduPlus · All rights reserved.</span>
+                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+            </div>
 
         </div>
 
     </div>
 
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+    <script>
 
-</div>
+        // ─── Date & Time ──────────────────────────────────────────
+        const now = new Date();
+        document.getElementById("currentDate").textContent =
+            now.toLocaleDateString("en-IN", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+        document.getElementById("lastUpdated").textContent =
+            now.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
 
+        // ─── Search Students ──────────────────────────────────────
+        function searchStudents() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("studentTable");
+            const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
 
-
-<!-- FOOTER -->
-
-<footer>
-
-    © 2026 BEC EduPlus ·
-    Engineering College ERP
-
-</footer>
-
-
-
-<script>
-
-
-/* SEARCH STUDENTS */
-
-function searchStudents() {
-
-    const input =
-        document.getElementById("searchInput");
-
-    const filter =
-        input.value.toLowerCase();
-
-    const table =
-        document.getElementById("studentTable");
-
-    const rows =
-        table.getElementsByTagName("tbody")[0]
-             .getElementsByTagName("tr");
-
-
-    for (let i = 0; i < rows.length; i++) {
-
-        const text =
-            rows[i].textContent.toLowerCase();
-
-        if (text.includes(filter)) {
-
-            rows[i].style.display = "";
-
-        } else {
-
-            rows[i].style.display = "none";
-
+            for (let i = 0; i < rows.length; i++) {
+                const text = rows[i].textContent.toLowerCase();
+                rows[i].style.display = text.includes(filter) ? "" : "none";
+            }
         }
 
-    }
+        // ─── Search while typing ──────────────────────────────────
+        document.getElementById("searchInput").addEventListener("keyup", searchStudents);
 
-}
+        // ─── View Student ─────────────────────────────────────────
+        function viewStudent(usn) {
+            showToast(`👤 Student Details: ${usn} – Profile module coming soon.`);
+        }
 
+        // ─── Toast ──────────────────────────────────────────────────
+        function showToast(msg) {
+            const existing = document.querySelector('.custom-toast');
+            if (existing) existing.remove();
 
-/* SEARCH WHILE TYPING */
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
 
-document
-    .getElementById("searchInput")
-    .addEventListener("keyup", searchStudents);
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
 
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
-/* VIEW STUDENT */
+        // ─── Sidebar Toggle ──────────────────────────────────────
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
 
-function viewStudent(usn) {
+        if (menuToggle) {
+            menuToggle.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
+                overlay.classList.toggle("active");
+            });
+        }
 
-    alert(
-        "Student Details\n\n" +
-        "USN: " + usn +
-        "\n\nStudent profile module will be connected in the next phase."
-    );
+        if (overlay) {
+            overlay.addEventListener("click", function () {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            });
+        }
 
-}
+        // Close sidebar after navigation on mobile
+        document.querySelectorAll(".sidebar-nav a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove("open");
+                    overlay.classList.remove("active");
+                }
+            });
+        });
 
+        // Auto-close sidebar on resize
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+            }
+        });
 
-</script>
-
+    </script>
 
 </body>
-
 </html>
