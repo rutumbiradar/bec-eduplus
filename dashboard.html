@@ -524,35 +524,93 @@
             <span>BEC College · ERP v2.0</span>
         </div>
         <nav class="sidebar-nav">
-            <div class="nav-label">Main</div>
-            <a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="#"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="#"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="#"><i class="fas fa-book-open"></i> Academics</a>
 
-            <div class="nav-label">Operations</div>
-            <a href="#"><i class="fas fa-calendar-alt"></i> Timetable</a>
-            <a href="#"><i class="fas fa-check-circle"></i> Attendance</a>
-            <a href="#"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="#"><i class="fas fa-bullseye"></i> OBE</a>
+    <div class="nav-label">Main</div>
 
-            <div class="nav-label">Accreditation</div>
-            <a href="#"><i class="fas fa-trophy"></i> NBA</a>
-            <a href="#"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
+    <a href="dashboard.html" class="active">
+        <i class="fas fa-th-large"></i> Dashboard
+    </a>
 
-            <div class="nav-label">Resources</div>
-            <a href="#"><i class="fas fa-flask"></i> Research</a>
-            <a href="#"><i class="fas fa-briefcase"></i> Placement</a>
-            <a href="#"><i class="fas fa-book"></i> Library</a>
+    <a href="students.html">
+        <i class="fas fa-user-graduate"></i> Students
+    </a>
 
-            <div class="nav-label">Administration</div>
-            <a href="#"><i class="fas fa-users"></i> HR</a>
-            <a href="#"><i class="fas fa-coins"></i> Finance</a>
-            <a href="#"><i class="fas fa-building"></i> Administration</a>
+    <a href="faculty.html">
+        <i class="fas fa-chalkboard-teacher"></i> Faculty
+    </a>
 
-            <div class="nav-label">System</div>
-            <a href="#"><i class="fas fa-cog"></i> Settings</a>
-        </nav>
+    <a href="courses.html">
+        <i class="fas fa-book-open"></i> Academics
+    </a>
+
+
+    <div class="nav-label">Operations</div>
+
+    <a href="timetable.html">
+        <i class="fas fa-calendar-alt"></i> Timetable
+    </a>
+
+    <a href="attendance.html">
+        <i class="fas fa-check-circle"></i> Attendance
+    </a>
+
+    <a href="examination.html">
+        <i class="fas fa-pencil-alt"></i> Examination
+    </a>
+
+    <a href="obe.html">
+        <i class="fas fa-bullseye"></i> OBE
+    </a>
+
+
+    <div class="nav-label">Accreditation</div>
+
+    <a href="nba.html">
+        <i class="fas fa-trophy"></i> NBA
+    </a>
+
+    <a href="naac.html">
+        <i class="fas fa-chart-line"></i> NAAC / IQAC
+    </a>
+
+
+    <div class="nav-label">Resources</div>
+
+    <a href="research.html">
+        <i class="fas fa-flask"></i> Research
+    </a>
+
+    <a href="placement.html">
+        <i class="fas fa-briefcase"></i> Placement
+    </a>
+
+    <a href="library.html">
+        <i class="fas fa-book"></i> Library
+    </a>
+
+
+    <div class="nav-label">Administration</div>
+
+    <a href="hr.html">
+        <i class="fas fa-users"></i> HR
+    </a>
+
+    <a href="finance.html">
+        <i class="fas fa-coins"></i> Finance
+    </a>
+
+    <a href="admin.html">
+        <i class="fas fa-building"></i> Administration
+    </a>
+
+
+    <div class="nav-label">System</div>
+
+    <a href="#">
+        <i class="fas fa-cog"></i> Settings
+    </a>
+
+</nav>
     </aside>
 
     <!-- ─── MAIN ─── -->
@@ -744,14 +802,16 @@
         });
 
         // ─── active nav highlight (demo) ───
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+        // close sidebar on link click (mobile)
+document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+    });
+});
     </script>
 
-<body class="dashboard-body">
+<body> 
 </html>
