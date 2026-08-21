@@ -1,89 +1,679 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>BEC EduPlus – Finance</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="dashboard.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+        }
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        /* STATISTICS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .card i {
+            font-size: 25px;
+            margin-bottom: 12px;
+            color: #2563eb;
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .number {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .green {
+            color: #16a34a !important;
+        }
+
+        .orange {
+            color: #ea580c !important;
+        }
+
+        .red {
+            color: #dc2626 !important;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .action {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .action i {
+            font-size: 25px;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .action h3 {
+            font-size: 15px;
+        }
+
+        /* PANEL */
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+        }
+
+        .panel h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 13px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        /* STATUS */
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .paid {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .approved {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* INFO */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-box h4 {
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .info-box p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+                padding: 18px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .number {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
 </head>
-<body class="dashboard-body">
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<body>
 
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <h1><i class="fas fa-graduation-cap"></i> EduPlus</h1>
-            <span>BEC College · ERP v2.0</span>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Main</div>
-            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="courses.html"><i class="fas fa-book-open"></i> Academics</a>
-            <div class="nav-label">Operations</div>
-            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
-            <a href="attendance.html"><i class="fas fa-check-circle"></i> Attendance</a>
-            <a href="examination.html"><i class="fas fa-pencil-alt"></i> Examination</a>
-            <a href="obe.html"><i class="fas fa-bullseye"></i> OBE</a>
-            <div class="nav-label">Accreditation</div>
-            <a href="nba.html"><i class="fas fa-trophy"></i> NBA</a>
-            <a href="naac.html"><i class="fas fa-chart-line"></i> NAAC / IQAC</a>
-            <div class="nav-label">Resources</div>
-            <a href="research.html"><i class="fas fa-flask"></i> Research</a>
-            <a href="placement.html"><i class="fas fa-briefcase"></i> Placement</a>
-            <a href="library.html"><i class="fas fa-book"></i> Library</a>
-            <div class="nav-label">Administration</div>
-            <a href="hr.html"><i class="fas fa-users"></i> HR</a>
-            <a href="finance.html" class="active"><i class="fas fa-coins"></i> Finance</a>
-            <a href="admin.html"><i class="fas fa-building"></i> Administration</a>
-            <div class="nav-label">System</div>
-            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-        </nav>
-    </aside>
+    <!-- HEADER -->
 
-    <div class="main">
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-                <h2>Finance <small>Fees, expenses &amp; revenue</small></h2>
-            </div>
-            <div class="topbar-right">
-                <div class="date-badge"><i class="far fa-calendar-alt"></i> <span id="currentDate"></span></div>
-                <div class="avatar">A</div>
-            </div>
-        </header>
-        <div class="page-content">
-            <div class="cards-grid" style="margin-bottom:28px;">
-                <div class="stat-card"><div class="icon green"><i class="fas fa-rupee-sign"></i></div><div class="info"><h4>Revenue</h4><div class="number">₹42.6 Cr</div></div></div>
-                <div class="stat-card"><div class="icon red"><i class="fas fa-rupee-sign"></i></div><div class="info"><h4>Expenses</h4><div class="number">₹28.3 Cr</div></div></div>
-                <div class="stat-card"><div class="icon blue"><i class="fas fa-chart-line"></i></div><div class="info"><h4>Net Surplus</h4><div class="number">₹14.3 Cr</div></div></div>
-                <div class="stat-card"><div class="icon purple"><i class="fas fa-users"></i></div><div class="info"><h4>Fee Collected</h4><div class="number">₹32.1 Cr</div></div></div>
-            </div>
+    <div class="header">
 
-            <div class="table-wrapper">
-                <table>
-                    <thead><tr><th>Transaction ID</th><th>Student</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>TXN001</strong></td><td>Priya Sharma</td><td>Fee Payment</td><td>₹1,25,000</td><td>2026-08-15</td><td><span class="badge green">Completed</span></td></tr>
-                        <tr><td><strong>TXN002</strong></td><td>Arjun Reddy</td><td>Fee Payment</td><td>₹1,00,000</td><td>2026-08-14</td><td><span class="badge green">Completed</span></td></tr>
-                        <tr><td><strong>TXN003</strong></td><td>College Store</td><td>Expense</td><td>₹2,50,000</td><td>2026-08-12</td><td><span class="badge orange">Pending</span></td></tr>
-                        <tr><td><strong>TXN004</strong></td><td>Vikram Singh</td><td>Fee Payment</td><td>₹1,00,000</td><td>2026-08-10</td><td><span class="badge red">Failed</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
+        <h1>
+            <i class="fas fa-coins"></i>
+            BEC EduPlus
+        </h1>
 
-            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>© 2026 BEC EduPlus · All rights reserved.</span>
-                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
-            </div>
-        </div>
+        <p>
+            Engineering College Finance Management System
+        </p>
+
     </div>
-    <script src="script.js"></script>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+        <a href="dashboard.html" class="back">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+
+        <div class="page-title">
+
+            <h2>Finance Management</h2>
+
+            <p>
+                Manage student fees, payments, expenses, budgets,
+                receipts and financial reports.
+            </p>
+
+        </div>
+
+
+        <!-- FINANCE STATISTICS -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fas fa-indian-rupee-sign"></i>
+
+                <h3>Total Fee Collection</h3>
+
+                <div class="number">₹8.42 Cr</div>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-money-bill-trend-up green"></i>
+
+                <h3>Fees Collected This Month</h3>
+
+                <div class="number">₹72.6 L</div>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-clock orange"></i>
+
+                <h3>Pending Fees</h3>
+
+                <div class="number">₹18.4 L</div>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-receipt"></i>
+
+                <h3>Transactions</h3>
+
+                <div class="number">6,428</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="actions">
+
+            <div class="action" onclick="feeCollection()">
+
+                <i class="fas fa-money-check-dollar"></i>
+
+                <h3>Fee Collection</h3>
+
+            </div>
+
+
+            <div class="action" onclick="studentFees()">
+
+                <i class="fas fa-user-graduate"></i>
+
+                <h3>Student Fees</h3>
+
+            </div>
+
+
+            <div class="action" onclick="expenses()">
+
+                <i class="fas fa-file-invoice-dollar"></i>
+
+                <h3>Expenses</h3>
+
+            </div>
+
+
+            <div class="action" onclick="budget()">
+
+                <i class="fas fa-chart-pie"></i>
+
+                <h3>Budget</h3>
+
+            </div>
+
+
+            <div class="action" onclick="reports()">
+
+                <i class="fas fa-chart-bar"></i>
+
+                <h3>Finance Reports</h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECENT TRANSACTIONS -->
+
+        <div class="panel">
+
+            <h3>
+                <i class="fas fa-history"></i>
+                Recent Financial Transactions
+            </h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Student / Department</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>FIN2026001</td>
+
+                            <td>21-08-2026</td>
+
+                            <td>Student 001</td>
+
+                            <td>Tuition Fee</td>
+
+                            <td>₹85,000</td>
+
+                            <td>
+                                <span class="status paid">
+                                    Paid
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>FIN2026002</td>
+
+                            <td>21-08-2026</td>
+
+                            <td>Student 002</td>
+
+                            <td>Examination Fee</td>
+
+                            <td>₹2,500</td>
+
+                            <td>
+                                <span class="status paid">
+                                    Paid
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>FIN2026003</td>
+
+                            <td>20-08-2026</td>
+
+                            <td>Mechanical Department</td>
+
+                            <td>Equipment Purchase</td>
+
+                            <td>₹1,25,000</td>
+
+                            <td>
+                                <span class="status approved">
+                                    Approved
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>FIN2026004</td>
+
+                            <td>20-08-2026</td>
+
+                            <td>Student 004</td>
+
+                            <td>Tuition Fee</td>
+
+                            <td>₹45,000</td>
+
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- FINANCE MODULES -->
+
+        <div class="panel">
+
+            <h3>
+                <i class="fas fa-layer-group"></i>
+                Finance Modules
+            </h3>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-user-graduate"></i>
+                        Student Fee Management
+                    </h4>
+
+                    <p>
+                        Manage tuition fees, examination fees,
+                        hostel fees, transport fees and other student payments.
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-receipt"></i>
+                        Receipt Management
+                    </h4>
+
+                    <p>
+                        Generate and maintain fee receipts,
+                        payment records and transaction history.
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Expenses
+                    </h4>
+
+                    <p>
+                        Record departmental expenses,
+                        purchases, maintenance and other institutional expenditure.
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-chart-pie"></i>
+                        Budget Management
+                    </h4>
+
+                    <p>
+                        Prepare annual budgets and monitor
+                        department-wise and institutional expenditure.
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-building-columns"></i>
+                        Accounts
+                    </h4>
+
+                    <p>
+                        Maintain institutional accounts,
+                        income, expenditure and financial statements.
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        <i class="fas fa-chart-line"></i>
+                        Financial Reports
+                    </h4>
+
+                    <p>
+                        Generate collection reports,
+                        pending fee reports, expense reports and summaries.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div style="
+            text-align:center;
+            padding:25px;
+            color:#94a3b8;
+            font-size:13px;
+        ">
+
+            © 2026 BEC EduPlus · Finance Management
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function feeCollection() {
+            alert("Fee Collection module will be opened here.");
+        }
+
+        function studentFees() {
+            alert("Student Fee Management will be opened here.");
+        }
+
+        function expenses() {
+            alert("Expenses module will be opened here.");
+        }
+
+        function budget() {
+            alert("Budget Management will be opened here.");
+        }
+
+        function reports() {
+            alert("Finance Reports will be opened here.");
+        }
+
+    </script>
+
 </body>
+
 </html>
