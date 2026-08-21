@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>BEC EduPlus – Dashboard</title>
-    <!-- Font Awesome 6 (free) -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Google Font: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+          rel="stylesheet">
+
     <style>
-        /* ── reset & base ── */
+
+        /* =========================
+           RESET
+        ========================= */
+
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +37,10 @@
             color: #1e293b;
         }
 
-        /* ─── SIDEBAR ─── */
+        /* =========================
+           SIDEBAR
+        ========================= */
+
         .sidebar {
             width: 270px;
             background: #0f172a;
@@ -42,45 +55,53 @@
             transition: transform 0.3s ease;
             z-index: 100;
         }
+
         .sidebar::-webkit-scrollbar {
             width: 4px;
         }
+
         .sidebar::-webkit-scrollbar-thumb {
             background: #334155;
             border-radius: 8px;
         }
 
+        /* BRAND */
+
         .sidebar-brand {
             padding: 26px 24px 20px;
             border-bottom: 1px solid #1e293b;
         }
+
         .sidebar-brand h1 {
             font-size: 22px;
             font-weight: 700;
-            letter-spacing: -0.3px;
             color: #ffffff;
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .sidebar-brand h1 i {
             color: #3b82f6;
             font-size: 26px;
         }
+
         .sidebar-brand span {
             font-weight: 400;
             font-size: 13px;
             color: #94a3b8;
             display: block;
             margin-top: 4px;
-            letter-spacing: 0.3px;
         }
+
+        /* NAVIGATION */
 
         .sidebar-nav {
             flex: 1;
             padding: 18px 14px 30px;
         }
-        .sidebar-nav .nav-label {
+
+        .nav-label {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.6px;
@@ -88,6 +109,7 @@
             padding: 12px 12px 8px;
             font-weight: 600;
         }
+
         .sidebar-nav a {
             display: flex;
             align-items: center;
@@ -101,30 +123,37 @@
             transition: 0.2s ease;
             margin-bottom: 2px;
         }
+
         .sidebar-nav a i {
             width: 20px;
             font-size: 16px;
             text-align: center;
             color: #64748b;
-            transition: 0.2s;
         }
+
         .sidebar-nav a:hover {
             background: #1e293b;
             color: #ffffff;
         }
+
         .sidebar-nav a:hover i {
             color: #3b82f6;
         }
+
         .sidebar-nav a.active {
             background: #1e293b;
             color: #ffffff;
             box-shadow: inset 3px 0 0 #3b82f6;
         }
+
         .sidebar-nav a.active i {
             color: #3b82f6;
         }
 
-        /* ─── MAIN CONTENT ─── */
+        /* =========================
+           MAIN
+        ========================= */
+
         .main {
             flex: 1;
             display: flex;
@@ -132,7 +161,10 @@
             min-height: 100vh;
         }
 
-        /* top header */
+        /* =========================
+           TOPBAR
+        ========================= */
+
         .topbar {
             background: #ffffff;
             padding: 18px 36px;
@@ -146,12 +178,14 @@
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .topbar-left {
             display: flex;
             align-items: center;
             gap: 18px;
         }
-        .topbar-left .menu-toggle {
+
+        .menu-toggle {
             display: none;
             background: none;
             border: none;
@@ -159,76 +193,86 @@
             color: #1e293b;
             cursor: pointer;
         }
+
         .topbar-left h2 {
             font-size: 20px;
             font-weight: 600;
-            letter-spacing: -0.2px;
         }
+
         .topbar-left h2 small {
             font-weight: 400;
             font-size: 14px;
             color: #64748b;
             margin-left: 10px;
         }
+
         .topbar-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-        .topbar-right .date-badge {
+
+        .date-badge {
             background: #f1f5f9;
             padding: 6px 16px;
             border-radius: 40px;
             font-size: 13px;
             font-weight: 500;
-            color: #1e293b;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .topbar-right .avatar {
+
+        .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             background: #3b82f6;
-            color: #fff;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 17px;
-            cursor: default;
         }
 
-        /* page content */
+        /* =========================
+           PAGE CONTENT
+        ========================= */
+
         .page-content {
             padding: 28px 36px 40px;
             flex: 1;
         }
 
-        /* ─── CARDS GRID ─── */
+        /* =========================
+           CARDS
+        ========================= */
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 24px;
             margin-bottom: 36px;
         }
+
         .stat-card {
             background: #ffffff;
             border-radius: 18px;
-            padding: 22px 20px 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 22px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid #edf2f7;
             transition: 0.2s ease;
             display: flex;
             align-items: center;
             gap: 16px;
         }
+
         .stat-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
-            border-color: #dce3ed;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
         }
+
         .stat-card .icon {
             width: 54px;
             height: 54px;
@@ -239,35 +283,43 @@
             font-size: 24px;
             flex-shrink: 0;
         }
-        .stat-card .icon.blue {
+
+        .blue {
             background: #dbeafe;
             color: #2563eb;
         }
-        .stat-card .icon.green {
+
+        .green {
             background: #dcfce7;
             color: #16a34a;
         }
-        .stat-card .icon.purple {
+
+        .purple {
             background: #ede9fe;
             color: #7c3aed;
         }
-        .stat-card .icon.orange {
+
+        .orange {
             background: #ffedd5;
             color: #ea580c;
         }
-        .stat-card .icon.red {
+
+        .red {
             background: #fee2e2;
             color: #dc2626;
         }
-        .stat-card .icon.teal {
+
+        .teal {
             background: #ccfbf1;
             color: #0d9488;
         }
-        .stat-card .icon.pink {
+
+        .pink {
             background: #fce7f3;
             color: #db2777;
         }
-        .stat-card .icon.indigo {
+
+        .indigo {
             background: #e0e7ff;
             color: #4f46e5;
         }
@@ -278,36 +330,42 @@
             color: #64748b;
             margin-bottom: 4px;
         }
-        .stat-card .info .number {
+
+        .number {
             font-size: 26px;
             font-weight: 700;
             color: #0f172a;
-            letter-spacing: -0.3px;
         }
-        .stat-card .info .trend {
+
+        .trend {
             font-size: 12px;
             font-weight: 500;
             margin-left: 8px;
             color: #22c55e;
         }
-        .stat-card .info .trend.down {
+
+        .trend.down {
             color: #ef4444;
         }
 
-        /* ─── SECONDARY ROW (charts / table placeholder) ─── */
+        /* =========================
+           SECOND ROW
+        ========================= */
+
         .row-two {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 28px;
-            margin-top: 8px;
         }
+
         .panel {
             background: #ffffff;
             border-radius: 18px;
             padding: 24px 26px 26px;
             border: 1px solid #edf2f7;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
+
         .panel h3 {
             font-size: 16px;
             font-weight: 600;
@@ -316,11 +374,16 @@
             align-items: center;
             gap: 10px;
         }
+
         .panel h3 i {
             color: #3b82f6;
-            font-size: 18px;
         }
-        .panel .placeholder-chart {
+
+        /* =========================
+           CHART
+        ========================= */
+
+        .placeholder-chart {
             background: #f8fafc;
             border-radius: 12px;
             height: 160px;
@@ -330,55 +393,51 @@
             padding: 16px 12px 12px;
             gap: 8px;
         }
-        .panel .placeholder-chart .bar {
+
+        .bar {
             flex: 1;
             background: #3b82f6;
             border-radius: 6px 6px 0 0;
-            min-height: 20px;
-            height: calc(20% + 30% * var(--h, 0.6));
-            transition: 0.2s;
         }
-        .panel .placeholder-chart .bar:nth-child(1) {
-            --h: 0.7;
+
+        .bar:nth-child(1) {
             height: 70%;
-            background: #3b82f6;
         }
-        .panel .placeholder-chart .bar:nth-child(2) {
-            --h: 0.9;
+
+        .bar:nth-child(2) {
             height: 90%;
-            background: #2563eb;
         }
-        .panel .placeholder-chart .bar:nth-child(3) {
-            --h: 0.5;
+
+        .bar:nth-child(3) {
             height: 50%;
-            background: #60a5fa;
         }
-        .panel .placeholder-chart .bar:nth-child(4) {
-            --h: 0.8;
+
+        .bar:nth-child(4) {
             height: 80%;
-            background: #1d4ed8;
         }
-        .panel .placeholder-chart .bar:nth-child(5) {
-            --h: 0.65;
+
+        .bar:nth-child(5) {
             height: 65%;
-            background: #3b82f6;
         }
-        .panel .placeholder-chart .bar:nth-child(6) {
-            --h: 0.95;
+
+        .bar:nth-child(6) {
             height: 95%;
-            background: #2563eb;
         }
-        .panel .placeholder-chart .bar:nth-child(7) {
-            --h: 0.45;
+
+        .bar:nth-child(7) {
             height: 45%;
-            background: #93c5fd;
         }
+
+        /* =========================
+           ACTIVITY
+        ========================= */
 
         .activity-list {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
+
         .activity-item {
             display: flex;
             align-items: center;
@@ -386,53 +445,100 @@
             padding: 6px 0;
             border-bottom: 1px solid #f1f5f9;
         }
+
         .activity-item:last-child {
             border-bottom: 0;
         }
-        .activity-item .dot {
+
+        .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
         }
-        .activity-item .dot.blue {
+
+        .dot.blue {
             background: #3b82f6;
         }
-        .activity-item .dot.green {
+
+        .dot.green {
             background: #22c55e;
         }
-        .activity-item .dot.orange {
+
+        .dot.orange {
             background: #f59e0b;
         }
-        .activity-item .dot.purple {
+
+        .dot.purple {
             background: #8b5cf6;
         }
-        .activity-item .act-text {
+
+        .act-text {
             flex: 1;
             font-size: 14px;
             font-weight: 500;
         }
-        .activity-item .act-text small {
+
+        .act-text small {
             display: block;
             font-weight: 400;
             color: #94a3b8;
             font-size: 12px;
             margin-top: 2px;
         }
-        .activity-item .act-time {
+
+        .act-time {
             font-size: 12px;
             color: #94a3b8;
             font-weight: 500;
         }
 
-        /* ─── RESPONSIVE ─── */
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            margin-top: 36px;
+            font-size: 13px;
+            color: #94a3b8;
+            border-top: 1px solid #e9edf2;
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* =========================
+           MOBILE OVERLAY
+        ========================= */
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 90;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
         @media (max-width: 1024px) {
+
             .row-two {
                 grid-template-columns: 1fr;
             }
+
         }
 
         @media (max-width: 768px) {
+
             .sidebar {
                 position: fixed;
                 transform: translateX(-100%);
@@ -440,274 +546,536 @@
                 height: 100vh;
                 top: 0;
                 left: 0;
-                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+                box-shadow: 4px 0 20px rgba(0,0,0,0.2);
             }
+
             .sidebar.open {
                 transform: translateX(0);
             }
-            .topbar-left .menu-toggle {
+
+            .menu-toggle {
                 display: block;
             }
+
             .topbar {
                 padding: 14px 20px;
             }
+
             .page-content {
                 padding: 20px;
             }
+
             .cards-grid {
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 16px;
             }
+
             .stat-card {
                 padding: 16px;
                 gap: 12px;
             }
+
             .stat-card .icon {
                 width: 44px;
                 height: 44px;
                 font-size: 20px;
             }
-            .stat-card .info .number {
+
+            .number {
                 font-size: 22px;
             }
+
             .topbar-left h2 small {
                 display: none;
             }
-            .topbar-right .date-badge {
-                font-size: 12px;
-                padding: 4px 12px;
-            }
+
         }
 
         @media (max-width: 480px) {
-            .topbar-right .date-badge {
+
+            .date-badge {
                 display: none;
             }
+
             .cards-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
             }
+
             .stat-card .info h4 {
                 font-size: 12px;
             }
-            .stat-card .info .number {
+
+            .number {
                 font-size: 19px;
             }
+
             .panel {
                 padding: 18px;
             }
+
         }
 
-        /* overlay for mobile */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 90;
-        }
-        .sidebar-overlay.active {
-            display: block;
-        }
     </style>
 </head>
+
 <body class="dashboard-body">
 
-    <!-- ─── SIDEBAR OVERLAY (mobile) ─── -->
+    <!-- =========================
+         MOBILE OVERLAY
+    ========================= -->
+
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- ─── SIDEBAR ─── -->
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
     <aside class="sidebar" id="sidebar">
+
         <div class="sidebar-brand">
+
             <h1>
-                <i class="fas fa-graduation-cap"></i> EduPlus
+                <i class="fas fa-graduation-cap"></i>
+                EduPlus
             </h1>
+
             <span>BEC College · ERP v2.0</span>
+
         </div>
+
+
         <nav class="sidebar-nav">
 
-    <div class="nav-label">Main</div>
+            <!-- MAIN -->
 
-    <a href="dashboard.html" class="active">
-        <i class="fas fa-th-large"></i> Dashboard
-    </a>
+            <div class="nav-label">Main</div>
 
-    <a href="students.html">
-        <i class="fas fa-user-graduate"></i> Students
-    </a>
+            <a href="dashboard.html" class="active">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
 
-    <a href="faculty.html">
-        <i class="fas fa-chalkboard-teacher"></i> Faculty
-    </a>
+            <!-- STUDENTS -->
+            <a href="students.html">
+                <i class="fas fa-user-graduate"></i>
+                <span>Students</span>
+            </a>
 
-    <a href="courses.html">
-        <i class="fas fa-book-open"></i> Academics
-    </a>
-    <a href="admission.html">
-    <i class="fas fa-user-plus"></i> Admission
-    </a>
+            <!-- FACULTY -->
+            <a href="faculty.html">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Faculty</span>
+            </a>
 
-    <div class="nav-label">Operations</div>
+            <!-- ACADEMICS -->
+            <a href="courses.html">
+                <i class="fas fa-book-open"></i>
+                <span>Academics</span>
+            </a>
 
-    <a href="timetable.html">
-        <i class="fas fa-calendar-alt"></i> Timetable
-    </a>
-
-    <a href="attendance.html">
-        <i class="fas fa-check-circle"></i> Attendance
-    </a>
-
-    <a href="examination.html">
-        <i class="fas fa-pencil-alt"></i> Examination
-    </a>
-
-    <a href="obe.html">
-        <i class="fas fa-bullseye"></i> OBE
-    </a>
+            <!-- ADMISSION -->
+            <a href="admission.html">
+                <i class="fas fa-user-plus"></i>
+                <span>Admission</span>
+            </a>
 
 
-    <div class="nav-label">Accreditation</div>
+            <!-- OPERATIONS -->
 
-    <a href="nba.html">
-        <i class="fas fa-trophy"></i> NBA
-    </a>
+            <div class="nav-label">Operations</div>
 
-    <a href="naac.html">
-        <i class="fas fa-chart-line"></i> NAAC / IQAC
-    </a>
+            <a href="timetable.html">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Timetable</span>
+            </a>
 
+            <a href="attendance.html">
+                <i class="fas fa-check-circle"></i>
+                <span>Attendance</span>
+            </a>
 
-    <div class="nav-label">Resources</div>
+            <a href="examination.html">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Examination</span>
+            </a>
 
-    <a href="research.html">
-        <i class="fas fa-flask"></i> Research
-    </a>
-
-    <a href="placement.html">
-        <i class="fas fa-briefcase"></i> Placement
-    </a>
-
-    <a href="library.html">
-        <i class="fas fa-book"></i> Library
-    </a>
-
-
-    <div class="nav-label">Administration</div>
-
-    <a href="hr.html">
-        <i class="fas fa-users"></i> HR
-    </a>
-
-    <a href="finance.html">
-        <i class="fas fa-coins"></i> Finance
-    </a>
-
-    <a href="admin.html">
-        <i class="fas fa-building"></i> Administration
-    </a>
+            <a href="obe.html">
+                <i class="fas fa-bullseye"></i>
+                <span>OBE</span>
+            </a>
 
 
-    <div class="nav-label">System</div>
+            <!-- ACCREDITATION -->
 
-    <a href="settings.html">
-    <i class="fas fa-cog"></i> Settings
-</a>
+            <div class="nav-label">Accreditation</div>
 
-</nav>
+            <a href="nba.html">
+                <i class="fas fa-trophy"></i>
+                <span>NBA</span>
+            </a>
+
+            <a href="naac.html">
+                <i class="fas fa-chart-line"></i>
+                <span>NAAC / IQAC</span>
+            </a>
+
+
+            <!-- RESOURCES -->
+
+            <div class="nav-label">Resources</div>
+
+            <a href="research.html">
+                <i class="fas fa-flask"></i>
+                <span>Research</span>
+            </a>
+
+            <a href="placement.html">
+                <i class="fas fa-briefcase"></i>
+                <span>Placement</span>
+            </a>
+
+            <a href="library.html">
+                <i class="fas fa-book"></i>
+                <span>Library</span>
+            </a>
+
+
+            <!-- ADMINISTRATION -->
+
+            <div class="nav-label">Administration</div>
+
+            <!-- HR kept for later -->
+            <a href="hr.html">
+                <i class="fas fa-users"></i>
+                <span>HR</span>
+            </a>
+
+            <a href="finance.html">
+                <i class="fas fa-coins"></i>
+                <span>Finance</span>
+            </a>
+
+            <a href="admin.html">
+                <i class="fas fa-building"></i>
+                <span>Administration</span>
+            </a>
+
+
+            <!-- SYSTEM -->
+
+            <div class="nav-label">System</div>
+
+            <a href="settings.html">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
     </aside>
 
-    <!-- ─── MAIN ─── -->
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
     <div class="main">
 
+
         <!-- TOPBAR -->
+
         <header class="topbar">
+
             <div class="topbar-left">
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+
+                <button
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Toggle sidebar">
+
                     <i class="fas fa-bars"></i>
+
                 </button>
+
                 <h2>
                     Dashboard
                     <small>BEC EduPlus</small>
                 </h2>
+
             </div>
+
+
             <div class="topbar-right">
+
                 <div class="date-badge">
+
                     <i class="far fa-calendar-alt"></i>
+
                     <span id="currentDate"></span>
+
                 </div>
-                <div class="avatar">A</div>
+
+                <div class="avatar">
+                    A
+                </div>
+
             </div>
+
         </header>
 
-        <!-- PAGE CONTENT -->
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================= -->
+
         <div class="page-content">
 
-            <!-- STAT CARDS -->
+
+            <!-- =========================
+                 STATISTICS
+            ========================= -->
+
             <div class="cards-grid">
+
+
+                <!-- STUDENTS -->
+
                 <div class="stat-card">
-                    <div class="icon blue"><i class="fas fa-user-graduate"></i></div>
+
+                    <div class="icon blue">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Students</h4>
-                        <div class="number">4,286 <span class="trend"><i class="fas fa-arrow-up"></i> 8%</span></div>
+
+                        <div class="number">
+                            4,286
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                8%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- FACULTY -->
+
                 <div class="stat-card">
-                    <div class="icon green"><i class="fas fa-chalkboard-teacher"></i></div>
+
+                    <div class="icon green">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Faculty</h4>
-                        <div class="number">284 <span class="trend"><i class="fas fa-arrow-up"></i> 3%</span></div>
+
+                        <div class="number">
+                            284
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                3%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- COURSES -->
+
                 <div class="stat-card">
-                    <div class="icon purple"><i class="fas fa-book"></i></div>
+
+                    <div class="icon purple">
+                        <i class="fas fa-book"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Courses</h4>
-                        <div class="number">96 <span class="trend"><i class="fas fa-arrow-up"></i> 5%</span></div>
+
+                        <div class="number">
+                            96
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                5%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- ATTENDANCE -->
+
                 <div class="stat-card">
-                    <div class="icon orange"><i class="fas fa-check-double"></i></div>
+
+                    <div class="icon orange">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Attendance</h4>
-                        <div class="number">87% <span class="trend"><i class="fas fa-arrow-up"></i> 2%</span></div>
+
+                        <div class="number">
+                            87%
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                2%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- CIE -->
+
                 <div class="stat-card">
-                    <div class="icon red"><i class="fas fa-file-alt"></i></div>
+
+                    <div class="icon red">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>CIE</h4>
-                        <div class="number">1,422 <span class="trend down"><i class="fas fa-arrow-down"></i> 1%</span></div>
+
+                        <div class="number">
+                            1,422
+
+                            <span class="trend down">
+                                <i class="fas fa-arrow-down"></i>
+                                1%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- RESEARCH -->
+
                 <div class="stat-card">
-                    <div class="icon teal"><i class="fas fa-flask"></i></div>
+
+                    <div class="icon teal">
+                        <i class="fas fa-flask"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Research</h4>
-                        <div class="number">68 <span class="trend"><i class="fas fa-arrow-up"></i> 12%</span></div>
+
+                        <div class="number">
+                            68
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                12%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- PLACEMENT -->
+
                 <div class="stat-card">
-                    <div class="icon pink"><i class="fas fa-briefcase"></i></div>
+
+                    <div class="icon pink">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Placement</h4>
-                        <div class="number">94% <span class="trend"><i class="fas fa-arrow-up"></i> 6%</span></div>
+
+                        <div class="number">
+                            94%
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                6%
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+                <!-- ACCREDITATION -->
+
                 <div class="stat-card">
-                    <div class="icon indigo"><i class="fas fa-award"></i></div>
+
+                    <div class="icon indigo">
+                        <i class="fas fa-award"></i>
+                    </div>
+
                     <div class="info">
+
                         <h4>Accreditation</h4>
-                        <div class="number">A+ <span class="trend"><i class="fas fa-arrow-up"></i> 1</span></div>
+
+                        <div class="number">
+                            A+
+
+                            <span class="trend">
+                                <i class="fas fa-arrow-up"></i>
+                                1
+                            </span>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
 
-            <!-- ROW TWO -->
+
+            <!-- =========================
+                 SECOND ROW
+            ========================= -->
+
             <div class="row-two">
-                <!-- left panel -->
+
+
+                <!-- ATTENDANCE CHART -->
+
                 <div class="panel">
-                    <h3><i class="fas fa-chart-bar"></i> Weekly Attendance Overview</h3>
+
+                    <h3>
+                        <i class="fas fa-chart-bar"></i>
+                        Weekly Attendance Overview
+                    </h3>
+
+
                     <div class="placeholder-chart">
+
                         <div class="bar"></div>
                         <div class="bar"></div>
                         <div class="bar"></div>
@@ -715,141 +1083,266 @@
                         <div class="bar"></div>
                         <div class="bar"></div>
                         <div class="bar"></div>
+
                     </div>
-                    <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:12px; color:#94a3b8; padding:0 4px;">
-                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        margin-top:12px;
+                        font-size:12px;
+                        color:#94a3b8;
+                        padding:0 4px;
+                    ">
+
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+
                     </div>
+
                 </div>
 
-                <!-- right panel -->
+
+                <!-- RECENT ACTIVITY -->
+
                 <div class="panel">
-                    <h3><i class="fas fa-bolt"></i> Recent Activity</h3>
+
+                    <h3>
+                        <i class="fas fa-bolt"></i>
+                        Recent Activity
+                    </h3>
+
+
                     <div class="activity-list">
+
+
                         <div class="activity-item">
+
                             <span class="dot blue"></span>
+
                             <div class="act-text">
+
                                 Attendance marked for CSE-A
-                                <small>Prof. Sharma · 78 students</small>
+
+                                <small>
+                                    Prof. Sharma · 78 students
+                                </small>
+
                             </div>
-                            <span class="act-time">2h ago</span>
+
+                            <span class="act-time">
+                                2h ago
+                            </span>
+
                         </div>
+
+
                         <div class="activity-item">
+
                             <span class="dot green"></span>
+
                             <div class="act-text">
+
                                 New placement offer · Microsoft
-                                <small>4 students shortlisted</small>
+
+                                <small>
+                                    4 students shortlisted
+                                </small>
+
                             </div>
-                            <span class="act-time">5h ago</span>
+
+                            <span class="act-time">
+                                5h ago
+                            </span>
+
                         </div>
+
+
                         <div class="activity-item">
+
                             <span class="dot orange"></span>
+
                             <div class="act-text">
+
                                 CIE results published · ECE
-                                <small>Average score 78%</small>
+
+                                <small>
+                                    Average score 78%
+                                </small>
+
                             </div>
-                            <span class="act-time">1d ago</span>
+
+                            <span class="act-time">
+                                1d ago
+                            </span>
+
                         </div>
+
+
                         <div class="activity-item">
+
                             <span class="dot purple"></span>
+
                             <div class="act-text">
+
                                 NBA self-assessment report
-                                <small>Submitted for review</small>
+
+                                <small>
+                                    Submitted for review
+                                </small>
+
                             </div>
-                            <span class="act-time">2d ago</span>
+
+                            <span class="act-time">
+                                2d ago
+                            </span>
+
                         </div>
+
+
                     </div>
+
                 </div>
+
             </div>
 
-            <!-- footer note (optional) -->
-            <div style="margin-top:36px; font-size:13px; color:#94a3b8; border-top:1px solid #e9edf2; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>© 2026 BEC EduPlus · All rights reserved.</span>
-                <span><i class="far fa-clock"></i> Last updated: <span id="lastUpdated"></span></span>
+
+            <!-- =========================
+                 FOOTER
+            ========================= -->
+
+            <div class="footer">
+
+                <span>
+                    © 2026 BEC EduPlus · All rights reserved.
+                </span>
+
+                <span>
+                    <i class="far fa-clock"></i>
+                    Last updated:
+                    <span id="lastUpdated"></span>
+                </span>
+
             </div>
 
-        </div><!-- /page-content -->
-    </div><!-- /main -->
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
 
     <script>
-        // ─── Date helpers ───
+
+        // ==============================
+        // DATE
+        // ==============================
+
         const now = new Date();
-        const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
-        document.getElementById('lastUpdated').textContent = now.toLocaleString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        });
 
-        // ─── Mobile sidebar toggle ───
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
+        const currentDate =
+            document.getElementById("currentDate");
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
+        const lastUpdated =
+            document.getElementById("lastUpdated");
+
+
+        if (currentDate) {
+
+            currentDate.textContent =
+                now.toLocaleDateString("en-IN", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                });
+
         }
 
-        menuToggle.addEventListener('click', toggleSidebar);
-        overlay.addEventListener('click', toggleSidebar);
 
-        // close sidebar on link click (mobile)
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('open');
-                    overlay.classList.remove('active');
-                }
+        if (lastUpdated) {
+
+            lastUpdated.textContent =
+                now.toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+        }
+
+
+        // ==============================
+        // MOBILE SIDEBAR
+        // ==============================
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener("click", function () {
+
+                sidebar.classList.toggle("open");
+
+                overlay.classList.toggle("active");
+
             });
-        });
 
-        // ─── active nav highlight (demo) ───
-        // close sidebar on link click (mobile)
-document.querySelectorAll('.sidebar-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
         }
-    });
-});
-   
-<script>
-    // Date
-    const now = new Date();
 
-    document.getElementById("currentDate").textContent =
-        now.toLocaleDateString("en-IN", {
-            weekday: "short",
-            year: "numeric",
-            month: "short",
-            day: "numeric"
-        });
 
-    document.getElementById("lastUpdated").textContent =
-        now.toLocaleTimeString("en-IN", {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
+        if (overlay) {
 
-    // Mobile sidebar
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("sidebarOverlay");
+            overlay.addEventListener("click", function () {
 
-    menuToggle.addEventListener("click", function () {
-        sidebar.classList.toggle("open");
-        overlay.classList.toggle("active");
-    });
+                sidebar.classList.remove("open");
 
-    overlay.addEventListener("click", function () {
-        sidebar.classList.remove("open");
-        overlay.classList.remove("active");
-    });
-</script>
+                overlay.classList.remove("active");
+
+            });
+
+        }
+
+
+        // ==============================
+        // CLOSE SIDEBAR AFTER NAVIGATION
+        // ==============================
+
+        document
+            .querySelectorAll(".sidebar-nav a")
+            .forEach(function(link) {
+
+                link.addEventListener("click", function() {
+
+                    if (window.innerWidth <= 768) {
+
+                        sidebar.classList.remove("open");
+
+                        overlay.classList.remove("active");
+
+                    }
+
+                });
+
+            });
+
+    </script>
 
 </body>
-</html>
-<body> 
 </html>
