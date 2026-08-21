@@ -4,59 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BEC ERP – Admission</title>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <!-- Dashboard CSS -->
     <link rel="stylesheet" href="dashboard.css" />
-    <style>
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 18px;
-            margin: 20px 0;
-        }
-        .action-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px 16px;
-            border: 1px solid #edf2f7;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .action-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-            border-color: #dce3ed;
-        }
-        .action-card i {
-            font-size: 28px;
-            color: #3b82f6;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .action-card h4 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .action-card p {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-        .badge-status {
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .badge-status.verified { background: #dbeafe; color: #1d4ed8; }
-        .badge-status.submitted { background: #dcfce7; color: #15803d; }
-        .badge-status.pending { background: #ffedd5; color: #c2410c; }
-    </style>
 </head>
 <body class="dashboard-body">
 
-    <!-- SIDEBAR (same as admin, but set active to Admission) -->
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <h1><i class="fas fa-graduation-cap"></i> BEC ERP</h1>
@@ -245,18 +203,24 @@
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
-        document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-IN', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+
+        document.getElementById('todayDate').textContent =
+            new Date().toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+
         function showToast(msg) {
             const existing = document.querySelector('.custom-toast');
             if (existing) existing.remove();
             const toast = document.createElement('div');
             toast.className = 'custom-toast';
-            toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:14px 28px;border-radius:40px;font-size:15px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.25);z-index:9999;border:1px solid rgba(255,255,255,0.1);transition:opacity 0.3s;opacity:0;';
             toast.textContent = msg;
             document.body.appendChild(toast);
-            requestAnimationFrame(() => { toast.style.opacity = '1'; });
-            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+            requestAnimationFrame(() => { toast.classList.add('show'); });
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
+
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 document.getElementById('sidebar').classList.remove('open');
@@ -264,5 +228,6 @@
             }
         });
     </script>
+
 </body>
 </html>
